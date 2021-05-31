@@ -1,0 +1,50 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/units_header">
+
+        <ListPreference
+            app:defaultValue="METRIC"
+            app:entries="@array/units_entries"
+            app:entryValues="@array/units_values"
+            app:key="units"
+            app:title="@string/units_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/sensors_header">
+
+        <ListPreference
+            app:defaultValue="0"
+            app:entries="@array/sensor_update_frequency_entries"
+            app:entryValues="@array/sensor_update_frequency_values"
+            app:key="sensor_update_frequency"
+            app:title="@string/sensor_update_frequency_title"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <ListPreference
+            app:defaultValue="1"
+            app:entries="@array/gps_update_frequency_entries"
+            app:entryValues="@array/gps_update_frequency_values"
+            app:key="gps_update_frequency"
+            app:title="@string/gps_update_frequency_title"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/vibrations_header">
+
+        <ListPreference
+            app:defaultValue="12"
+            app:entries="@array/vibration_frequency_entries"
+            app:entryValues="@array/vibration_frequency_values"
+            app:key="vibration_frequency"
+            app:title="@string/vibration_frequency_title"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

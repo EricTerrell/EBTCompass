@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    >
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="License Terms:"
+        />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:fillViewport="true"
+        android:layout_weight="1"
+        >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorPrimary"
+            android:scrollbars="vertical"
+            android:text="@string/license_terms"
+            android:autoLink="web"
+            />
+    </ScrollView>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Decision:"
+        />
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <RadioButton
+            android:textColor="?android:attr/textColorPrimary"
+            android:text="I reject these terms"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:id="@+id/RejectLicenseTerms"
+            >
+        </RadioButton>
+        <RadioButton
+            android:textColor="?android:attr/textColorPrimary"
+            android:text="I accept these terms"
+            android:id="@+id/AcceptLicenseTerms"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            >
+        </RadioButton>
+    </RadioGroup>
+    <Button
+        android:layout_width="40pt"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="OK"
+        android:id="@+id/OKButton"
+        />
+</LinearLayout>

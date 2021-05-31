@@ -1,0 +1,53 @@
+<resources>
+    <string-array name="units_entries">
+        <item>Metric</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="units_values">
+        <item>METRIC</item>
+        <item>ENGLISH</item>
+    </string-array>
+
+    <string-array name="sensor_update_frequency_entries">
+        <item>Normal</item>
+        <item>More Frequent</item>
+        <item>Even More Frequent</item>
+        <item>Most Frequent</item>
+    </string-array>
+
+    <string-array name="sensor_update_frequency_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="gps_update_frequency_entries">
+        <item>1x/second</item>
+        <item>2x/second</item>
+        <item>4x/second</item>
+        <item>8x/second</item>
+    </string-array>
+
+    <string-array name="gps_update_frequency_values">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="vibration_frequency_entries">
+        <item>12x/minute</item>
+        <item>6x/minute</item>
+        <item>3x/minute</item>
+        <item>1x/minute</item>
+    </string-array>
+
+    <string-array name="vibration_frequency_values">
+        <item>12</item>
+        <item>6</item>
+        <item>3</item>
+        <item>1</item>
+    </string-array>
+</resources>
