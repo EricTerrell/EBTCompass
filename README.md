@@ -10,6 +10,7 @@ Key Features:
 * Go to a specific point using Google Maps
 * Go along a given heading (e.g. North). Your device will vibrate to course correct
 * Customize update frequency of magnetometer, gyroscope, and GPS updates
+* Open source
 * Free. No ads!
     
 # Copyright

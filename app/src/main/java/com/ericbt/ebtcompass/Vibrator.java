@@ -30,10 +30,10 @@ public class Vibrator {
     private final static long VIBRATE_DURATION = 250;
 
     // One vibration for right
-    private final static long RIGHT_PATTERN[] = { 0, VIBRATE_DURATION };
+    private final static long[] RIGHT_PATTERN = { 0, VIBRATE_DURATION };
 
     // Two vibrations for left
-    private final static long LEFT_PATTERN[] = { 0, VIBRATE_DURATION, VIBRATE_PAUSE, VIBRATE_DURATION };
+    private final static long[] LEFT_PATTERN = { 0, VIBRATE_DURATION, VIBRATE_PAUSE, VIBRATE_DURATION };
 
     public static void vibrateForTurn(Turn.Direction direction, Context context) {
         Log.i(StringLiterals.LOG_TAG, String.format(LocaleUtils.getDefaultLocale(), "vibrateForTurn %s", direction));

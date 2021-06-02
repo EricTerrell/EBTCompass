@@ -90,7 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="10sp"
-            android:text="Cancel" />
+            android:text="Cancel"
+            />
 
         <Button
             android:id="@+id/go"
@@ -98,7 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10sp"
             android:layout_weight="1"
-            android:text="Go" />
+            android:text="Go"
+            />
 
         <Button
             android:id="@+id/clear"
@@ -106,7 +108,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="Clear" />
+            android:text="Clear"
+             />
 
     </LinearLayout>
 

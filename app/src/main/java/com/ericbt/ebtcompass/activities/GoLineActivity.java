@@ -112,7 +112,7 @@ public class GoLineActivity extends CustomActivity {
 
             final float heading = degrees + fractionalDegrees / 10.f;
 
-            preferences.edit().putFloat(StringLiterals.HEADING, heading).commit();
+            preferences.edit().putFloat(StringLiterals.HEADING, heading).apply();
 
             final Intent returnData = new Intent();
             returnData.putExtra(StringLiterals.HEADING, heading);

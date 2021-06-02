@@ -59,7 +59,7 @@ public class LicenseTermsActivity extends CustomActivity {
         okButton.setOnClickListener(view -> {
             final boolean userAccepted = acceptLicenseTerms.isChecked();
 
-            preferences.edit().putBoolean(StringLiterals.USER_ACCEPTED_TERMS, userAccepted).commit();
+            preferences.edit().putBoolean(StringLiterals.USER_ACCEPTED_TERMS, userAccepted).apply();
 
             if (!userAccepted) {
                 final Intent returnData = new Intent();

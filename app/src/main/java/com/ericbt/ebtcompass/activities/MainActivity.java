@@ -45,6 +45,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -64,8 +66,6 @@ import com.ericbt.ebtcompass.utils.SensorUtils;
 import com.ericbt.ebtcompass.utils.MathUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
 
-import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_HIGH;
-
 public class MainActivity extends AppCompatActivity {
     public Float restoreGoToHeading;
 
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     private float declination;
 
-    private Button onOffButton, goLineButton, calibrate;
+    private Button onOffButton, goLineButton;
 
     private double latitude, longitude;
 
@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
 
     private TextView altitudeTV, speedTV;
+
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Stay in portrait orientation - doesn't really work in landscape.
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
         preferenceChangeListener =
                 (sharedPreferences, key) -> {
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
         preferences.registerOnSharedPreferenceChangeListener(preferenceChangeListener);
 
-        createBroadcastReceiver();
+        broadcastReceiver = createBroadcastReceiver();
 
         onOffButton = findViewById(R.id.on_off);
         onOffButton.setText(StringLiterals.OFF);
@@ -202,19 +204,27 @@ public class MainActivity extends AppCompatActivity {
             goLineActivityResultLauncher.launch(intent);
         });
 
-        calibrate = findViewById(R.id.calibrate);
-
-        calibrate.setOnClickListener(view -> {
-            displayCalibrateMessage();
-
-            calibrate.setText(getString(R.string.calibrate));
-        });
-
         requestPermissions();
 
         promptUserToAcceptLicenseTerms();
 
         startUpdates();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.i(StringLiterals.LOG_TAG, "MainActivity.onDestroy");
+
+        super.onDestroy();
+
+        unregisterReceiver(broadcastReceiver);
+
+        try {
+            unbindService(compassServiceConnection);
+            unbindService(gpsServiceConnection);
+        } catch (Exception ex) {
+            Log.e(StringLiterals.LOG_TAG, ex.toString());
+        }
     }
 
     private void promptUserToAcceptLicenseTerms() {
@@ -243,19 +253,6 @@ public class MainActivity extends AppCompatActivity {
             licenseTermsIntent.putExtra(StringLiterals.ALLOW_CANCEL, false);
             licenseTermsActivityResultLauncher.launch(licenseTermsIntent);
         }
-    }
-
-    private void displayCalibrateMessage() {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(getText(R.string.title_dialog_calibrate));
-        alertDialogBuilder.setMessage(getText(R.string.text_dialog_calibrate));
-
-        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (dialog, which) -> {
-        });
-
-        final AlertDialog promptDialog = alertDialogBuilder.create();
-        promptDialog.setCancelable(false);
-        promptDialog.show();
     }
 
     private void displayPermissionsDeniedMessage() {
@@ -401,9 +398,12 @@ public class MainActivity extends AppCompatActivity {
 
             /*
             One adds the declination to the heading get the true value. Rationale: consider SW
-            Colorado. Declination is 9 degrees east of N. Since it's east of N, it's positive. When
-            the sensor registers north, true north is 9 degrees east, so we add the declination to
-            get the true heading.
+            Colorado. Declination is 9 degrees E of N, so magnetic north is also 9 degrees E of N.
+
+            Since declination is E of N, it's positive. When the sensor registers N, true north is
+            9 degrees E, so one adds the declination to get the true heading.
+
+            When declination is W of N, it's negative, so adding such a declination subtracts.
              */
             final float correctedAzimuth = MathUtils.normalizeAngle(azimuth + declination);
 
@@ -524,17 +524,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        if (accelerometerAccuracy != -1 && magnetometerAccuracy != -1 &&
-                (accelerometerAccuracy != SENSOR_STATUS_ACCURACY_HIGH ||
-                magnetometerAccuracy != SENSOR_STATUS_ACCURACY_HIGH)) {
-            calibrate.setText(getString(R.string.calibrate_exclamation_point));
-        }
+        final String htmlString = String.format(LocaleUtils.getDefaultLocale(),
+                "<a href='https://www.ericbt.com/ebt_compass#accuracy'>Accuracy: %s/%s</a>",
+                SensorUtils.getAccuracyText(accelerometerAccuracy),
+                SensorUtils.getAccuracyText(magnetometerAccuracy));
 
         final TextView accuracyTV = findViewById(R.id.accuracy);
-        accuracyTV.setText(String.format(LocaleUtils.getDefaultLocale(),
-                "Accuracy: %s/%s",
-                SensorUtils.getAccuracyText(accelerometerAccuracy),
-                SensorUtils.getAccuracyText(magnetometerAccuracy)));
+
+        accuracyTV.setText(Html.fromHtml(htmlString));
+        accuracyTV.setMovementMethod(LinkMovementMethod.getInstance());
 
         updateOrientationAngles(accelerometerReading, magnetometerReading);
     }
@@ -626,26 +624,17 @@ public class MainActivity extends AppCompatActivity {
 
         final int itemId = item.getItemId();
 
-        switch(itemId) {
-            case R.id.help: {
-                final String url = getString(R.string.help_url);
+        if (itemId == R.id.help) {
+            final String url = getString(R.string.help_url);
 
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                result = true;
-            }
-            break;
-
-            case R.id.about: {
-                startActivity(new Intent(this, AboutActivity.class));
-                result = true;
-            }
-            break;
-
-            case R.id.settings: {
-                startActivity(new Intent(this, SettingsActivity.class));
-                result = true;
-            }
-            break;
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            result = true;
+        } else if (itemId == R.id.about) {
+            startActivity(new Intent(this, AboutActivity.class));
+            result = true;
+        } else if (itemId == R.id.settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            result = true;
         }
 
         return result;
