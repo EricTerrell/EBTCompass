@@ -6,10 +6,11 @@ The compass points to true north (adjusted with the current magnetic declination
 
 Key Features:
 
-* Display compass heading, current GPS coordinates, direction, and speed
+* Display compass heading, current GPS coordinates, altitude, direction, and speed
 * Go to a specific point using Google Maps
 * Go along a given heading (e.g. North). Your device will vibrate to course correct
 * Customize update frequency of magnetometer, gyroscope, and GPS updates
+* Display sensor accuracy (magnetometer & gyroscope)
 * Open source
 * Free. No ads!
     
