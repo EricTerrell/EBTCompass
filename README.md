@@ -1,6 +1,6 @@
 # EBT Compass
 
-EBT Compass is a compass and GPS app.
+EBT Compass is a compass and GPS app for Android devices.
 
 The compass points to true north (adjusted with the current magnetic declination).
 
