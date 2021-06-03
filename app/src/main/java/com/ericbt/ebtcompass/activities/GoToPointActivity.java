@@ -32,13 +32,13 @@ import android.widget.Spinner;
 
 import com.ericbt.ebtcompass.Constants;
 import com.ericbt.ebtcompass.InputFilterMinMax;
+import com.ericbt.ebtcompass.StringLiterals;
+import com.ericbt.ebtcompass.utils.GoogleMapsUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.R;
 
-import java.util.Locale;
-
 public class GoToPointActivity extends CustomActivity {
-    public static double initialLatitude, initialLongitude;
+    private double initialLatitude, initialLongitude;
 
     private Button goButton;
 
@@ -61,16 +61,17 @@ public class GoToPointActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_to_point);
 
+        initialLatitude = getIntent().getDoubleExtra(StringLiterals.LATITUDE, 0.0f);
+        initialLongitude = getIntent().getDoubleExtra(StringLiterals.LONGITUDE, 0.0f);
+
         setupLatitudeLongitudeUI();
 
         goButton = findViewById(R.id.go);
 
         goButton.setOnClickListener(view -> {
-            final String uriText = String.format(Locale.US,
-                    "geo:%2.8f,%3.8f",
-                    getLatitude(), getLongitude());
+            final String uri = GoogleMapsUtils.getMapUri(getLatitude(), getLongitude());
 
-            final Uri gmmIntentUri = Uri.parse(uriText);
+            final Uri gmmIntentUri = Uri.parse(uri);
 
             final Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");

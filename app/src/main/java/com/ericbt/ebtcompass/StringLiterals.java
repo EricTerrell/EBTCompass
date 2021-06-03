@@ -32,6 +32,8 @@ public class StringLiterals {
     public static final String USER_ACCEPTED_TERMS  = "user_accepted_terms";
     public static final String ALLOW_CANCEL         = "ALLOW_CANCEL";
     public static final String EXIT                 = "EXIT";
+    public static final String LATITUDE             = "LATITUDE";
+    public static final String LONGITUDE            = "LONGITUDE";
 
     // Preference keys
     public static final String PREFERENCE_KEY_UNITS = "units";

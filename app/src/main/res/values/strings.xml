@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">EBT Compass</string>
 
+    <string name="my_location">This is my location</string>
+    <string name="share_via">Share via</string>
+
     <string name="title_activity_line">Go in a Line</string>
     <string name="title_activity_point">Go to a Point</string>
     <string name="title_activity_settings">Settings</string>

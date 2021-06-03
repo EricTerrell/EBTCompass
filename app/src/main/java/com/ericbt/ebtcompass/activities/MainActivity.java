@@ -61,6 +61,7 @@ import com.ericbt.ebtcompass.ui.CompassRose;
 import com.ericbt.ebtcompass.utils.CompassUtils;
 import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
+import com.ericbt.ebtcompass.utils.GoogleMapsUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.SensorUtils;
 import com.ericbt.ebtcompass.utils.MathUtils;
@@ -82,11 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
     private int magnetometerAccuracy = -1, accelerometerAccuracy = -1;
 
+    private MenuItem share;
+
     private float declination;
 
     private Button onOffButton, goLineButton;
 
-    private double latitude, longitude;
+    private double latitude, longitude, lastLatitude, lastLongitude;
 
     private SharedPreferences preferences;
 
@@ -164,10 +167,15 @@ public class MainActivity extends AppCompatActivity {
         final Button goPointButton = findViewById(R.id.go_point);
 
         goPointButton.setOnClickListener(view -> {
-            GoToPointActivity.initialLatitude = latitude;
-            GoToPointActivity.initialLongitude = longitude;
+            final Intent intent = new Intent(this, GoToPointActivity.class);
 
-            startActivity(new Intent(this, GoToPointActivity.class));
+            Bundle bundle = new Bundle();
+            bundle.putDouble(StringLiterals.LATITUDE, lastLatitude);
+            bundle.putDouble(StringLiterals.LONGITUDE, lastLongitude);
+
+            intent.putExtras(bundle);
+
+            startActivity(intent);
         });
 
         final ActivityResultLauncher<Intent> goLineActivityResultLauncher =
@@ -311,6 +319,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void stopGPSService() {
         Log.i(StringLiterals.LOG_TAG, "stopGPSService");
+
+        if (share != null) {
+            share.setVisible(false);
+        }
+
+        latitude = longitude = 0.0f;
 
         if (gpsService != null) {
             gpsService.stopService(this, gpsServiceConnection);
@@ -492,8 +506,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                         case GPSService.MESSAGE: {
-                            latitude = intent.getDoubleExtra(GPSService.LATITUDE, default_float);
-                            longitude = intent.getDoubleExtra(GPSService.LONGITUDE, default_float);
+                            latitude = lastLatitude = intent.getDoubleExtra(GPSService.LATITUDE, default_float);
+                            longitude = lastLongitude = intent.getDoubleExtra(GPSService.LONGITUDE, default_float);
                             final double altitude = intent.getDoubleExtra(GPSService.ALTITUDE, default_float);
                             final double bearing = intent.getFloatExtra(GPSService.BEARING, default_float);
                             final double speed = intent.getFloatExtra(GPSService.SPEED, default_float);
@@ -603,6 +617,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             lineHeading.setText(StringLiterals.EMPTY_STRING);
         }
+
+        if (share != null && !share.isVisible() &&
+                latitude != 0.0f && longitude != 0.0f) {
+            share.setVisible(true);
+        }
     }
 
     private void clearQuantities() {
@@ -614,6 +633,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
+
+        share = menu.findItem(R.id.share);
 
         return true;
     }
@@ -635,8 +656,24 @@ public class MainActivity extends AppCompatActivity {
         } else if (itemId == R.id.settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             result = true;
+        } else if (itemId == R.id.share) {
+            shareLocation();
+
+            return true;
         }
 
         return result;
+    }
+
+    private void shareLocation() {
+        final String uri = GoogleMapsUtils.getMapUri(latitude, longitude);
+
+        Log.i(StringLiterals.LOG_TAG, String.format("shareLocation: %s", uri));
+
+        final Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.my_location));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, uri);
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
     }
 }
