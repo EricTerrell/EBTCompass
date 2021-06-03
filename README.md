@@ -13,6 +13,7 @@ Key Features:
 * Customize update frequency of magnetometer, gyroscope, and GPS updates
 * Display sensor accuracy (magnetometer & gyroscope)
 * Level indicator for maximum compass accuracy
+* Minimal battery use
 * Open source
 * Free. No ads!
     
