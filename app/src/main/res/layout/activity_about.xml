@@ -1,81 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ericbt.ebtcompass.activities.AboutActivity"
-    android:orientation="vertical"
-    android:layout_margin="5dp"
+    android:layout_margin="4dp"
     >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:context="com.ericbt.ebtcompass.activities.AboutActivity"
         android:orientation="vertical"
-        android:theme="@style/BigText"
+        android:layout_margin="5dp"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1"
+            android:orientation="vertical"
+            android:theme="@style/BigText"
             >
 
-            <ImageView
-                android:layout_width="80sp"
-                android:layout_height="80sp"
-                android:src="@mipmap/ic_launcher_round"
-                android:layout_marginRight="40sp"
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                >
+
+                <ImageView
+                    android:layout_width="80sp"
+                    android:layout_height="80sp"
+                    android:src="@mipmap/ic_launcher_round"
+                    android:layout_marginRight="40sp"
+                    />
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:text="EBT Compass\n(C) Copyright 2021\nEric Bergman-Terrell"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:id="@+id/app_name_etc"
+                    />
+
+            </LinearLayout>
 
             <TextView
-                android:layout_width="0px"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="EBT Compass\n(C) Copyright 2021\nEric Bergman-Terrell"
-                android:layout_weight="1"
-                android:layout_gravity="right"
-                />
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="20sp"
+                android:id="@+id/web_link"
+                >
+            </TextView>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:autoLink="email"
+                android:text="Feedback: EBTCompass@EricBT.com"
+                android:textColor="?android:attr/textColorPrimary"
+                >
+            </TextView>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Icons created by Bigmorr and the Consumer Financial Protection Bureau"
+                android:textColor="?android:attr/textColorPrimary"
+                >
+            </TextView>
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="fill_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:text="www.EricBT.com"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="20sp"
-            >
-        </TextView>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:autoLink="email"
-            android:text="Feedback: EBTCompass@EricBT.com"
-            android:textColor="?android:attr/textColorPrimary"
-            >
-        </TextView>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Icons created by Bigmorr and the Consumer Financial Protection Bureau"
-            android:textColor="?android:attr/textColorPrimary"
-            >
-        </TextView>
+            android:text="Read License Terms"
+            android:id="@+id/read_license_terms"
+            android:layout_marginTop="50sp"
+            />
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Read License Terms"
-        android:id="@+id/read_license_terms"
-        android:layout_marginTop="50sp"
-        />
-
-</LinearLayout>
+</ScrollView>

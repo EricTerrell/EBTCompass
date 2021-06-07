@@ -23,19 +23,40 @@ package com.ericbt.ebtcompass.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import com.ericbt.ebtcompass.BuildConfig;
 import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
+import com.ericbt.ebtcompass.utils.LocaleUtils;
 
 public class AboutActivity extends CustomActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        final TextView appNameEtc = findViewById(R.id.app_name_etc);
+        appNameEtc.setText(String.format(LocaleUtils.getDefaultLocale(),
+                "%s v. %s\n(C) Copyright 2021\nEric Bergman-Terrell",
+                getString(R.string.app_name),
+                BuildConfig.VERSION_NAME));
+
+        final TextView webLink = findViewById(R.id.web_link);
+
+        final String link = String.format(LocaleUtils.getDefaultLocale(),
+                "<a href='%s'>%s</a>",
+                getString(R.string.web_url),
+                getString(R.string.web_url_text));
+
+        webLink.setText(Html.fromHtml(link));
+        webLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         final Button readLicenseTerms = findViewById(R.id.read_license_terms);
 

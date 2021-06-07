@@ -539,7 +539,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI() {
         final String htmlString = String.format(LocaleUtils.getDefaultLocale(),
-                "<a href='https://www.ericbt.com/ebt_compass#accuracy'>Accuracy: %s/%s</a>",
+                "<a href='%s'>Accuracy: %s/%s</a>",
+                getString(R.string.accuracy_url),
                 SensorUtils.getAccuracyText(accelerometerAccuracy),
                 SensorUtils.getAccuracyText(magnetometerAccuracy));
 
@@ -646,9 +647,7 @@ public class MainActivity extends AppCompatActivity {
         final int itemId = item.getItemId();
 
         if (itemId == R.id.help) {
-            final String url = getString(R.string.help_url);
-
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.help_url))));
             result = true;
         } else if (itemId == R.id.about) {
             startActivity(new Intent(this, AboutActivity.class));

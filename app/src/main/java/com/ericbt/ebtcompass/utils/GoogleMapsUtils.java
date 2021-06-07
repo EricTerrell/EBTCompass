@@ -24,7 +24,7 @@ public class GoogleMapsUtils {
     public static String getMapUri(double latitude, double longitude) {
         final int zoom = 13;
 
-        final String uri = String.format(
+        return String.format(
                 LocaleUtils.getDefaultLocale(),
                 "http://www.google.com/maps/place/%f,%f/@%f,%f,%dz",
                 latitude,
@@ -32,7 +32,5 @@ public class GoogleMapsUtils {
                 latitude,
                 longitude,
                 zoom);
-
-        return uri;
     }
 }
