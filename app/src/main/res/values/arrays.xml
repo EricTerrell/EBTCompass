@@ -37,17 +37,29 @@
         <item>8</item>
     </string-array>
 
-    <string-array name="vibration_frequency_entries">
-        <item>12x/minute</item>
-        <item>6x/minute</item>
-        <item>3x/minute</item>
-        <item>1x/minute</item>
+    <string-array name="notification_frequency_entries">
+        <item>Every 5 seconds</item>
+        <item>Every 10 seconds</item>
+        <item>Every 15 seconds</item>
+        <item>Every 30 seconds</item>
+        <item>Every minute</item>
     </string-array>
 
-    <string-array name="vibration_frequency_values">
+    <string-array name="notification_frequency_values">
         <item>12</item>
         <item>6</item>
-        <item>3</item>
+        <item>4</item>
+        <item>2</item>
         <item>1</item>
+    </string-array>
+
+    <string-array name="notification_entries">
+        <item>Speech</item>
+        <item>Vibration</item>
+    </string-array>
+
+    <string-array name="notification_values">
+        <item>SPEECH</item>
+        <item>VIBRATION</item>
     </string-array>
 </resources>

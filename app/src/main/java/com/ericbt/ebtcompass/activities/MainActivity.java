@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        // Stay in portrait orientation - doesn't really work in landscape.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
         preferenceChangeListener =
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             break;
 
-                            case GPSService.VIBRATION_FREQUENCY:
+                            case GPSService.NOTIFICATION_FREQUENCY:
                             case GPSService.GPS_UPDATE_FREQUENCY: {
                                 if (gpsService != null) {
                                     Log.i(StringLiterals.LOG_TAG, "restart GPSService");

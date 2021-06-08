@@ -34,14 +34,23 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/vibrations_header">
+
+    <PreferenceCategory app:title="@string/notification_header">
+
+        <ListPreference
+            app:defaultValue="SPEECH"
+            app:entries="@array/notification_entries"
+            app:entryValues="@array/notification_values"
+            app:key="notification"
+            app:title="@string/notification_title"
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
             app:defaultValue="12"
-            app:entries="@array/vibration_frequency_entries"
-            app:entryValues="@array/vibration_frequency_values"
-            app:key="vibration_frequency"
-            app:title="@string/vibration_frequency_title"
+            app:entries="@array/notification_frequency_entries"
+            app:entryValues="@array/notification_frequency_values"
+            app:key="notification_frequency"
+            app:title="@string/notification_frequency_title"
             app:useSimpleSummaryProvider="true"
             />
 

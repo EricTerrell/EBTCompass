@@ -34,6 +34,9 @@ public class StringLiterals {
     public static final String EXIT                 = "EXIT";
     public static final String LATITUDE             = "LATITUDE";
     public static final String LONGITUDE            = "LONGITUDE";
+    public static final String NOTIFICATION         = "notification";
+    public static final String VIBRATION            = "VIBRATION";
+    public static final String SPEECH               = "SPEECH";
 
     // Preference keys
     public static final String PREFERENCE_KEY_UNITS = "units";

@@ -14,18 +14,16 @@
 
     <string name="accuracy_url">https://www.ericbt.com/ebt_compass#accuracy</string>
 
-    <string name="title_dialog_calibrate">Calibrate</string>
-    <string name="text_dialog_calibrate">To calibrate the compass, move your mobile device rapidly in a figure-8 pattern multiple times.\n\nCalibration may be necessary even if the reported accuracy is high.\n\nCalibration tends to improve the accuracy of the magnetometer and gyroscope. It has no effect on the GPS, which does not require calibration.</string>
-
     <string name="point_activity_hint">Specify the latitude and longitude and press \"GO\". Then use Google Maps to find the point.</string>
 
-    <string name="line_activity_hint">Specify a heading and press \"GO\". Then start moving along that heading.\n\nWhen you drift off course, EBT Compass will vibrate to get you back on track:\n\n1 vibration: turn right.\n2 vibrations: turn left.\n\nPress \"CLEAR\" to stop vibrations.</string>
+    <string name="line_activity_hint">Specify a heading and press \"GO\". Then start moving along that heading.\n\nWhen you drift off course, EBT Compass will help you get back on track, by speaking or vibrating:\n\none vibration: turn right\ntwo vibrations: turn left\n\nPress \"CLEAR\" to stop vibrations.</string>
 
     <string name="help_url">https://www.ericbt.com/ebt_compass</string>
 
     <string name="ok">OK</string>
 
-    <string name="messageWithLink"><a href="https://www.google.com/">Tap here to open Link</a></string>
+    <string name="speak_left">left</string>
+    <string name="speak_right">right</string>
 
     <string name="permissions">Permissions</string>
     <string name="permissions_not_granted">Permissions were not granted.</string>
@@ -35,8 +33,7 @@
 
     <string name="gps_update_frequency_title">GPS Updates</string>
 
-    <string name="vibrations_header">Vibration</string>
-    <string name="vibration_frequency_title">Vibration Frequency</string>
+    <string name="notification_frequency_title">Frequency</string>
 
     <string-array name="latitude_direction">
         <item>N</item>
@@ -67,6 +64,10 @@
         <item>NW</item>
         <item>NNW</item>
     </string-array>
+
+    <string name="notification_header">Course-Correction Notifications</string>
+
+    <string name="notification_title">Mechanism</string>
 
     <string name="units_header">Units</string>
 

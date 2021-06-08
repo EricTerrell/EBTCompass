@@ -28,10 +28,12 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Binder;
 import android.os.Looper;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
+import com.ericbt.ebtcompass.Speaker;
 import com.ericbt.ebtcompass.Turn;
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.Vibrator;
@@ -45,8 +47,15 @@ import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class GPSService extends BaseService {
+    private TextToSpeech textToSpeech;
+
+    private boolean speechReady = false;
+
+    private SharedPreferences preferences;
+
     private int signalInterval;
 
     private final List<Turn.Direction> directions = new ArrayList<>();
@@ -63,8 +72,8 @@ public class GPSService extends BaseService {
     public static final String TIME          = "TIME";
     public static final String GO_TO_HEADING = "GO_TO_HEADING";
 
-    public static final String GPS_UPDATE_FREQUENCY = "gps_update_frequency";
-    public static final String VIBRATION_FREQUENCY = "vibration_frequency";
+    public static final String GPS_UPDATE_FREQUENCY   = "gps_update_frequency";
+    public static final String NOTIFICATION_FREQUENCY = "notification_frequency";
 
     private Float goToHeading = null;
 
@@ -75,8 +84,6 @@ public class GPSService extends BaseService {
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     private LocationCallback locationCallback;
-
-    private SharedPreferences preferences;
 
     public GPSService() {
         binder = new GPSServiceBinder();
@@ -102,6 +109,8 @@ public class GPSService extends BaseService {
                 onNewLocation(locationResult.getLastLocation());
             }
         };
+
+        startTTS();
 
         startUpdates();
     }
@@ -150,7 +159,28 @@ public class GPSService extends BaseService {
         directions.clear();
         lastSignalTime = lastTime;
 
-        Vibrator.vibrateForTurn(direction, this);
+        final String notificationMechanism =
+                preferences.getString(StringLiterals.NOTIFICATION, StringLiterals.SPEECH);
+
+        Log.i(StringLiterals.LOG_TAG,
+                String.format(
+                        LocaleUtils.getDefaultLocale(),
+                        "Notification Mechanism: %s",
+                        notificationMechanism));
+
+        switch(notificationMechanism) {
+            case StringLiterals.VIBRATION: {
+                Vibrator.vibrateForTurn(direction, this);
+            }
+            break;
+
+            case StringLiterals.SPEECH: {
+                if (speechReady) {
+                    Speaker.speakForTurn(direction, textToSpeech, this);
+                }
+            }
+            break;
+        }
     }
 
     @Override
@@ -167,12 +197,46 @@ public class GPSService extends BaseService {
     public void stopService(Context context, ServiceConnection serviceConnection) {
         try {
             context.unbindService(serviceConnection);
+
+            stopTTS();
         } catch (Throwable ex) {
             Log.i(StringLiterals.LOG_TAG, ex.toString());
         }
 
         this.stopForeground(true);
         this.stopSelf();
+    }
+
+    private void startTTS() {
+        Log.i(StringLiterals.LOG_TAG, "startTTS");
+
+        textToSpeech = new TextToSpeech(getApplicationContext(), status -> {
+            Log.i(StringLiterals.LOG_TAG,
+                    String.format(
+                            LocaleUtils.getDefaultLocale(),
+                            "tts onInit status: %d",
+                            status));
+
+            if (status != TextToSpeech.ERROR) {
+                textToSpeech.setLanguage(Locale.US);
+
+                speechReady = true;
+            } else {
+                Log.e(StringLiterals.LOG_TAG, "tts onInit ERROR");
+            }
+        });
+    }
+
+    private void stopTTS() {
+        Log.i(StringLiterals.LOG_TAG, "stopTTS");
+
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+
+            textToSpeech.shutdown();
+
+            textToSpeech = null;
+        }
     }
 
     private LocationRequest createLocationRequest() {
@@ -194,7 +258,7 @@ public class GPSService extends BaseService {
     }
 
     private int getSignalInterval() {
-        final String signalInterval = preferences.getString(VIBRATION_FREQUENCY, "12");
+        final String signalInterval = preferences.getString(NOTIFICATION_FREQUENCY, "12");
 
         final int result = (60 / Integer.parseInt(signalInterval)) * 1000;
         Log.i(StringLiterals.LOG_TAG, String.format(LocaleUtils.getDefaultLocale(), "getSignalInterval interval: %d", result));
