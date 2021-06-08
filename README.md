@@ -8,7 +8,7 @@ Key Features:
 
 * Display compass heading, current GPS coordinates, altitude, direction, and speed
 * Go to a specific point using Google Maps
-* Go along a given heading (e.g. North). Your device will vibrate to course correct
+* Go along a given heading (e.g. North). Your device will speak or vibrate to help you course-correct. Ideal for archaeological surveys!
 * Share location
 * Customize update frequency of magnetometer, gyroscope, and GPS updates
 * Display sensor accuracy (magnetometer & gyroscope)
