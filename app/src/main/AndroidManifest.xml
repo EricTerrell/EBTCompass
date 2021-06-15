@@ -51,6 +51,7 @@
         <activity
             android:name="com.ericbt.ebtcompass.activities.MainActivity"
             android:launchMode="singleInstance"
+            android:configChanges="orientation|screenSize"
             >
 
             <intent-filter>

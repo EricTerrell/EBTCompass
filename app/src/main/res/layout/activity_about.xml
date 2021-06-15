@@ -69,6 +69,16 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:autoLink="web"
+                android:text="Lat/Long &lt;-&gt; UTM conversion code written by Sami Salkosuo"
+                android:textColor="?android:attr/textColorPrimary"
+                >
+            </TextView>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="Icons created by Bigmorr and the Consumer Financial Protection Bureau"
                 android:textColor="?android:attr/textColorPrimary"
                 >

@@ -99,20 +99,19 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            style="@style/BoldText"
+            android:id="@+id/utm"
+            />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/BoldText"
-                android:id="@+id/accuracy"
-                />
-
-        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BoldText"
+            android:id="@+id/accuracy"
+            />
 
         <ImageView
             android:layout_width="35dp"

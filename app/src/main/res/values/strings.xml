@@ -12,9 +12,12 @@
     <string name="web_url">https://www.ericbt.com/ebt_compass</string>
     <string name="web_url_text">Website</string>
 
+    <string name="latitude_zone_heading">Latitude Zone:</string>
+    <string name="longitude_zone_heading">Longitude Zone:</string>
+
     <string name="accuracy_url">https://www.ericbt.com/ebt_compass#accuracy</string>
 
-    <string name="point_activity_hint">Specify the latitude and longitude and press \"GO\". Then use Google Maps to find the point.</string>
+    <string name="point_activity_hint">Specify the location and press \"GO\". Then use Google Maps to find the point.</string>
 
     <string name="line_activity_hint">Specify a heading and press \"GO\". Then start moving along that heading.\n\nWhen you drift off course, EBT Compass will help you get back on track, by speaking or vibrating:\n\none vibration: turn right\ntwo vibrations: turn left\n\nPress \"CLEAR\" to stop vibrations.</string>
 
@@ -69,9 +72,11 @@
 
     <string name="notification_title">Mechanism</string>
 
-    <string name="units_header">Units</string>
+    <string name="units_coordinate_systems_header">Units / Coordinate Systems</string>
 
-    <string name="units_title">Display values in Metric or English units</string>
+    <string name="distance_units_title">Metric or English units</string>
+
+    <string name="angle_units_title">Latitude / Longitude or UTM</string>
 
     <string name="license_terms">EBT Compass
 (C) Copyright 2021

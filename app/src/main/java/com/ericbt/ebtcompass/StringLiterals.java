@@ -29,6 +29,7 @@ public class StringLiterals {
     public static final String OFF                  = "Off";
     public static final String HEADING              = "HEADING";
     public static final String METRIC               = "METRIC";
+    public static final String LATLONG              = "LATLONG";
     public static final String USER_ACCEPTED_TERMS  = "user_accepted_terms";
     public static final String ALLOW_CANCEL         = "ALLOW_CANCEL";
     public static final String EXIT                 = "EXIT";
@@ -38,6 +39,9 @@ public class StringLiterals {
     public static final String VIBRATION            = "VIBRATION";
     public static final String SPEECH               = "SPEECH";
 
+    public static final String REGEX_WORDS          = "\\s";
+
     // Preference keys
-    public static final String PREFERENCE_KEY_UNITS = "units";
+    public static final String PREFERENCE_KEY_DISTANCE_UNITS = "distance_units";
+    public static final String PREFERENCE_KEY_ANGLE_UNITS    = "angle_units";
 }

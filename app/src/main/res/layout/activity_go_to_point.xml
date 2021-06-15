@@ -23,155 +23,233 @@
             style="@style/HintText"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Latitude:"
-            android:layout_marginTop="20sp"
-            style="@style/BoldText"
-            />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:id="@+id/latLong"
             >
 
-            <EditText
-                android:layout_width="50sp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/latitude_degrees"
-                android:inputType="number"
+                android:text="Latitude:"
+                android:layout_marginTop="20sp"
+                style="@style/BoldText"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <EditText
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/latitude_degrees"
+                    android:inputType="number"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°"
+                    />
+
+                <EditText
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/latitude_minutes"
+                    android:inputType="number"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="'"
+                    />
+
+                <EditText
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/latitude_seconds"
+                    android:inputType="number"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="."
+                    />
+
+                <EditText
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/latitude_fractional_seconds"
+                    android:inputType="number"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&quot;"
+                    />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/latitude_direction"
+                    android:id="@+id/latitude_direction"
+                    />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="50sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="°"
+                android:text="Longitude:"
+                style="@style/BoldText"
                 />
 
-            <EditText
-                android:layout_width="50sp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/latitude_minutes"
-                android:inputType="number"
-                />
+                android:orientation="horizontal"
+                >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="'"
-                />
+                <EditText
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/longitude_degrees"
+                    android:inputType="number"
+                    />
 
-            <EditText
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/latitude_seconds"
-                android:inputType="number"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="°"
+                    />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="."
-                />
+                <EditText
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/longitude_minutes"
+                    android:inputType="number"
+                    />
 
-            <EditText
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/latitude_fractional_seconds"
-                android:inputType="number"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="'"
+                    />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="&quot;"
-                />
+                <EditText
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/longitude_seconds"
+                    android:inputType="number"
+                    />
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/latitude_direction"
-                android:id="@+id/latitude_direction"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="."
+                    />
+
+                <EditText
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/longitude_fractional_seconds"
+                    android:inputType="number"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&quot;"
+                    />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/longitude_direction"
+                    android:id="@+id/longitude_direction"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="50sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Longitude:"
-            style="@style/BoldText"
-            />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:id="@+id/utm"
             >
 
-            <EditText
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/longitude_degrees"
-                android:inputType="number"
-                />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="°"
-                />
-
-            <EditText
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/longitude_minutes"
-                android:inputType="number"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="'"
-                />
-
-            <EditText
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/longitude_seconds"
-                android:inputType="number"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="."
-                />
-
-            <EditText
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/longitude_fractional_seconds"
-                android:inputType="number"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="&quot;"
+                android:text="@string/longitude_zone_heading"
+                android:layout_marginTop="20sp"
+                style="@style/BoldText"
                 />
 
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/longitude_direction"
-                android:id="@+id/longitude_direction"
+                android:entries="@array/longitude_zone_values"
+                android:id="@+id/longitude_zone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/latitude_zone_heading"
+                android:layout_marginTop="20sp"
+                style="@style/BoldText"
+                />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/latitude_zone_values"
+                android:id="@+id/latitude_zone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Easting:"
+                android:layout_marginTop="20sp"
+                style="@style/BoldText"
+                />
+
+            <EditText
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/easting"
+                android:inputType="number"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Northing:"
+                android:layout_marginTop="20sp"
+                style="@style/BoldText"
+                />
+
+            <EditText
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/northing"
+                android:inputType="number"
                 />
 
         </LinearLayout>

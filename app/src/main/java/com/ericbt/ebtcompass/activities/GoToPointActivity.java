@@ -21,14 +21,19 @@
 package com.ericbt.ebtcompass.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import androidx.preference.PreferenceManager;
 
 import com.ericbt.ebtcompass.Constants;
 import com.ericbt.ebtcompass.InputFilterMinMax;
@@ -36,8 +41,13 @@ import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.utils.GoogleMapsUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.R;
+import com.ibm.util.CoordinateConversion;
 
 public class GoToPointActivity extends CustomActivity {
+    private final CoordinateConversion coordinateConversion = new CoordinateConversion();
+
+    private SharedPreferences preferences;
+
     private double initialLatitude, initialLongitude;
 
     private Button goButton;
@@ -53,7 +63,11 @@ public class GoToPointActivity extends CustomActivity {
             R.id.longitude_degrees,
             R.id.longitude_minutes,
             R.id.longitude_seconds,
-            R.id.longitude_fractional_seconds
+            R.id.longitude_fractional_seconds,
+
+            // UTM
+            R.id.easting,
+            R.id.northing
     };
 
     @Override
@@ -61,15 +75,28 @@ public class GoToPointActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_to_point);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         initialLatitude = getIntent().getDoubleExtra(StringLiterals.LATITUDE, 0.0f);
         initialLongitude = getIntent().getDoubleExtra(StringLiterals.LONGITUDE, 0.0f);
 
-        setupLatitudeLongitudeUI();
+        setupPointUI();
 
         goButton = findViewById(R.id.go);
 
         goButton.setOnClickListener(view -> {
-            final String uri = GoogleMapsUtils.getMapUri(getLatitude(), getLongitude());
+            String uri;
+
+            final String angleUnits = preferences.getString(
+                    StringLiterals.PREFERENCE_KEY_ANGLE_UNITS, StringLiterals.EMPTY_STRING);
+
+            if (angleUnits.equals(StringLiterals.LATLONG)) {
+                uri = GoogleMapsUtils.getMapUri(getLatitude(), getLongitude());
+            } else {
+                final double latLong[] = getLatLongForUTM();
+
+                uri = GoogleMapsUtils.getMapUri(latLong[0], latLong[1]);
+            }
 
             final Uri gmmIntentUri = Uri.parse(uri);
 
@@ -82,6 +109,22 @@ public class GoToPointActivity extends CustomActivity {
         final Button cancelButton = findViewById(R.id.cancel);
 
         cancelButton.setOnClickListener(view -> finish());
+    }
+
+    private double[] getLatLongForUTM() {
+        final Spinner longitudeZone = findViewById(R.id.longitude_zone);
+        final Spinner latitudeZone = findViewById(R.id.latitude_zone);
+        final EditText easting = findViewById(R.id.easting);
+        final EditText northing = findViewById(R.id.northing);
+
+        final String utmCoordinate = String.format(LocaleUtils.getDefaultLocale(),
+                "%s %s %s %s",
+                longitudeZone.getSelectedItem(),
+                latitudeZone.getSelectedItem(),
+                easting.getText(),
+                northing.getText());
+
+        return coordinateConversion.utm2LatLon(utmCoordinate);
     }
 
     private void setupDefaultAngle(int degreesId, int minutesId, int secondsId,
@@ -139,9 +182,41 @@ public class GoToPointActivity extends CustomActivity {
         }
     }
 
-    private void setupLatitudeLongitudeUI() {
+    private void setupDefaultUTM() {
+        final String[] utm_values = coordinateConversion.latLon2UTM(initialLatitude, initialLongitude).split(StringLiterals.REGEX_WORDS);
+
+        final int longitudeZoneValue = Integer.parseInt(utm_values[0]);
+
+        final Spinner longitudeZone = findViewById(R.id.longitude_zone);
+        longitudeZone.setSelection(longitudeZoneValue - 1);
+
+        final char latitudeZoneValue = utm_values[1].charAt(0);
+
+        final int latitudeZoneOffset = latitudeZoneValue - 'A';
+
+        final Spinner latitudeZone = findViewById(R.id.latitude_zone);
+        latitudeZone.setSelection(latitudeZoneOffset);
+
+        final EditText easting = findViewById(R.id.easting);
+        easting.setText(utm_values[2]);
+
+        final EditText northing = findViewById(R.id.northing);
+        northing.setText(utm_values[3]);
+    }
+
+    private void setupPointUI() {
+        final String angleUnits = preferences.getString(StringLiterals.PREFERENCE_KEY_ANGLE_UNITS, StringLiterals.LATLONG);
+
+        final LinearLayout latLong = findViewById(R.id.latLong);
+        final LinearLayout utm = findViewById(R.id.utm);
+
+        latLong.setVisibility(angleUnits.equals(StringLiterals.LATLONG) ? View.VISIBLE : View.GONE);
+        utm.setVisibility(angleUnits.equals(StringLiterals.LATLONG) ? View.GONE : View.VISIBLE);
+
         setupDefaultLatitude();
         setupDefaultLongitude();
+
+        setupDefaultUTM();
 
         final InputFilter[] zeroTo59 = new InputFilter[] { new InputFilterMinMax("0", "59")};
         final InputFilter[] zeroTo99 = new InputFilter[] { new InputFilterMinMax("0", "999")};
@@ -171,6 +246,15 @@ public class GoToPointActivity extends CustomActivity {
 
         final EditText longitude_fractional_seconds = findViewById(R.id.longitude_fractional_seconds);
         longitude_fractional_seconds.setFilters(zeroTo99);
+
+        // UTM
+        final InputFilter[] zeroTo99999999 = new InputFilter[] { new InputFilterMinMax("0", "99999999")};
+
+        final EditText easting = findViewById(R.id.easting);
+        easting.setFilters(zeroTo99999999);
+
+        final EditText northing = findViewById(R.id.northing);
+        northing.setFilters(zeroTo99999999);
 
         monitorTextChanges();
     }

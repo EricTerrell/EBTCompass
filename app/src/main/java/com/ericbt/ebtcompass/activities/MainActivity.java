@@ -66,8 +66,11 @@ import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.SensorUtils;
 import com.ericbt.ebtcompass.utils.MathUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
+import com.ibm.util.CoordinateConversion;
 
 public class MainActivity extends AppCompatActivity {
+    private CoordinateConversion coordinateConversion = new CoordinateConversion();
+
     public Float restoreGoToHeading;
 
     private Float goToHeading;
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(StringLiterals.LOG_TAG,
                             String.format("onSharedPreferenceChanged: key: %s", key));
 
-                    if (key.equals(StringLiterals.PREFERENCE_KEY_UNITS)) {
+                    if (key.equals(StringLiterals.PREFERENCE_KEY_DISTANCE_UNITS)) {
                         clearQuantities();
                     }
 
@@ -563,11 +566,11 @@ public class MainActivity extends AppCompatActivity {
                 AngleUtils.toDMS(Math.abs(longitude)),
                 AngleUtils.longitudeDirection(longitude)));
 
-        final String units = preferences.getString(StringLiterals.PREFERENCE_KEY_UNITS, StringLiterals.METRIC);
+        final String distance_units = preferences.getString(StringLiterals.PREFERENCE_KEY_DISTANCE_UNITS, StringLiterals.METRIC);
 
         String altitudeText;
 
-        if (units.equals(StringLiterals.METRIC)) {
+        if (distance_units.equals(StringLiterals.METRIC)) {
             altitudeText = String.format(LocaleUtils.getDefaultLocale(), "%,d m",
                     (int) altitude);
         } else {
@@ -580,7 +583,7 @@ public class MainActivity extends AppCompatActivity {
 
         String speedText;
 
-        if (units.equals(StringLiterals.METRIC)) {
+        if (distance_units.equals(StringLiterals.METRIC)) {
             speedText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f km/h", UnitUtils.toKilometersPerHour(speed));
         } else {
             speedText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f mi/h", UnitUtils.toMilesPerHour(speed));
@@ -622,6 +625,26 @@ public class MainActivity extends AppCompatActivity {
                 latitude != 0.0f && longitude != 0.0f) {
             share.setVisible(true);
         }
+
+        final TextView utm = findViewById(R.id.utm);
+
+        final String utmCoordinates[] = coordinateConversion
+                .latLon2UTM(latitude, longitude)
+                .split(StringLiterals.REGEX_WORDS);
+
+        final String utmZone = String.format(LocaleUtils.getDefaultLocale(), "%s%s", utmCoordinates[0], utmCoordinates[1]);
+
+        final String utmEasting = utmCoordinates[2];
+        final String utmNorthing = utmCoordinates[3];
+
+        final String utmText = String.format(
+                LocaleUtils.getDefaultLocale(),
+                "UTM: %s %sE %sN",
+                utmZone,
+                utmEasting,
+                utmNorthing);
+
+        utm.setText(utmText);
     }
 
     private void clearQuantities() {

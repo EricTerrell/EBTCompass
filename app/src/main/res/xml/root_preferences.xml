@@ -1,13 +1,21 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/units_header">
+    <PreferenceCategory app:title="@string/units_coordinate_systems_header">
 
         <ListPreference
             app:defaultValue="METRIC"
-            app:entries="@array/units_entries"
-            app:entryValues="@array/units_values"
-            app:key="units"
-            app:title="@string/units_title"
+            app:entries="@array/distance_units_entries"
+            app:entryValues="@array/distance_units_values"
+            app:key="distance_units"
+            app:title="@string/distance_units_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="LATLONG"
+            app:entries="@array/angle_units_entries"
+            app:entryValues="@array/angle_units_values"
+            app:key="angle_units"
+            app:title="@string/angle_units_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
