@@ -160,7 +160,7 @@ public class GPSService extends BaseService {
         lastSignalTime = lastTime;
 
         final String notificationMechanism =
-                preferences.getString(StringLiterals.NOTIFICATION, StringLiterals.SPEECH);
+                preferences.getString(StringLiterals.COURSE_CORRECTION_NOTIFICATION, StringLiterals.SPEECH);
 
         Log.i(StringLiterals.LOG_TAG,
                 String.format(

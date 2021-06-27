@@ -22,7 +22,6 @@ package com.ericbt.ebtcompass.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -38,7 +37,6 @@ import androidx.preference.PreferenceManager;
 import com.ericbt.ebtcompass.Constants;
 import com.ericbt.ebtcompass.InputFilterMinMax;
 import com.ericbt.ebtcompass.StringLiterals;
-import com.ericbt.ebtcompass.utils.GoogleMapsUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.R;
 import com.ibm.util.CoordinateConversion;
@@ -51,6 +49,8 @@ public class GoToPointActivity extends CustomActivity {
     private double initialLatitude, initialLongitude;
 
     private Button goButton;
+
+    private String angleUnits;
 
     private static final int[] editTextIDs = {
             // Latitude
@@ -77,6 +77,8 @@ public class GoToPointActivity extends CustomActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        angleUnits = preferences.getString(StringLiterals.PREFERENCE_KEY_ANGLE_UNITS, StringLiterals.LATLONG);
+
         initialLatitude = getIntent().getDoubleExtra(StringLiterals.LATITUDE, 0.0f);
         initialLongitude = getIntent().getDoubleExtra(StringLiterals.LONGITUDE, 0.0f);
 
@@ -85,25 +87,27 @@ public class GoToPointActivity extends CustomActivity {
         goButton = findViewById(R.id.go);
 
         goButton.setOnClickListener(view -> {
-            String uri;
-
-            final String angleUnits = preferences.getString(
-                    StringLiterals.PREFERENCE_KEY_ANGLE_UNITS, StringLiterals.EMPTY_STRING);
+            final double latitude, longitude;
 
             if (angleUnits.equals(StringLiterals.LATLONG)) {
-                uri = GoogleMapsUtils.getMapUri(getLatitude(), getLongitude());
+                latitude = getLatitude();
+                longitude = getLongitude();
             } else {
                 final double latLong[] = getLatLongForUTM();
 
-                uri = GoogleMapsUtils.getMapUri(latLong[0], latLong[1]);
+                latitude = latLong[0];
+                longitude = latLong[1];
             }
 
-            final Uri gmmIntentUri = Uri.parse(uri);
+            final Intent intent = new Intent(this, FindPointActivity.class);
 
-            final Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
+            final Bundle bundle = new Bundle();
+            bundle.putDouble(StringLiterals.LATITUDE, latitude);
+            bundle.putDouble(StringLiterals.LONGITUDE, longitude);
 
-            startActivity(mapIntent);
+            intent.putExtras(bundle);
+
+            startActivity(intent);
         });
 
         final Button cancelButton = findViewById(R.id.cancel);
@@ -205,8 +209,6 @@ public class GoToPointActivity extends CustomActivity {
     }
 
     private void setupPointUI() {
-        final String angleUnits = preferences.getString(StringLiterals.PREFERENCE_KEY_ANGLE_UNITS, StringLiterals.LATLONG);
-
         final LinearLayout latLong = findViewById(R.id.latLong);
         final LinearLayout utm = findViewById(R.id.utm);
 

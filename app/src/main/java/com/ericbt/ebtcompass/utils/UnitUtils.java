@@ -32,4 +32,8 @@ public class UnitUtils {
     public static double toKilometersPerHour(double metersPerSecond) {
         return metersPerSecond * 3.6f;
     }
+
+    public static double toMiles(double feet) {
+        return feet / 5280.0f;
+    }
 }

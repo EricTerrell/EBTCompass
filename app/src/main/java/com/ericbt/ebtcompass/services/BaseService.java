@@ -34,6 +34,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.ericbt.ebtcompass.StringLiterals;
+import com.ericbt.ebtcompass.activities.FindPointActivity;
 import com.ericbt.ebtcompass.activities.MainActivity;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.R;
@@ -56,6 +57,8 @@ public abstract class BaseService extends Service {
     private final String className;
 
     private NotificationChannel notificationChannel;
+
+    private String activityName;
 
     public BaseService() {
         className = this.getClass().getName();
@@ -132,11 +135,26 @@ public abstract class BaseService extends Service {
     // appear twice in the notification area).
     static Notification notification;
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        activityName = intent.getStringExtra(StringLiterals.ACTIVITY_NAME);
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
     protected Notification createDefaultNotification() {
         if (notification == null) {
             createNotificationChannel("Compass Service");
 
-            final Intent notificationIntent = new Intent(this, MainActivity.class);
+            final Class activityClass;
+
+            if (activityName != null && activityName.endsWith(".MainActivity")) {
+                activityClass = MainActivity.class;
+            } else {
+                activityClass = FindPointActivity.class;
+            }
+
+            final Intent notificationIntent = new Intent(this, activityClass);
 
             final PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, notificationIntent, 0);
 

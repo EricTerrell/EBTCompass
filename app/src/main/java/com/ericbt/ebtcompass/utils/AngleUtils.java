@@ -20,9 +20,14 @@
 
 package com.ericbt.ebtcompass.utils;
 
+import com.ericbt.ebtcompass.StringLiterals;
+import com.ibm.util.CoordinateConversion;
+
 import static com.ericbt.ebtcompass.Constants.*;
 
 public class AngleUtils {
+    private final static CoordinateConversion coordinateConversion = new CoordinateConversion();
+
     public static String toDMS(double decimalDegrees) {
         final int sign = decimalDegrees < 0.0f ? -1 : +1;
 
@@ -42,7 +47,7 @@ public class AngleUtils {
 
         final int fractionalSeconds = (int) (decimalDegrees * MINUTES_PER_DEGREE * 1000.0d);
 
-        return String.format(LocaleUtils.getDefaultLocale(), "%s%d°%02d'%02d.%03d",
+        return String.format(LocaleUtils.getDefaultLocale(), "%s%d°%02d'%02d.%03d\"",
                 sign == +1 ? "" : "-",
                 degrees,
                 minutes,
@@ -66,5 +71,23 @@ public class AngleUtils {
     // https://stackoverflow.com/questions/2131195/cardinal-direction-algorithm-in-java
     public static String formatBearing(double bearing) {
         return directions[(int) Math.floor(((bearing + 11.25d) % DEGREES_PER_CIRCLE) / 22.5d)];
+    }
+
+    public static String formatUTM(double latitude, double longitude) {
+        final String utmCoordinates[] = coordinateConversion
+                .latLon2UTM(latitude, longitude)
+                .split(StringLiterals.REGEX_WORDS);
+
+        final String utmZone = String.format(LocaleUtils.getDefaultLocale(), "%s%s", utmCoordinates[0], utmCoordinates[1]);
+
+        final String utmEasting = utmCoordinates[2];
+        final String utmNorthing = utmCoordinates[3];
+
+        return String.format(
+                LocaleUtils.getDefaultLocale(),
+                "UTM: %s %sE %sN",
+                utmZone,
+                utmEasting,
+                utmNorthing);
     }
 }

@@ -43,13 +43,13 @@
     </PreferenceCategory>
 
 
-    <PreferenceCategory app:title="@string/notification_header">
+    <PreferenceCategory app:title="@string/course_correction_notification_header">
 
         <ListPreference
             app:defaultValue="SPEECH"
             app:entries="@array/notification_entries"
             app:entryValues="@array/notification_values"
-            app:key="notification"
+            app:key="course_correction_notification"
             app:title="@string/notification_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -61,6 +61,18 @@
             app:title="@string/notification_frequency_title"
             app:useSimpleSummaryProvider="true"
             />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/arrival_notification_header">
+
+        <ListPreference
+            app:defaultValue="SPEECH"
+            app:entries="@array/notification_entries"
+            app:entryValues="@array/notification_values"
+            app:key="arrival_notification"
+            app:title="@string/notification_title"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 

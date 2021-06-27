@@ -50,4 +50,8 @@ public class Speaker {
     private static void speakForTurn(int resId, TextToSpeech textToSpeech, Context context) {
         textToSpeech.speak(context.getString(resId), TextToSpeech.QUEUE_FLUSH, null, null);
     }
+
+    public static void speakForArrival(TextToSpeech textToSpeech, Context context) {
+        textToSpeech.speak(context.getString(R.string.you_have_arrived), TextToSpeech.QUEUE_FLUSH, null, null);
+    }
 }

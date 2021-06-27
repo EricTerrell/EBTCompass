@@ -21,24 +21,25 @@
 package com.ericbt.ebtcompass;
 
 public class StringLiterals {
-    public static final String LOG_TAG              = "EBTCompass";
-    public static final String APP_NAME             = "EBT Compass";
-    public static final String EMPTY_STRING         = "";
-    public static final String OK                   = "OK";
-    public static final String ON                   = "On";
-    public static final String OFF                  = "Off";
-    public static final String HEADING              = "HEADING";
-    public static final String METRIC               = "METRIC";
-    public static final String LATLONG              = "LATLONG";
-    public static final String USER_ACCEPTED_TERMS  = "user_accepted_terms";
-    public static final String ALLOW_CANCEL         = "ALLOW_CANCEL";
-    public static final String EXIT                 = "EXIT";
-    public static final String LATITUDE             = "LATITUDE";
-    public static final String LONGITUDE            = "LONGITUDE";
-    public static final String NOTIFICATION         = "notification";
-    public static final String VIBRATION            = "VIBRATION";
-    public static final String SPEECH               = "SPEECH";
-
+    public static final String LOG_TAG                        = "EBTCompass";
+    public static final String APP_NAME                       = "EBT Compass";
+    public static final String EMPTY_STRING                   = "";
+    public static final String OK                             = "OK";
+    public static final String ON                             = "On";
+    public static final String OFF                            = "Off";
+    public static final String HEADING                        = "HEADING";
+    public static final String METRIC                         = "METRIC";
+    public static final String LATLONG                        = "LATLONG";
+    public static final String USER_ACCEPTED_TERMS            = "user_accepted_terms";
+    public static final String ALLOW_CANCEL                   = "ALLOW_CANCEL";
+    public static final String EXIT                           = "EXIT";
+    public static final String LATITUDE                       = "LATITUDE";
+    public static final String LONGITUDE                      = "LONGITUDE";
+    public static final String COURSE_CORRECTION_NOTIFICATION = "course_correction_notification";
+    public static final String VIBRATION                      = "VIBRATION";
+    public static final String SPEECH                         = "SPEECH";
+    public static final String ARRIVAL_NOTIFICATION           = "arrival_notification";
+    public static final String ACTIVITY_NAME                  = "activity_name";
     public static final String REGEX_WORDS          = "\\s";
 
     // Preference keys

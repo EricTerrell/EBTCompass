@@ -37,12 +37,25 @@ public class CompassRose extends Drawable {
 
     private final static float TEXT_SIZE = 100.0f;
 
+    private final static float DESTINATION_CIRCLE_DIAMETER = 50.0f;
+
+    private float destinationCircleDiameter = 0.0f;
+
     private final static float TEXT_SIZE_MULTIPLIER = 1.25f;
 
-    public CompassRose(float pitch, float roll, float azimuth) {
+    private Float bearingToDestination = null;
+
+    private static final String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
+
+    public CompassRose(float pitch, float roll, float azimuth, Float bearingToDestination) {
         this.pitch = pitch;
         this.roll = roll;
         this.azimuth = azimuth;
+
+        if (bearingToDestination != null) {
+            this.bearingToDestination = bearingToDestination;
+            destinationCircleDiameter = DESTINATION_CIRCLE_DIAMETER;
+        }
     }
 
     @Override
@@ -53,11 +66,13 @@ public class CompassRose extends Drawable {
         final int height = getBounds().height();
 
         final float surroundingRadius = (Math.min(width, height) / 2.0f)
-                - paint.getStrokeWidth();
+                - paint.getStrokeWidth()
+                - destinationCircleDiameter;
 
         final float radius = (Math.min(width, height) / 2.0f)
                 - paint.getStrokeWidth()
-                - (TEXT_SIZE * TEXT_SIZE_MULTIPLIER);
+                - (TEXT_SIZE * TEXT_SIZE_MULTIPLIER)
+                - destinationCircleDiameter;
 
         final Paint surroundingPaint = getDefaultPaint();
         surroundingPaint.setStyle(Paint.Style.FILL);
@@ -77,10 +92,8 @@ public class CompassRose extends Drawable {
 
         canvas.drawCircle(originX, originY, radius, interiorPaint);
 
-        final String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
-
         for (int i = 0; i < directions.length; i++) {
-            drawCompassLine(canvas, originX, originY, i * 45.0f, directions[i]);
+            drawCompassLine(canvas, originX, originY, i * 45.0f, directions[i], Color.BLACK);
         }
 
         final float largeRadius = getBounds().width() / 12.0f;
@@ -88,6 +101,10 @@ public class CompassRose extends Drawable {
         drawLevel(canvas, 0.0f, 0.0f, 0.0f, Paint.Style.FILL, Color.WHITE, largeRadius);
         drawLevel(canvas, 0.0f, 0.0f, 0.0f, Paint.Style.STROKE, Color.BLACK, largeRadius);
         drawLevel(canvas, pitch, roll, azimuth, Paint.Style.FILL_AND_STROKE, Color.BLUE, getBounds().width() / 18.0f);
+
+        if (bearingToDestination != null) {
+            drawDestinationMarker(canvas, originX, originY, height);
+        }
     }
 
     private Paint getDefaultPaint() {
@@ -106,12 +123,12 @@ public class CompassRose extends Drawable {
         return paint;
     }
 
-    private void drawCompassLine(Canvas canvas, float originX, float originY, float angle, String text) {
+    private void drawCompassLine(Canvas canvas, float originX, float originY, float angle, String text, int color) {
         final Paint paint = getDefaultPaint();
         paint.setStrokeWidth(10.0f);
         paint.setStyle(Paint.Style.FILL);
         paint.setTypeface(Typeface.SANS_SERIF);
-        paint.setColor(Color.BLACK);
+        paint.setColor(color);
 
         canvas.save();
 
@@ -125,7 +142,7 @@ public class CompassRose extends Drawable {
 
         canvas.drawLine(originX, originY, originX, TEXT_SIZE * TEXT_SIZE_MULTIPLIER + margin_y, paint);
 
-        final float y = TEXT_SIZE * TEXT_SIZE_MULTIPLIER;
+        final float y = TEXT_SIZE * TEXT_SIZE_MULTIPLIER + destinationCircleDiameter;
 
         final Path path = new Path();
 
@@ -137,7 +154,23 @@ public class CompassRose extends Drawable {
 
         canvas.drawPath(path, paint);
 
-        canvas.drawText(text, originX, bounds.height() + paint.getStrokeWidth() * 3.0f, paint);
+        canvas.drawText(text, originX, bounds.height() + paint.getStrokeWidth() * 3.0f + destinationCircleDiameter, paint);
+
+        canvas.restore();
+    }
+
+    private void drawDestinationMarker(Canvas canvas, float originX, float originY, int height) {
+        final Paint paint = getDefaultPaint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.RED);
+
+        canvas.save();
+
+        canvas.rotate(bearingToDestination, originX, originY);
+
+        float radius = destinationCircleDiameter / 2.25f;
+
+        canvas.drawCircle(originX, radius, radius, paint);
 
         canvas.restore();
     }

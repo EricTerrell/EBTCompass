@@ -88,13 +88,49 @@
                     android:id="@+id/altitude"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="viewEnd"
-                    style="@style/BoldText"
-                    android:id="@+id/line_heading"
-                    />
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewEnd"
+                        style="@style/BoldText"
+                        android:id="@+id/line_heading"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/BoldText"
+                        android:text=" ("
+                        android:id="@+id/line_heading_2"
+                        android:visibility="gone"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/BoldText"
+                        android:textColor="@color/red"
+                        android:text="&#9679;"
+                        android:id="@+id/line_heading_3"
+                        android:visibility="gone"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/BoldText"
+                        android:text=")"
+                        android:id="@+id/line_heading_4"
+                        android:visibility="gone"
+                        />
+
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

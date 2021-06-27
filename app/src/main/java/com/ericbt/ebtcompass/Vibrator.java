@@ -35,6 +35,9 @@ public class Vibrator {
     // Two vibrations for left
     private final static long[] LEFT_PATTERN = { 0, VIBRATE_DURATION, VIBRATE_PAUSE, VIBRATE_DURATION };
 
+    // Five vibrations for arrival
+    private final static long[] ARRIVAL_PATTERN = { 0, VIBRATE_DURATION, VIBRATE_PAUSE, VIBRATE_DURATION, VIBRATE_PAUSE, VIBRATE_DURATION, VIBRATE_PAUSE, VIBRATE_DURATION, VIBRATE_PAUSE, VIBRATE_DURATION };
+
     public static void vibrateForTurn(Turn.Direction direction, Context context) {
         Log.i(StringLiterals.LOG_TAG,
                 String.format(LocaleUtils.getDefaultLocale(),
@@ -54,5 +57,11 @@ public class Vibrator {
             }
             break;
         }
+    }
+
+    public static void vibrateForArrival(Context context) {
+        final android.os.Vibrator vibrator = (android.os.Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
+        vibrator.vibrate(ARRIVAL_PATTERN, -1);
     }
 }

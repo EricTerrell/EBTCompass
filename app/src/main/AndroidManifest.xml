@@ -50,7 +50,7 @@
 
         <activity
             android:name="com.ericbt.ebtcompass.activities.MainActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
             android:configChanges="orientation|screenSize"
             >
 
@@ -69,6 +69,13 @@
         <activity
             android:name="com.ericbt.ebtcompass.activities.GoToPointActivity"
             android:label="@string/title_activity_point"
+            android:launchMode="singleTop"
+            />
+
+        <activity
+            android:name="com.ericbt.ebtcompass.activities.FindPointActivity"
+            android:label="@string/title_activity_point"
+            android:launchMode="singleTop"
             />
 
         <activity
