@@ -317,7 +317,14 @@ public class MainActivity extends CompassActivity {
 
     @Override
     protected void clearQuantities() {
-        altitudeTV.setText(StringLiterals.EMPTY_STRING);
-        speedTV.setText(StringLiterals.EMPTY_STRING);
+        final int[] ids = new int[] { R.id.altitude, R.id.speed };
+
+        for (final int id: ids) {
+            final TextView textView = findViewById(id);
+
+            if (textView != null) {
+                textView.setText(StringLiterals.EMPTY_STRING);
+            }
+        }
     }
 }
