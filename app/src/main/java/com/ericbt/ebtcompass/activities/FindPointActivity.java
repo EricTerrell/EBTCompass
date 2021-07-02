@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ import com.ericbt.ebtcompass.Speaker;
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.Vibrator;
 import com.ericbt.ebtcompass.utils.AngleUtils;
+import com.ericbt.ebtcompass.utils.AnimationUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.MathUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
@@ -68,11 +70,15 @@ public class FindPointActivity extends CompassActivity {
 
     private boolean speechReady = false;
 
+    private ImageView compassRose;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_find_point);
+
+        compassRose = findViewById(R.id.compass_rose_custom);
 
         if (savedInstanceState != null) {
             suppressArrivalMessage = savedInstanceState.getBoolean(SUPPRESS_ARRIVAL_MESSAGE, false);
@@ -141,6 +147,8 @@ public class FindPointActivity extends CompassActivity {
     protected void startUpdates() {
         Log.i(StringLiterals.LOG_TAG, "startUpdates");
 
+        compassRose.startAnimation(AnimationUtils.getFadeInAnimation());
+
         super.startUpdates();
 
         if (havePermissions()) {
@@ -151,6 +159,8 @@ public class FindPointActivity extends CompassActivity {
     @Override
     protected void stopUpdates() {
         Log.i(StringLiterals.LOG_TAG, "stopUpdates");
+
+        compassRose.startAnimation(AnimationUtils.getFadeOutAnimation());
 
         super.stopUpdates();
 

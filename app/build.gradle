@@ -9,8 +9,8 @@ android {
         applicationId "com.ericbt.ebtcompass"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 18
-        versionName "1.18"
+        versionCode 20
+        versionName "1.20"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

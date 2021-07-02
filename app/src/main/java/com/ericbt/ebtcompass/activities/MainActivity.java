@@ -33,10 +33,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ericbt.ebtcompass.services.GPSService;
 import com.ericbt.ebtcompass.utils.AngleUtils;
+import com.ericbt.ebtcompass.utils.AnimationUtils;
 import com.ericbt.ebtcompass.utils.CompassUtils;
 import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
@@ -54,11 +56,15 @@ public class MainActivity extends CompassActivity {
 
     private TextView altitudeTV, speedTV;
 
+    private ImageView compassRose;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        compassRose = findViewById(R.id.compass_rose_custom);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -113,6 +119,9 @@ public class MainActivity extends CompassActivity {
 
                                     if (gpsService != null) {
                                         gpsService.setGoToHeading(goToHeading);
+                                    } else {
+                                        restoreGoToHeading = goToHeading;
+                                        startUpdates();
                                     }
                                 } else {
                                     if (gpsService != null) {
@@ -139,6 +148,15 @@ public class MainActivity extends CompassActivity {
         promptUserToAcceptLicenseTerms();
 
         startUpdates();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (goToHeading == null) {
+            stopUpdates();
+        }
     }
 
     private void promptUserToAcceptLicenseTerms() {
@@ -173,6 +191,12 @@ public class MainActivity extends CompassActivity {
     protected void startUpdates() {
         Log.i(StringLiterals.LOG_TAG, "startUpdates");
 
+        if (goToHeading != null) {
+            restoreGoToHeading = goToHeading;
+        }
+
+        compassRose.startAnimation(AnimationUtils.getFadeInAnimation());
+
         super.startUpdates();
 
         if (havePermissions()) {
@@ -184,6 +208,8 @@ public class MainActivity extends CompassActivity {
     @Override
     protected void stopUpdates() {
         Log.i(StringLiterals.LOG_TAG, "stopUpdates");
+
+        compassRose.startAnimation(AnimationUtils.getFadeOutAnimation());
 
         super.stopUpdates();
 

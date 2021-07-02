@@ -40,7 +40,7 @@ public class StringLiterals {
     public static final String SPEECH                         = "SPEECH";
     public static final String ARRIVAL_NOTIFICATION           = "arrival_notification";
     public static final String ACTIVITY_NAME                  = "activity_name";
-    public static final String REGEX_WORDS          = "\\s";
+    public static final String REGEX_WORDS                    = "\\s";
 
     // Preference keys
     public static final String PREFERENCE_KEY_DISTANCE_UNITS = "distance_units";
