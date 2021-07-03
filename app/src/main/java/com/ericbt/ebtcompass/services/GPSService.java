@@ -44,6 +44,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -103,7 +105,7 @@ public class GPSService extends BaseService {
 
         locationCallback = new LocationCallback() {
             @Override
-            public void onLocationResult(LocationResult locationResult) {
+            public void onLocationResult(@NotNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
 
                 onNewLocation(locationResult.getLastLocation());
