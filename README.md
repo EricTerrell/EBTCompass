@@ -53,4 +53,3 @@ EBT Compass &#169; Copyright 2021, [`Eric Bergman-Terrell`](https://www.ericbt.c
 # Feedback
 
 Please submit your feedback to EBTCompass@EricBT.com.
-
