@@ -7,7 +7,7 @@ The compass points to true north (adjusted with the current magnetic declination
 Key Features:
 
 * Display compass heading, current GPS coordinates, altitude, direction, and speed
-* Go to a specific point using Google Maps
+* Go to a specific point 
 * Go along a given heading (e.g. North). Your device will speak or vibrate to help you course-correct. Ideal for archaeological surveys!
 * Share location
 * Customize update frequency of magnetometer, gyroscope, and GPS updates
@@ -53,3 +53,4 @@ EBT Compass &#169; Copyright 2021, [`Eric Bergman-Terrell`](https://www.ericbt.c
 # Feedback
 
 Please submit your feedback to EBTCompass@EricBT.com.
+
