@@ -52,6 +52,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/point_name"
+                style="@style/BoldText"
+                android:layout_marginLeft="15dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/destination"
                 style="@style/BoldText"
                 android:layout_marginLeft="15dp"
@@ -117,25 +125,6 @@
                 style="@style/BoldText"
                 android:id="@+id/compass"
                 />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:baselineAligned="false">
-
-            <LinearLayout
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_gravity="left"
-                >
-
-            </LinearLayout>
 
         </LinearLayout>
 

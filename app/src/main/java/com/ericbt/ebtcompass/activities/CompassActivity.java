@@ -35,11 +35,8 @@ import com.ericbt.ebtcompass.utils.GoogleMapsUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.MathUtils;
 import com.ericbt.ebtcompass.utils.SensorUtils;
-import com.ibm.util.CoordinateConversion;
 
 public abstract class CompassActivity extends CustomActivity {
-    protected final CoordinateConversion coordinateConversion = new CoordinateConversion();
-
     private final static int REQUEST_PERMISSIONS_CODE = 1000;
 
     protected Float bearingToDestination;

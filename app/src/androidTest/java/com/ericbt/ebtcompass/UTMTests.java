@@ -54,7 +54,7 @@ public class UTMTests {
     public void utm2LatLong() {
         final CoordinateConversion coordinateConversion = new CoordinateConversion();
 
-        double result[] = coordinateConversion.utm2LatLon(UTM);
+        double[] result = coordinateConversion.utm2LatLon(UTM);
 
         final double latitude = result[0];
         final double longitude = result[1];

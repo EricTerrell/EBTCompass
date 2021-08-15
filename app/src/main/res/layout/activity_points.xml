@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PointsActivity"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/points_activity_hint"
+        android:layout_margin="15sp"
+        android:background="@color/light_gray"
+        style="@style/HintText"
+        />
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/points_list_view"
+        android:layout_margin="10sp"
+        >
+    </ListView>
+
+    <TextView
+        android:id="@+id/no_points_saved"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/saved_points_will_appear"
+        android:layout_margin="15sp"
+        android:background="@color/light_gray"
+        style="@style/HintText"
+        />
+
+</LinearLayout>

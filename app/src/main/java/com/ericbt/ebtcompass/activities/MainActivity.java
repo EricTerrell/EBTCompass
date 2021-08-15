@@ -48,7 +48,7 @@ import com.ericbt.ebtcompass.utils.UnitUtils;
 public class MainActivity extends CompassActivity {
     private float declination;
 
-    private Button onOffButton, goLineButton;
+    private Button onOffButton, goLineButton, savePointButton;
 
     private SharedPreferences preferences;
 
@@ -63,6 +63,9 @@ public class MainActivity extends CompassActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        // Don't want the back arrow in the title bar of this activity.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         compassRose = findViewById(R.id.compass_rose_custom);
 
@@ -143,6 +146,28 @@ public class MainActivity extends CompassActivity {
             goLineActivityResultLauncher.launch(intent);
         });
 
+        savePointButton = findViewById(R.id.save_point);
+
+        savePointButton.setOnClickListener(view -> {
+            final Intent intent = new Intent(this, SavePointActivity.class);
+
+            final Bundle bundle = new Bundle();
+            bundle.putDouble(StringLiterals.LATITUDE, lastLatitude);
+            bundle.putDouble(StringLiterals.LONGITUDE, lastLongitude);
+
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+        });
+
+        final Button pointsButton = findViewById(R.id.points);
+
+        pointsButton.setOnClickListener(view -> {
+            stopUpdates();
+
+            startActivity(new Intent(this, PointsActivity.class));
+        });
+
         requestPermissions();
 
         promptUserToAcceptLicenseTerms();
@@ -201,6 +226,7 @@ public class MainActivity extends CompassActivity {
 
         if (havePermissions()) {
             goLineButton.setEnabled(true);
+            savePointButton.setEnabled(true);
             onOffButton.setText(StringLiterals.OFF);
         }
     }
@@ -215,6 +241,7 @@ public class MainActivity extends CompassActivity {
 
         if (havePermissions()) {
             goLineButton.setEnabled(false);
+            savePointButton.setEnabled(false);
             onOffButton.setText(StringLiterals.ON);
         }
     }
@@ -321,24 +348,7 @@ public class MainActivity extends CompassActivity {
         }
 
         final TextView utm = findViewById(R.id.utm);
-
-        final String utmCoordinates[] = coordinateConversion
-                .latLon2UTM(latitude, longitude)
-                .split(StringLiterals.REGEX_WORDS);
-
-        final String utmZone = String.format(LocaleUtils.getDefaultLocale(), "%s%s", utmCoordinates[0], utmCoordinates[1]);
-
-        final String utmEasting = utmCoordinates[2];
-        final String utmNorthing = utmCoordinates[3];
-
-        final String utmText = String.format(
-                LocaleUtils.getDefaultLocale(),
-                "UTM: %s %sE %sN",
-                utmZone,
-                utmEasting,
-                utmNorthing);
-
-        utm.setText(utmText);
+        utm.setText(AngleUtils.formatUTM(latitude, longitude));
     }
 
     @Override

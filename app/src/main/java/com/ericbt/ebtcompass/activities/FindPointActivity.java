@@ -28,6 +28,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -86,6 +87,15 @@ public class FindPointActivity extends CompassActivity {
 
         destinationLatitude = getIntent().getDoubleExtra(StringLiterals.LATITUDE, 0.0f);
         destinationLongitude = getIntent().getDoubleExtra(StringLiterals.LONGITUDE, 0.0f);
+
+        final String name = getIntent().getStringExtra(StringLiterals.NAME);
+        final TextView pointName = findViewById(R.id.point_name);
+
+        if (name != null) {
+            pointName.setText(name);
+        } else {
+            pointName.setVisibility(View.GONE);
+        }
 
         destinationLocation = new Location(StringLiterals.EMPTY_STRING);
         destinationLocation.setLatitude(destinationLatitude);

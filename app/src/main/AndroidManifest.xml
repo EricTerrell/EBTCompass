@@ -32,28 +32,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EBTCompass"
-        >
-
+        android:theme="@style/Theme.EBTCompass">
         <service
-            android:name="com.ericbt.ebtcompass.services.CompassService"
+            android:name=".services.CompassService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".services.GPSService"
             android:enabled="true"
             android:exported="false"
-            />
-
-        <service
-            android:name="com.ericbt.ebtcompass.services.GPSService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="location"
-            />
+            android:foregroundServiceType="location" />
 
         <activity
-            android:name="com.ericbt.ebtcompass.activities.MainActivity"
-            android:launchMode="singleTop"
+            android:name=".activities.MainActivity"
             android:configChanges="orientation|screenSize"
-            >
-
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,35 +55,39 @@
         </activity>
 
         <activity
-            android:name="com.ericbt.ebtcompass.activities.GoLineActivity"
-            android:label="@string/title_activity_line"
-            />
+            android:name=".activities.GoLineActivity"
+            android:label="@string/title_activity_line" />
 
         <activity
-            android:name="com.ericbt.ebtcompass.activities.GoToPointActivity"
+            android:name=".activities.GoToPointActivity"
             android:label="@string/title_activity_point"
-            android:launchMode="singleTop"
-            />
+            android:launchMode="singleTop" />
 
         <activity
-            android:name="com.ericbt.ebtcompass.activities.FindPointActivity"
+            android:name=".activities.SavePointActivity"
+            android:label="@string/title_activity_save_point"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".activities.FindPointActivity"
             android:label="@string/title_activity_point"
-            android:launchMode="singleTop"
-            />
+            android:launchMode="singleTop" />
 
         <activity
-            android:name="com.ericbt.ebtcompass.activities.AboutActivity"
-            android:label="@string/title_activity_about"
-            />
+            android:name=".activities.AboutActivity"
+            android:label="@string/title_activity_about" />
 
         <activity
-            android:name="com.ericbt.ebtcompass.activities.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            />
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings" />
 
         <activity
-            android:name="com.ericbt.ebtcompass.activities.LicenseTermsActivity"
-            android:label="@string/title_activity_license_terms"
+            android:name=".activities.LicenseTermsActivity"
+            android:label="@string/title_activity_license_terms" />
+
+        <activity
+            android:name=".activities.PointsActivity"
+            android:label="@string/title_activity_points"
             />
 
     </application>

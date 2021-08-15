@@ -73,8 +73,14 @@ public class AngleUtils {
         return directions[(int) Math.floor(((bearing + 11.25d) % DEGREES_PER_CIRCLE) / 22.5d)];
     }
 
-    public static String formatUTM(double latitude, double longitude) {
-        final String utmCoordinates[] = coordinateConversion
+    /***
+     * Return UTM zone, easting, northing values
+     * @param latitude latitude
+     * @param longitude longitude
+     * @return array of zone, easting, and northing values
+     */
+    public static String[] getUTMValues(double latitude, double longitude) {
+        final String[] utmCoordinates = coordinateConversion
                 .latLon2UTM(latitude, longitude)
                 .split(StringLiterals.REGEX_WORDS);
 
@@ -83,11 +89,17 @@ public class AngleUtils {
         final String utmEasting = utmCoordinates[2];
         final String utmNorthing = utmCoordinates[3];
 
+        return new String[] { utmZone, utmEasting, utmNorthing };
+    }
+
+    public static String formatUTM(double latitude, double longitude) {
+        final String[] utmValues = getUTMValues(latitude, longitude);
+
         return String.format(
                 LocaleUtils.getDefaultLocale(),
                 "UTM: %s %sE %sN",
-                utmZone,
-                utmEasting,
-                utmNorthing);
+                utmValues[0],
+                utmValues[1],
+                utmValues[2]);
     }
 }

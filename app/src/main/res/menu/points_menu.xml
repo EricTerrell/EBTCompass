@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.ericbt.ebtcompass.com.ericbt.ebtcompass.activities.PointsActivity">
+
+    <item
+        android:id="@+id/delete"
+        android:title="Delete"
+        />
+
+    <item
+        android:id="@+id/rename"
+        android:title="Rename"
+        />
+
+</menu>
