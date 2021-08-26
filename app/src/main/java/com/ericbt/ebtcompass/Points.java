@@ -98,6 +98,12 @@ public class Points {
     private static class PointComparitor implements Comparator<Point> {
         @Override
         public int compare(Point point1, Point point2) {
+            final int colorComparison = point1.getColor() - point2.getColor();
+
+            if (colorComparison != 0) {
+                return colorComparison;
+            }
+
             return point1.getName().toLowerCase().compareTo(point2.getName().toLowerCase());
         }
     }

@@ -47,6 +47,8 @@ public class BasePointActivity extends CustomActivity {
 
     private double initialLatitude, initialLongitude;
 
+    protected double altitude;
+
     protected String angleUnits;
 
     private static final int[] editTextIDs = {
@@ -87,6 +89,7 @@ public class BasePointActivity extends CustomActivity {
 
         initialLatitude = getIntent().getDoubleExtra(StringLiterals.LATITUDE, 0.0f);
         initialLongitude = getIntent().getDoubleExtra(StringLiterals.LONGITUDE, 0.0f);
+        altitude = getIntent().getDoubleExtra(StringLiterals.ALTITUDE, 0.0f);
 
         setupPointUI();
 

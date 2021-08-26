@@ -268,19 +268,18 @@ public class PointsActivity extends CustomActivity {
     }
 
     private void sharePoints() {
-        final Point[] allPoints = Points.getAll(this);
-
         final StringBuilder allPointsText =
-                new StringBuilder("\"Point\",\"Latitude\",\"Longitude\",\"Zone\",\"Easting\",\"Northing\",\"Color\"\n");
+                new StringBuilder("\"Point\",\"Latitude\",\"Longitude\",\"Altitude (m)\",\"Zone\",\"Easting\",\"Northing\",\"Color\"\n");
 
-        for (final Point point: allPoints) {
+        for (final Point point : Points.getAll(this)) {
             final String[] utmValues = AngleUtils.getUTMValues(point.getLatitude(), point.getLongitude());
 
             final String line = String.format(
-                    LocaleUtils.getDefaultLocale(), "\"%s\",%.20f,%.20f,\"%s\",%s,%s,%d\n",
+                    LocaleUtils.getDefaultLocale(), "\"%s\",%.20f,%.20f,%.20f,\"%s\",%s,%s,%d\n",
                     point.getName().replace('\"', '\''),
                     point.getLatitude(),
                     point.getLongitude(),
+                    point.getAltitude(),
                     utmValues[0],
                     utmValues[1],
                     utmValues[2],

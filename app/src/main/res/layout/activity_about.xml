@@ -79,7 +79,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Icons created by Bigmorr and the Consumer Financial Protection Bureau"
+                android:text="Icons created by Bigmorr, the Consumer Financial Protection Bureau, and Andrew Onorat"
                 android:textColor="?android:attr/textColorPrimary"
                 >
             </TextView>

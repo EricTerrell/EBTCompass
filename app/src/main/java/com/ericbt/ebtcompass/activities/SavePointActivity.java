@@ -96,7 +96,7 @@ public class SavePointActivity extends BasePointActivity {
     private void savePoint(String nameText, int color) {
         final double[] latLong = getLatLong();
 
-        Points.upsert(this, new Point(nameText, latLong[0], latLong[1], color));
+        Points.upsert(this, new Point(nameText, latLong[0], latLong[1], altitude, color));
     }
 
     private void overWrite(String name, int color) {

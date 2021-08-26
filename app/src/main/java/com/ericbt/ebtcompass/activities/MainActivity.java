@@ -154,6 +154,7 @@ public class MainActivity extends CompassActivity {
             final Bundle bundle = new Bundle();
             bundle.putDouble(StringLiterals.LATITUDE, lastLatitude);
             bundle.putDouble(StringLiterals.LONGITUDE, lastLongitude);
+            bundle.putDouble(StringLiterals.ALTITUDE, altitude);
 
             intent.putExtras(bundle);
 

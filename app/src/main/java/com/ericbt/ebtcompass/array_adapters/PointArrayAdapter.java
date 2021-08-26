@@ -25,9 +25,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ericbt.ebtcompass.ColorConverter;
 import com.ericbt.ebtcompass.Point;
+import com.ericbt.ebtcompass.R;
 
 public class PointArrayAdapter extends ArrayAdapter<Point> {
     private final Context context;
@@ -50,6 +53,9 @@ public class PointArrayAdapter extends ArrayAdapter<Point> {
         }
 
         final Point point = getItem(position);
+
+        final ImageView marker = convertView.findViewById(R.id.marker);
+        marker.setColorFilter(ColorConverter.hueToColor(point.getColor()));
 
         final TextView textView = convertView.findViewById(textViewResourceId);
         textView.setText(point.getName());
