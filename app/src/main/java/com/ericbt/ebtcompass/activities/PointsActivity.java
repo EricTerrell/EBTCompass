@@ -61,26 +61,12 @@ public class PointsActivity extends CustomActivity {
         ListView pointsListView = findViewById(R.id.points_list_view);
         pointsListView.setAdapter(pointArrayAdapter);
 
-        pointsListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            final Point point = pointArrayAdapter.getItem(i);
-
-            Log.i(StringLiterals.LOG_TAG, point.toString());
-
-            finish();
-
-            final Intent intent = new Intent(PointsActivity.this, FindPointActivity.class);
-            final Bundle bundle = new Bundle();
-
-            bundle.putString(StringLiterals.NAME, point.getName());
-            bundle.putDouble(StringLiterals.LATITUDE, point.getLatitude());
-            bundle.putDouble(StringLiterals.LONGITUDE, point.getLongitude());
-
-            intent.putExtras(bundle);
-
-            startActivity(intent);
-        });
-
         registerForContextMenu(pointsListView);
+        pointsListView.setLongClickable(false);
+
+        pointsListView.setOnItemClickListener((adapterView, view, i, l) -> {
+            this.openContextMenu(view);
+        });
 
         pointsListView.setEmptyView(findViewById(R.id.no_points_saved));
 
@@ -123,11 +109,45 @@ public class PointsActivity extends CustomActivity {
 
         final int listItemPosition = ((AdapterView.AdapterContextMenuInfo) menuItem.getMenuInfo()).position;
         final Point point = pointArrayAdapter.getItem(listItemPosition);
+        Log.i(StringLiterals.LOG_TAG, point.toString());
 
         switch(menuItem.getItemId()) {
+            case R.id.find_with_compass: {
+                finish();
+
+                final Intent intent = new Intent(PointsActivity.this, FindPointActivity.class);
+
+                final Bundle bundle = new Bundle();
+
+                bundle.putString(StringLiterals.NAME, point.getName());
+                bundle.putDouble(StringLiterals.LATITUDE, point.getLatitude());
+                bundle.putDouble(StringLiterals.LONGITUDE, point.getLongitude());
+
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+            }
+            break;
+
+            case R.id.view_on_map: {
+                finish();
+
+                final Intent intent = new Intent(PointsActivity.this, MapsActivity.class);
+
+                final Bundle bundle = new Bundle();
+
+                bundle.putString(StringLiterals.NAME, point.getName());
+                bundle.putDouble(StringLiterals.LATITUDE, point.getLatitude());
+                bundle.putDouble(StringLiterals.LONGITUDE, point.getLongitude());
+
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+            }
+            break;
+
             case R.id.delete: {
-                Points.delete(this, point.getName());
-                updateList();
+                delete(point);
 
                 result = true;
             }
@@ -144,8 +164,30 @@ public class PointsActivity extends CustomActivity {
         return result;
     }
 
+    private void delete(Point point) {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(getText(R.string.delete_point));
+
+        final String message = String.format(LocaleUtils.getDefaultLocale(),
+                getString(R.string.delete_point_question), point.getName());
+
+        alertDialogBuilder.setMessage(message);
+
+        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (arg0, arg1) -> {
+            Points.delete(this, point.getName());
+            updateList();
+        });
+
+        alertDialogBuilder.setNegativeButton(StringLiterals.CANCEL, (arg0, arg1) -> {
+        });
+
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show();
+    }
+
     private void rename(Point point) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(getText(R.string.rename_point));
 
         final String message = String.format(LocaleUtils.getDefaultLocale(),
@@ -165,7 +207,7 @@ public class PointsActivity extends CustomActivity {
         alertDialogBuilder.setNegativeButton(StringLiterals.CANCEL, (arg0, arg1) -> {
         });
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        final AlertDialog alertDialog = alertDialogBuilder.create();
 
         input.addTextChangedListener(new TextWatcher() {
             @Override
@@ -229,19 +271,20 @@ public class PointsActivity extends CustomActivity {
         final Point[] allPoints = Points.getAll(this);
 
         final StringBuilder allPointsText =
-                new StringBuilder("\"Point\",\"Latitude\",\"Longitude\",\"Zone\",\"Easting\",\"Northing\"\n");
+                new StringBuilder("\"Point\",\"Latitude\",\"Longitude\",\"Zone\",\"Easting\",\"Northing\",\"Color\"\n");
 
         for (final Point point: allPoints) {
             final String[] utmValues = AngleUtils.getUTMValues(point.getLatitude(), point.getLongitude());
 
             final String line = String.format(
-                    LocaleUtils.getDefaultLocale(), "\"%s\",%.20f,%.20f,\"%s\",%s,%s\n",
+                    LocaleUtils.getDefaultLocale(), "\"%s\",%.20f,%.20f,\"%s\",%s,%s,%d\n",
                     point.getName().replace('\"', '\''),
                     point.getLatitude(),
                     point.getLongitude(),
                     utmValues[0],
                     utmValues[1],
-                    utmValues[2]);
+                    utmValues[2],
+                    point.getColor());
 
             allPointsText.append(line);
         }

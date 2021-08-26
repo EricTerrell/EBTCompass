@@ -2,14 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.ericbt.ebtcompass.com.ericbt.ebtcompass.activities.PointsActivity">
 
-    <item
-        android:id="@+id/delete"
-        android:title="Delete"
-        />
+    <group>
 
-    <item
-        android:id="@+id/rename"
-        android:title="Rename"
-        />
+        <item
+            android:id="@+id/find_with_compass"
+            android:title="Find with Compass"
+            />
+
+        <item
+            android:id="@+id/view_on_map"
+            android:title="View on Map"
+            />
+
+    </group>
+
+    <group>
+
+        <item
+            android:id="@+id/delete"
+            android:title="Delete"
+            />
+
+        <item
+            android:id="@+id/rename"
+            android:title="Rename"
+            />
+
+    </group>
 
 </menu>

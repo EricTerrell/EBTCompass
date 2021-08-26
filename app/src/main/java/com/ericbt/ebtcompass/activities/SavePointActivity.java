@@ -26,6 +26,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.ericbt.ebtcompass.Points;
 import com.ericbt.ebtcompass.Point;
@@ -71,28 +72,34 @@ public class SavePointActivity extends BasePointActivity {
         actionButton = saveButton;
 
         saveButton.setOnClickListener(view -> {
-            savePoint();
+            final Spinner colorSpinner = findViewById(R.id.color);
+
+            final String[] values = getResources().getStringArray(R.array.color_values);
+
+            final int color = Integer.parseInt(values[colorSpinner.getSelectedItemPosition()]);
+
+            savePoint(color);
         });
     }
 
-    private void savePoint() {
+    private void savePoint(int color) {
         final String nameText = name.getText().toString().trim();
 
         if (!Points.exists(this, nameText)) {
-            savePoint(nameText);
+            savePoint(nameText, color);
             finish();
         } else {
-            overWrite(nameText);
+            overWrite(nameText, color);
         }
     }
 
-    private void savePoint(String nameText) {
+    private void savePoint(String nameText, int color) {
         final double[] latLong = getLatLong();
 
-        Points.upsert(this, new Point(nameText, latLong[0], latLong[1]));
+        Points.upsert(this, new Point(nameText, latLong[0], latLong[1], color));
     }
 
-    private void overWrite(String name) {
+    private void overWrite(String name, int color) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(getText(R.string.overwrite_point));
 
@@ -102,7 +109,7 @@ public class SavePointActivity extends BasePointActivity {
         alertDialogBuilder.setMessage(message);
 
         alertDialogBuilder.setPositiveButton(StringLiterals.OK, (arg0, arg1) -> {
-            savePoint(name);
+            savePoint(name, color);
             finish();
         });
 

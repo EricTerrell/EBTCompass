@@ -6,13 +6,19 @@ The compass points to true north (adjusted with the current magnetic declination
 
 Key Features:
 
-* Display compass heading, current GPS coordinates, altitude, direction, and speed
-* Go to a specific point 
+* Display compass heading, latitude, longitude, altitude, direction, and speed
+* Display current location as Latitude/Longitude and UTM (Universal Transverse Mercator)
+* Go to a specific point
 * Go along a given heading (e.g. North). Your device will speak or vibrate to help you course-correct. Ideal for archaeological surveys!
 * Share location
+* Save locations
+* Direct the user to previously-saved locations
+* Display points on a map
+* Share saved locations with other apps (spreadsheets, etc)
 * Customize update frequency of magnetometer, gyroscope, and GPS updates
 * Display sensor accuracy (magnetometer & gyroscope)
 * Level indicator for maximum compass accuracy
+* UTM coordinates are in WGS84/NAD83 format
 * Minimal battery use
 * Open source
 * Free. No ads!
@@ -29,7 +35,15 @@ EBT Compass &#169; Copyright 2021, [`Eric Bergman-Terrell`](https://www.ericbt.c
 
 ![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/line.png "Go in a Line")
 
+![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/share.png "Share Location")
+
 ![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/settings.png "Settings")
+
+![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/save_point.png "Save Point")
+
+![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/points.png "Points")
+
+![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/map.png "Map")
 
 # Links
 

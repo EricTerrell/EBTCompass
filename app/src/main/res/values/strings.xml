@@ -21,10 +21,15 @@
 
     <string name="overwrite_point">Overwrite Point?</string>
 
+    <string name="view_on_map">View Points on Map</string>
+
     <string name="point_exists_question">There already is a point named "%s". Overwrite?</string>
 
     <string name="rename_point">Rename</string>
-    <string name="rename_point_question">Rename point "%s"</string>
+    <string name="rename_point_question">Rename point \"%s\""</string>
+
+    <string name="delete_point">Delete</string>
+    <string name="delete_point_question">Delete point \"%s\""?</string>
 
     <string name="points">Points</string>
 

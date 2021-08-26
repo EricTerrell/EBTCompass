@@ -277,7 +277,31 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="100sp" />
+            android:layout_height="40sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color:" />
+
+            <Spinner
+                android:id="@+id/color"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/color_entries"
+                android:entryValues="@array/color_values" >
+            </Spinner>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="40sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
