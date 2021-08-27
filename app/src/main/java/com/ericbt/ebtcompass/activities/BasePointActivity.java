@@ -40,10 +40,13 @@ import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ibm.util.CoordinateConversion;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class BasePointActivity extends CustomActivity {
     private final CoordinateConversion coordinateConversion = new CoordinateConversion();
 
-    private SharedPreferences preferences;
+    protected SharedPreferences preferences;
 
     private double initialLatitude, initialLongitude;
 
@@ -51,23 +54,27 @@ public class BasePointActivity extends CustomActivity {
 
     protected String angleUnits;
 
-    private static final int[] editTextIDs = {
-            // Latitude
-            R.id.latitude_degrees,
-            R.id.latitude_minutes,
-            R.id.latitude_seconds,
-            R.id.latitude_fractional_seconds,
+    protected List<Integer> getEditTextIDs() {
+        final Integer[] editTextIDs = {
+                // Latitude
+                R.id.latitude_degrees,
+                R.id.latitude_minutes,
+                R.id.latitude_seconds,
+                R.id.latitude_fractional_seconds,
 
-            // Longitude
-            R.id.longitude_degrees,
-            R.id.longitude_minutes,
-            R.id.longitude_seconds,
-            R.id.longitude_fractional_seconds,
+                // Longitude
+                R.id.longitude_degrees,
+                R.id.longitude_minutes,
+                R.id.longitude_seconds,
+                R.id.longitude_fractional_seconds,
 
-            // UTM
-            R.id.easting,
-            R.id.northing
-    };
+                // UTM
+                R.id.easting,
+                R.id.northing
+        };
+
+        return Arrays.asList(editTextIDs);
+    }
 
     private final int layoutId;
 
@@ -245,7 +252,7 @@ public class BasePointActivity extends CustomActivity {
     }
 
     private void monitorTextChanges() {
-        for (int editTextId : editTextIDs) {
+        for (int editTextId : getEditTextIDs()) {
             final EditText editText = findViewById(editTextId);
 
             editText.addTextChangedListener(new TextWatcher() {
@@ -319,7 +326,7 @@ public class BasePointActivity extends CustomActivity {
     private void enableDisableActionButton() {
         boolean emptyField = false;
 
-        for (int editTextId: editTextIDs) {
+        for (int editTextId: getEditTextIDs()) {
             final EditText editText = findViewById(editTextId);
 
             if (editText.getText().toString().length() == 0) {

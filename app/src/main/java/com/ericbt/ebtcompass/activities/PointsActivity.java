@@ -23,8 +23,6 @@ package com.ericbt.ebtcompass.activities;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -32,8 +30,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +41,7 @@ import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.array_adapters.PointArrayAdapter;
 import com.ericbt.ebtcompass.utils.AngleUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
+import com.ericbt.ebtcompass.utils.UnitUtils;
 
 public class PointsActivity extends CustomActivity {
     private PointArrayAdapter pointArrayAdapter;
@@ -69,6 +66,13 @@ public class PointsActivity extends CustomActivity {
         });
 
         pointsListView.setEmptyView(findViewById(R.id.no_points_saved));
+
+        updateList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         updateList();
     }
@@ -146,15 +150,14 @@ public class PointsActivity extends CustomActivity {
             }
             break;
 
-            case R.id.delete: {
-                delete(point);
+            case R.id.update: {
+                update(point);
 
                 result = true;
             }
             break;
-
-            case R.id.rename: {
-                rename(point);
+            case R.id.delete: {
+                delete(point);
 
                 result = true;
             }
@@ -186,58 +189,20 @@ public class PointsActivity extends CustomActivity {
         alertDialog.show();
     }
 
-    private void rename(Point point) {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(getText(R.string.rename_point));
+    private void update(Point point) {
+        final Intent intent = new Intent(this, UpdatePointActivity.class);
 
-        final String message = String.format(LocaleUtils.getDefaultLocale(),
-                getString(R.string.rename_point_question), point.getName());
+        final Bundle bundle = new Bundle();
+        bundle.putDouble(StringLiterals.LATITUDE, point.getLatitude());
+        bundle.putDouble(StringLiterals.LONGITUDE, point.getLongitude());
+        bundle.putDouble(StringLiterals.ALTITUDE, point.getAltitude());
+        bundle.putString(StringLiterals.ORIGINAL_NAME, point.getName());
+        bundle.putString(StringLiterals.COLOR,
+                String.format(LocaleUtils.getDefaultLocale(), "%d", (int) point.getColor()));
 
-        alertDialogBuilder.setMessage(message);
+        intent.putExtras(bundle);
 
-        // Set an EditText view to get user input
-        final EditText input = new EditText(this);
-        alertDialogBuilder.setView(input);
-
-        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (arg0, arg1) -> {
-            Points.rename(PointsActivity.this, point.getName(), input.getText().toString().trim());
-            updateList();
-        });
-
-        alertDialogBuilder.setNegativeButton(StringLiterals.CANCEL, (arg0, arg1) -> {
-        });
-
-        final AlertDialog alertDialog = alertDialogBuilder.create();
-
-        input.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                final Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-
-                if (button != null) {
-                    final String newName = editable.toString().trim();
-
-                    final boolean nameNotEmpty = newName.length() > 0;
-                    final boolean nameIsNew = !Points.exists(PointsActivity.this, newName);
-
-                    button.setEnabled(nameNotEmpty && nameIsNew);
-                }
-            }
-        });
-
-        alertDialog.show();
-
-        input.setText(point.getName());
+        startActivity(intent);
     }
 
     @Override
@@ -268,18 +233,23 @@ public class PointsActivity extends CustomActivity {
     }
 
     private void sharePoints() {
-        final StringBuilder allPointsText =
-                new StringBuilder("\"Point\",\"Latitude\",\"Longitude\",\"Altitude (m)\",\"Zone\",\"Easting\",\"Northing\",\"Color\"\n");
+        final String headers = String.format(
+                "\"Point\",\"Latitude\",\"Longitude\",\"Altitude (%s)\",\"Zone\",\"Easting\",\"Northing\",\"Color\"",
+                UnitUtils.userPrefersMetric(this) ? "m" : "ft");
+
+        final StringBuilder allPointsText = new StringBuilder(headers + "\n");
 
         for (final Point point : Points.getAll(this)) {
             final String[] utmValues = AngleUtils.getUTMValues(point.getLatitude(), point.getLongitude());
 
+            final double altitude = (UnitUtils.userPrefersMetric(this) ? point.getAltitude() : UnitUtils.toFeet(point.getAltitude()));
+
             final String line = String.format(
-                    LocaleUtils.getDefaultLocale(), "\"%s\",%.20f,%.20f,%.20f,\"%s\",%s,%s,%d\n",
+                    LocaleUtils.getDefaultLocale(), "\"%s\",%.20f,%.20f,%.1f,\"%s\",%s,%s,%d\n",
                     point.getName().replace('\"', '\''),
                     point.getLatitude(),
                     point.getLongitude(),
-                    point.getAltitude(),
+                    altitude,
                     utmValues[0],
                     utmValues[1],
                     utmValues[2],

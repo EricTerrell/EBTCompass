@@ -7,7 +7,7 @@
     android:orientation="vertical"
     >
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:name="com.ericbt.ebtcompass.fragments.MapsFragment"
         android:layout_width="match_parent"

@@ -277,11 +277,11 @@ public class MainActivity extends CompassActivity {
                 AngleUtils.toDMS(Math.abs(longitude)),
                 AngleUtils.longitudeDirection(longitude)));
 
-        final String distance_units = preferences.getString(StringLiterals.PREFERENCE_KEY_DISTANCE_UNITS, StringLiterals.METRIC);
+        final boolean userPrefersMetric = UnitUtils.userPrefersMetric(this);
 
         String altitudeText;
 
-        if (distance_units.equals(StringLiterals.METRIC)) {
+        if (userPrefersMetric) {
             altitudeText = String.format(LocaleUtils.getDefaultLocale(), "%,d m",
                     (int) altitude);
         } else {
@@ -294,7 +294,7 @@ public class MainActivity extends CompassActivity {
 
         String speedText;
 
-        if (distance_units.equals(StringLiterals.METRIC)) {
+        if (userPrefersMetric) {
             speedText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f km/h", UnitUtils.toKilometersPerHour(speed));
         } else {
             speedText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f mi/h", UnitUtils.toMilesPerHour(speed));

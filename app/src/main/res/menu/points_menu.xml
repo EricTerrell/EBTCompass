@@ -19,13 +19,13 @@
     <group>
 
         <item
-            android:id="@+id/delete"
-            android:title="Delete"
+            android:id="@+id/update"
+            android:title="Update"
             />
 
         <item
-            android:id="@+id/rename"
-            android:title="Rename"
+            android:id="@+id/delete"
+            android:title="Delete"
             />
 
     </group>

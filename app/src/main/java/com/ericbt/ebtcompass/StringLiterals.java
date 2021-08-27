@@ -44,6 +44,8 @@ public class StringLiterals {
     public static final String NAME                           = "name";
     public static final String CANCEL                         = "Cancel";
     public static final String ALTITUDE                       = "ALTITUDE";
+    public static final String ORIGINAL_NAME                  = "ORIGINAL_NAME";
+    public static final String COLOR                          = "COLOR";
 
     // Preference keys
     public static final String PREFERENCE_KEY_DISTANCE_UNITS = "distance_units";

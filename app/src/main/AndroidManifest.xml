@@ -65,6 +65,11 @@
             android:launchMode="singleTop" />
 
         <activity
+            android:name=".activities.UpdatePointActivity"
+            android:label="@string/title_activity_update_point"
+            android:launchMode="singleTop" />
+
+        <activity
             android:name=".activities.FindPointActivity"
             android:label="@string/title_activity_point"
             android:launchMode="singleTop" />

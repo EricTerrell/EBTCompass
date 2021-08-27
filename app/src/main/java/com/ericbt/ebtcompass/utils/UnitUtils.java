@@ -20,9 +20,22 @@
 
 package com.ericbt.ebtcompass.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.preference.PreferenceManager;
+
+import com.ericbt.ebtcompass.StringLiterals;
+
 public class UnitUtils {
+    private static final double FEET_PER_METER = 3.2808f;
+
     public static double toFeet(double meters) {
-        return meters * 3.2808f;
+        return meters * FEET_PER_METER;
+    }
+
+    public static double toMeters(double feet) {
+        return feet / FEET_PER_METER;
     }
 
     public static double toMilesPerHour(double metersPerSecond) {
@@ -35,5 +48,13 @@ public class UnitUtils {
 
     public static double toMiles(double feet) {
         return feet / 5280.0f;
+    }
+
+    public static boolean userPrefersMetric(Context context) {
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        final String distanceUnits = preferences.getString(StringLiterals.PREFERENCE_KEY_DISTANCE_UNITS, StringLiterals.METRIC);
+
+        return StringLiterals.METRIC.equals(distanceUnits);
     }
 }
