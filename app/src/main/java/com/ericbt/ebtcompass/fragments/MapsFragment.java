@@ -67,6 +67,7 @@ public class MapsFragment extends Fragment {
             MapsFragment.this.googleMap = googleMap;
 
             googleMap.getUiSettings().setMapToolbarEnabled(false);
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
 
             final Point[] points = Points.getAll(getContext());
 

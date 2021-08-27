@@ -78,22 +78,6 @@ public class Points {
 
         editor.putStringSet(StringLiterals.PREFERENCE_POINTS, points).apply();
     }
-    public static void rename(Context context, String oldName, String newName) {
-        final Set<String> points = new HashSet<>();
-
-        for (Point currentPoint : getAll(context)) {
-            if (currentPoint.getName().equals(oldName)) {
-                currentPoint.setName(newName);
-            }
-
-            points.add(currentPoint.toString());
-        }
-
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        final SharedPreferences.Editor editor = preferences.edit();
-
-        editor.putStringSet(StringLiterals.PREFERENCE_POINTS, points).apply();
-    }
 
     private static class PointComparitor implements Comparator<Point> {
         @Override
