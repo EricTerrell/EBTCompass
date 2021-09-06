@@ -65,7 +65,7 @@ public class FindPointActivity extends CompassActivity {
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
 
-    private Location currentLocation, destinationLocation;
+    private Location destinationLocation;
 
     private TextToSpeech textToSpeech;
 
@@ -223,7 +223,7 @@ public class FindPointActivity extends CompassActivity {
             share.setVisible(true);
         }
 
-        currentLocation = new Location(StringLiterals.EMPTY_STRING);
+        final Location currentLocation = new Location(StringLiterals.EMPTY_STRING);
         currentLocation.setLatitude(latitude);
         currentLocation.setLongitude(longitude);
 

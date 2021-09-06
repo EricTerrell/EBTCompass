@@ -38,9 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseSaveUpdatePointActivity extends BasePointActivity {
-    private Button saveButton;
-    private EditText name, altitudeEditText;
-    private boolean userPrefersMetric;
+    private EditText name;
 
     public BaseSaveUpdatePointActivity() {
         super(R.layout.activity_base_save_update_point);
@@ -52,7 +50,7 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
 
         name = findViewById(R.id.name);
 
-        saveButton = findViewById(R.id.save);
+        final Button saveButton = findViewById(R.id.save);
 
         actionButton = saveButton;
 
@@ -60,13 +58,13 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
             onSaveButtonClicked();
         });
 
-        userPrefersMetric = UnitUtils.userPrefersMetric(this);
+        final boolean userPrefersMetric = UnitUtils.userPrefersMetric(this);
 
         final TextView altitudeUnit = findViewById(R.id.altitude_unit);
 
         altitudeUnit.setText(userPrefersMetric ? R.string.meters : R.string.feet);
 
-        altitudeEditText = findViewById(R.id.altitude);
+        final EditText altitudeEditText = findViewById(R.id.altitude);
 
         int altitudeValue = userPrefersMetric ? (int) altitude : (int) UnitUtils.toFeet(altitude);
 

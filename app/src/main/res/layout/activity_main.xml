@@ -212,6 +212,7 @@
                 android:layout_weight="1"
                 android:text="Save Point"
                 android:layout_marginRight="10sp"
+                android:enabled="false"
                 />
 
             <Button

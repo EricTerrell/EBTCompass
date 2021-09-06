@@ -45,7 +45,7 @@ public class AngleUtils {
 
         decimalDegrees -= seconds / SECONDS_PER_DEGREE;
 
-        final int fractionalSeconds = (int) (decimalDegrees * MINUTES_PER_DEGREE * 1000.0d);
+        final int fractionalSeconds = (int) (decimalDegrees * SECONDS_PER_DEGREE * 1000.0d);
 
         return String.format(LocaleUtils.getDefaultLocale(), "%s%d°%02d'%02d.%03d\"",
                 sign == +1 ? "" : "-",

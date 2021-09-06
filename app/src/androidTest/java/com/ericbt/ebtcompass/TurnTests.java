@@ -22,8 +22,6 @@ package com.ericbt.ebtcompass;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.ericbt.ebtcompass.Turn;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.util.Arrays;

@@ -9,8 +9,6 @@ import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
 
 public class UpdatePointActivity extends BaseSaveUpdatePointActivity {
-    private EditText name;
-
     @Override
     protected void onSaveButtonClicked() {
         Points.delete(this, originalName);
@@ -25,7 +23,7 @@ public class UpdatePointActivity extends BaseSaveUpdatePointActivity {
         super.onCreate(savedInstanceState);
 
         originalName = getIntent().getStringExtra(StringLiterals.ORIGINAL_NAME);
-        name = findViewById(R.id.name);
+        EditText name = findViewById(R.id.name);
         name.setText(originalName);
 
         setColorSpinner();

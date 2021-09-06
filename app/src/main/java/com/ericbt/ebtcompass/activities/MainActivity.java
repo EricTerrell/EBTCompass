@@ -46,15 +46,11 @@ import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
 
 public class MainActivity extends CompassActivity {
-    private float declination;
-
     private Button onOffButton, goLineButton, savePointButton;
 
     private SharedPreferences preferences;
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
-
-    private TextView altitudeTV, speedTV;
 
     private ImageView compassRose;
 
@@ -185,6 +181,14 @@ public class MainActivity extends CompassActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        goLineButton.setEnabled(false);
+        savePointButton.setEnabled(false);
+    }
+
     private void promptUserToAcceptLicenseTerms() {
         final boolean userAcceptedTerms = preferences.getBoolean(StringLiterals.USER_ACCEPTED_TERMS, false);
 
@@ -226,8 +230,6 @@ public class MainActivity extends CompassActivity {
         super.startUpdates();
 
         if (havePermissions()) {
-            goLineButton.setEnabled(true);
-            savePointButton.setEnabled(true);
             onOffButton.setText(StringLiterals.OFF);
         }
     }
@@ -289,7 +291,7 @@ public class MainActivity extends CompassActivity {
                     (int) UnitUtils.toFeet(altitude));
         }
 
-        altitudeTV = findViewById(R.id.altitude);
+        final TextView altitudeTV = findViewById(R.id.altitude);
         altitudeTV.setText(altitudeText);
 
         String speedText;
@@ -300,7 +302,7 @@ public class MainActivity extends CompassActivity {
             speedText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f mi/h", UnitUtils.toMilesPerHour(speed));
         }
 
-        speedTV = findViewById(R.id.speed);
+        final TextView speedTV = findViewById(R.id.speed);
         speedTV.setText(speedText);
 
         final GeomagneticField geomagneticField = new GeomagneticField(
@@ -309,7 +311,7 @@ public class MainActivity extends CompassActivity {
                 (float) altitude,
                 time);
 
-        declination = geomagneticField.getDeclination();
+        final float declination = geomagneticField.getDeclination();
 
         final TextView declinationTV = findViewById(R.id.declination);
         declinationTV.setText(String.format(LocaleUtils.getDefaultLocale(),
@@ -350,6 +352,9 @@ public class MainActivity extends CompassActivity {
 
         final TextView utm = findViewById(R.id.utm);
         utm.setText(AngleUtils.formatUTM(latitude, longitude));
+
+        goLineButton.setEnabled(true);
+        savePointButton.setEnabled(true);
     }
 
     @Override

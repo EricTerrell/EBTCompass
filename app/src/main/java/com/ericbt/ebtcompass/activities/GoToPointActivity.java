@@ -28,8 +28,6 @@ import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.R;
 
 public class GoToPointActivity extends BasePointActivity {
-    private Button goButton;
-
     public GoToPointActivity() {
         super(R.layout.activity_go_to_point);
     }
@@ -38,7 +36,7 @@ public class GoToPointActivity extends BasePointActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        goButton = findViewById(R.id.go);
+        Button goButton = findViewById(R.id.go);
         actionButton = goButton;
 
         goButton.setOnClickListener(view -> {

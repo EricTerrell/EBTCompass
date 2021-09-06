@@ -137,7 +137,8 @@ public class BasePointActivity extends CustomActivity {
 
         decimalDegrees -= seconds / Constants.SECONDS_PER_DEGREE;
 
-        final int fractionalSeconds = (int) (decimalDegrees * Constants.MINUTES_PER_DEGREE * 1000.0d);
+        final int fractionalSeconds =
+                (int) (decimalDegrees * Constants.SECONDS_PER_DEGREE * 1000.0d);
 
         final EditText degreesEditText = findViewById(degreesId);
         degreesEditText.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", degrees));
@@ -302,7 +303,7 @@ public class BasePointActivity extends CustomActivity {
     private double getAngle(int degreesId, int minutesId, int secondsId, int fractionalSecondsId) {
         final double seconds = getValue(secondsId) + getValue(fractionalSecondsId, 3) / 1000.0f;
 
-        return getValue(degreesId) + getValue(minutesId) / 60.0f + seconds / 3600.0f;
+        return getValue(degreesId) + (getValue(minutesId) / Constants.MINUTES_PER_DEGREE) + (seconds / Constants.SECONDS_PER_DEGREE);
     }
 
     protected double getLatitude() {
