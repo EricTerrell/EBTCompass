@@ -31,16 +31,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.ericbt.ebtcompass.Color;
 import com.ericbt.ebtcompass.ColorConverter;
-import com.ericbt.ebtcompass.Point;
 import com.ericbt.ebtcompass.R;
 
-public class PointArrayAdapter extends ArrayAdapter<Point> {
+public class ColorArrayAdapter extends ArrayAdapter<Color> {
     private final Context context;
     private final int resource;
     private final int textViewResourceId;
 
-    public PointArrayAdapter(Context context, int resource, int textViewResourceId) {
+    public ColorArrayAdapter(Context context, int resource, int textViewResourceId) {
         super(context, textViewResourceId);
 
         this.context = context;
@@ -55,13 +55,13 @@ public class PointArrayAdapter extends ArrayAdapter<Point> {
             convertView = infalInflater.inflate(resource, null);
         }
 
-        final Point point = getItem(position);
+        final Color color = getItem(position);
 
         final ImageView marker = convertView.findViewById(R.id.marker);
-        marker.setColorFilter(ColorConverter.hueToColor(point.getColor()));
+        marker.setColorFilter(ColorConverter.hueToColor(color.getHue()));
 
         final TextView textView = convertView.findViewById(textViewResourceId);
-        textView.setText(point.getName());
+        textView.setText(color.getName());
 
         return convertView;
     }

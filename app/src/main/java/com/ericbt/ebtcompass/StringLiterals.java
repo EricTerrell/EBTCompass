@@ -29,6 +29,7 @@ public class StringLiterals {
     public static final String OFF                            = "Off";
     public static final String HEADING                        = "HEADING";
     public static final String METRIC                         = "METRIC";
+    public static final String ENGLISH                        = "ENGLISH";
     public static final String LATLONG                        = "LATLONG";
     public static final String USER_ACCEPTED_TERMS            = "user_accepted_terms";
     public static final String ALLOW_CANCEL                   = "ALLOW_CANCEL";
@@ -46,6 +47,7 @@ public class StringLiterals {
     public static final String ALTITUDE                       = "ALTITUDE";
     public static final String ORIGINAL_NAME                  = "ORIGINAL_NAME";
     public static final String COLOR                          = "COLOR";
+    public static final String LINE_TO_NAME                   = "LINE_TO_NAME";
 
     // Preference keys
     public static final String PREFERENCE_KEY_DISTANCE_UNITS = "distance_units";

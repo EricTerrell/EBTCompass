@@ -13,7 +13,7 @@
         android:layout_width="15sp"
         android:layout_height="25sp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_map_marker"
+        android:src="@drawable/ic_solid_square"
         android:layout_marginLeft="5sp"
         >
     </ImageView>
@@ -25,7 +25,7 @@
         android:paddingLeft="10dip"
         android:paddingRight="5dip"
         android:layout_gravity="center_vertical"
-        android:id="@+id/point_text_view"
+        android:id="@+id/color_text_view"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:layout_marginRight="5sp"

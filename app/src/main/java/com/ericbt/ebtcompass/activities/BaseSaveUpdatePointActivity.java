@@ -22,23 +22,40 @@ package com.ericbt.ebtcompass.activities;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.ericbt.ebtcompass.Color;
+import com.ericbt.ebtcompass.Colors;
 import com.ericbt.ebtcompass.Points;
 import com.ericbt.ebtcompass.Point;
 import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
+import com.ericbt.ebtcompass.array_adapters.ColorArrayAdapter;
+import com.ericbt.ebtcompass.array_adapters.PointArrayAdapter;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BaseSaveUpdatePointActivity extends BasePointActivity {
+    private List<Point> existingPointNames, lineToPointNames;
+
+    protected final List<Color> colors = Colors.getColors();
+
     private EditText name;
+
+    private Spinner lineToSpinner;
+
+    private Point[] allPoints;
+
+    protected Spinner colorSpinner;
 
     public BaseSaveUpdatePointActivity() {
         super(R.layout.activity_base_save_update_point);
@@ -47,6 +64,8 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        allPoints = Points.getAll(this);
 
         name = findViewById(R.id.name);
 
@@ -69,34 +88,101 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
         int altitudeValue = userPrefersMetric ? (int) altitude : (int) UnitUtils.toFeet(altitude);
 
         altitudeEditText.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", altitudeValue));
+
+        colorSpinner = findViewById(R.id.color);
+
+        setupExistingNameSpinner();
+        setupLineToSpinner();
+        setupColorSpinner();
+    }
+
+    private void setupLineToSpinner() {
+        lineToSpinner = findViewById(R.id.line_to);
+
+        PointArrayAdapter lineToArrayAdapter = new PointArrayAdapter(this, R.layout.point_list, R.id.point_text_view);
+
+        lineToSpinner.setAdapter(lineToArrayAdapter);
+
+        final String originalName = getIntent().getStringExtra(StringLiterals.ORIGINAL_NAME);
+
+        final Point[] filteredPoints = Points.getAll(this, originalName);
+
+        lineToPointNames = new ArrayList<>(filteredPoints.length + 1);
+        lineToPointNames.add(new Point(getString(R.string.select_line_to_point_name)));
+        lineToPointNames.addAll(Arrays.asList(filteredPoints));
+
+        lineToArrayAdapter.clear();
+        lineToArrayAdapter.addAll(lineToPointNames);
+        lineToArrayAdapter.notifyDataSetChanged();
+    }
+
+    private void setupColorSpinner() {
+        final ColorArrayAdapter colorArrayAdapter = new ColorArrayAdapter(this, R.layout.color_list, R.id.color_text_view);
+
+        colorSpinner.setAdapter(colorArrayAdapter);
+
+        colorArrayAdapter.clear();
+        colorArrayAdapter.addAll(colors);
+        colorArrayAdapter.notifyDataSetChanged();
+    }
+
+    private void setupExistingNameSpinner() {
+        final Spinner existingNameSpinner = findViewById(R.id.existing_name);
+
+        final PointArrayAdapter pointArrayAdapter = new PointArrayAdapter(this, R.layout.point_list, R.id.point_text_view);
+
+        existingNameSpinner.setAdapter(pointArrayAdapter);
+
+        existingPointNames = new ArrayList<>(allPoints.length + 1);
+        existingPointNames.add(new Point(getString(R.string.select_existing_point_name)));
+        existingPointNames.addAll(Arrays.asList(allPoints));
+
+        pointArrayAdapter.clear();
+        pointArrayAdapter.addAll(existingPointNames);
+        pointArrayAdapter.notifyDataSetChanged();
+
+        existingNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    name.setText(existingPointNames.get(position).getName());
+                    existingNameSpinner.setSelection(0);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // empty
+            }
+        });
     }
 
     protected void onSaveButtonClicked() {
         final Spinner colorSpinner = findViewById(R.id.color);
 
-        final String[] values = getResources().getStringArray(R.array.color_values);
-
-        final int color = Integer.parseInt(values[colorSpinner.getSelectedItemPosition()]);
+        final int color = colors.get(colorSpinner.getSelectedItemPosition()).getHue();
 
         savePoint(color);
     }
 
     private void savePoint(int color) {
         final String nameText = name.getText().toString().trim();
+        final String lineToNameText = lineToSpinner.getSelectedItemPosition() == 0 ?
+                null : lineToPointNames.get(lineToSpinner.getSelectedItemPosition()).getName();
 
         if (!Points.exists(this, nameText)) {
-            savePoint(nameText, color);
+            savePoint(nameText, lineToNameText, color);
             finish();
         } else {
-            overWrite(nameText, color);
+            overWrite(nameText, lineToNameText, color);
         }
     }
 
-    private void savePoint(String nameText, int color) {
+    private void savePoint(String nameText, String lineToName, int color) {
         final double[] latLong = getLatLong();
         final double altitude = getAltitude();
 
-        Points.upsert(this, new Point(nameText, latLong[0], latLong[1], altitude, color));
+        Points.upsert(this, new Point(nameText, lineToName, latLong[0], latLong[1], altitude, color));
     }
 
     private double getAltitude() {
@@ -107,7 +193,7 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
         return UnitUtils.userPrefersMetric(this) ? altitudeValue : UnitUtils.toMeters(altitudeValue);
     }
 
-    private void overWrite(String name, int color) {
+    private void overWrite(String name, String lineToName, int color) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(getText(R.string.overwrite_point));
 
@@ -117,7 +203,7 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
         alertDialogBuilder.setMessage(message);
 
         alertDialogBuilder.setPositiveButton(StringLiterals.OK, (arg0, arg1) -> {
-            savePoint(name, color);
+            savePoint(name, lineToName, color);
             finish();
         });
 

@@ -20,24 +20,18 @@
 
 package com.ericbt.ebtcompass;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import java.util.Comparator;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+public class PointComparitor implements Comparator<Point> {
+    @Override
+    public int compare(Point point1, Point point2) {
+        final int colorComparison = point1.getColor() - point2.getColor();
 
-import static org.junit.Assert.*;
+        if (colorComparison != 0) {
+            return colorComparison;
+        }
 
-import com.ericbt.ebtcompass.utils.AngleUtils;
-
-@RunWith(AndroidJUnit4.class)
-public class AngleTests {
-    @Test
-    public void toDMS() {
-        // 37°22'42.540
-        final double angle = 37.0d + 22.0d / Constants.MINUTES_PER_DEGREE + 42.540d / Constants.SECONDS_PER_DEGREE;
-
-        final String result = AngleUtils.toDMS(angle);
-
-        assertEquals("37°22'42.540\"", result);
+        return point1.getName().toLowerCase().compareTo(point2.getName().toLowerCase());
     }
 }
+

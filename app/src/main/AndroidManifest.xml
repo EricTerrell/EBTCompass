@@ -27,13 +27,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EBTCompass"
-        >
+        android:theme="@style/Theme.EBTCompass">
 
         <service
             android:name=".services.CompassService"
             android:enabled="true"
             android:exported="false" />
+
         <service
             android:name=".services.GPSService"
             android:enabled="true"
@@ -44,11 +44,27 @@
             android:name=".activities.MainActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTop">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.ImportPointsActivity"
+            android:label="@string/import_shared_points_title"
+            android:exported="true"
+            android:launchMode="singleTop"
+            >
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
         </activity>
 
         <activity
@@ -90,7 +106,6 @@
         <activity
             android:name=".activities.PointsActivity"
             android:label="@string/title_activity_points" />
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -99,15 +114,15 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".activities.MapsActivity"
-            android:label="@string/view_on_map"
-            android:exported="true" />
+            android:exported="true"
+            android:label="@string/view_on_map" />
+
     </application>
 
 </manifest>

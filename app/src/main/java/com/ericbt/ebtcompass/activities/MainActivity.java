@@ -46,7 +46,9 @@ import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
 
 public class MainActivity extends CompassActivity {
-    private Button onOffButton, goLineButton, savePointButton;
+    private Button onOffButton;
+    private Button goLineButton;
+    private Button savePointButton;
 
     private SharedPreferences preferences;
 
@@ -92,8 +94,6 @@ public class MainActivity extends CompassActivity {
         final Button goPointButton = findViewById(R.id.go_point);
 
         goPointButton.setOnClickListener(view -> {
-            stopUpdates();
-
             final Intent intent = new Intent(this, GoToPointActivity.class);
 
             final Bundle bundle = new Bundle();
@@ -157,11 +157,24 @@ public class MainActivity extends CompassActivity {
             startActivity(intent);
         });
 
+        Button mapButton = findViewById(R.id.map);
+
+        mapButton.setOnClickListener(view -> {
+            final Intent intent = new Intent(this, MapsActivity.class);
+
+            final Bundle bundle = new Bundle();
+
+            bundle.putDouble(StringLiterals.LATITUDE, lastLatitude);
+            bundle.putDouble(StringLiterals.LONGITUDE, lastLongitude);
+
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+        });
+
         final Button pointsButton = findViewById(R.id.points);
 
         pointsButton.setOnClickListener(view -> {
-            stopUpdates();
-
             startActivity(new Intent(this, PointsActivity.class));
         });
 
@@ -236,7 +249,7 @@ public class MainActivity extends CompassActivity {
 
     @Override
     protected void stopUpdates() {
-        Log.i(StringLiterals.LOG_TAG, "stopUpdates");
+        Log.i(StringLiterals.LOG_TAG, "MainActivity.stopUpdates");
 
         compassRose.startAnimation(AnimationUtils.getFadeOutAnimation());
 

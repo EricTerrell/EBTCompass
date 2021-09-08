@@ -169,30 +169,4 @@
         <item>SPEECH</item>
         <item>VIBRATION</item>
     </string-array>
-
-    <string-array name="color_entries">
-        <item>RED</item>
-        <item>ORANGE</item>
-        <item>YELLOW</item>
-        <item>GREEN</item>
-        <item>CYAN</item>
-        <item>AZURE</item>
-        <item>BLUE</item>
-        <item>VIOLET</item>
-        <item>MAGENTA</item>
-        <item>ROSE</item>
-    </string-array>
-
-    <string-array name="color_values">
-        <item>0</item>
-        <item>30</item>
-        <item>60</item>
-        <item>120</item>
-        <item>180</item>
-        <item>210</item>
-        <item>240</item>
-        <item>270</item>
-        <item>300</item>
-        <item>330</item>
-    </string-array>
 </resources>

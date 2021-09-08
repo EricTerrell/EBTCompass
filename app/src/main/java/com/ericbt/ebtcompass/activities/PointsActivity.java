@@ -156,8 +156,16 @@ public class PointsActivity extends CustomActivity {
                 result = true;
             }
             break;
+
             case R.id.delete: {
                 delete(point);
+
+                result = true;
+            }
+            break;
+
+            case R.id.delete_all: {
+                deleteAll();
 
                 result = true;
             }
@@ -189,6 +197,25 @@ public class PointsActivity extends CustomActivity {
         alertDialog.show();
     }
 
+    private void deleteAll() {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Delete All");
+
+        alertDialogBuilder.setMessage("Delete *all* points?");
+
+        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (arg0, arg1) -> {
+            Points.deleteAll(this);
+            updateList();
+        });
+
+        alertDialogBuilder.setNegativeButton(StringLiterals.CANCEL, (arg0, arg1) -> {
+        });
+
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show();
+    }
+
     private void update(Point point) {
         final Intent intent = new Intent(this, UpdatePointActivity.class);
 
@@ -197,8 +224,8 @@ public class PointsActivity extends CustomActivity {
         bundle.putDouble(StringLiterals.LONGITUDE, point.getLongitude());
         bundle.putDouble(StringLiterals.ALTITUDE, point.getAltitude());
         bundle.putString(StringLiterals.ORIGINAL_NAME, point.getName());
-        bundle.putString(StringLiterals.COLOR,
-                String.format(LocaleUtils.getDefaultLocale(), "%d", (int) point.getColor()));
+        bundle.putString(StringLiterals.LINE_TO_NAME, point.getLineToName());
+        bundle.putInt(StringLiterals.COLOR, point.getColor());
 
         intent.putExtras(bundle);
 
@@ -233,9 +260,12 @@ public class PointsActivity extends CustomActivity {
     }
 
     private void sharePoints() {
+        final boolean userPrefersMetric = UnitUtils.userPrefersMetric(this);
+
         final String headers = String.format(
-                "\"Point\",\"Latitude\",\"Longitude\",\"Altitude (%s)\",\"Zone\",\"Easting\",\"Northing\",\"Color\"",
-                UnitUtils.userPrefersMetric(this) ? "m" : "ft");
+                "\"Point\",\"Line To\",\"Latitude\",\"Longitude\",\"Altitude (%s)\",\"Zone\",\"Easting\",\"Northing\",\"Color\",\"Units\"",
+                userPrefersMetric ? "m" : "ft"
+        );
 
         final StringBuilder allPointsText = new StringBuilder(headers + "\n");
 
@@ -244,16 +274,22 @@ public class PointsActivity extends CustomActivity {
 
             final double altitude = (UnitUtils.userPrefersMetric(this) ? point.getAltitude() : UnitUtils.toFeet(point.getAltitude()));
 
+            final String lineToName = point.getLineToName() != null ?
+                    point.getLineToName() : StringLiterals.EMPTY_STRING;
+
             final String line = String.format(
-                    LocaleUtils.getDefaultLocale(), "\"%s\",%.20f,%.20f,%.1f,\"%s\",%s,%s,%d\n",
-                    point.getName().replace('\"', '\''),
+                    LocaleUtils.getDefaultLocale(), "\"%s\",\"%s\",%.20f,%.20f,%.1f,\"%s\",%s,%s,%d,\"%s\"\n",
+                    processName(point.getName()),
+                    processName(lineToName),
                     point.getLatitude(),
                     point.getLongitude(),
                     altitude,
                     utmValues[0],
                     utmValues[1],
                     utmValues[2],
-                    point.getColor());
+                    point.getColor(),
+                    userPrefersMetric ? StringLiterals.METRIC : StringLiterals.ENGLISH
+            );
 
             allPointsText.append(line);
         }
@@ -264,5 +300,9 @@ public class PointsActivity extends CustomActivity {
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.points));
         sharingIntent.putExtra(Intent.EXTRA_TEXT, allPointsText.toString());
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+    }
+
+    private String processName(String name) {
+        return name.replace('\"', '\'');
     }
 }

@@ -6,12 +6,12 @@
 
         <item
             android:id="@+id/find_with_compass"
-            android:title="Find with Compass"
+            android:title="@string/points_menu_find_with_compass"
             />
 
         <item
             android:id="@+id/view_on_map"
-            android:title="View on Map"
+            android:title="@string/points_menu_view_on_map"
             />
 
     </group>
@@ -20,12 +20,17 @@
 
         <item
             android:id="@+id/update"
-            android:title="Update"
+            android:title="@string/points_menu_update"
             />
 
         <item
             android:id="@+id/delete"
-            android:title="Delete"
+            android:title="@string/points_menu_delete"
+            />
+
+        <item
+            android:id="@+id/delete_all"
+            android:title="@string/points_menu_delete_all"
             />
 
     </group>

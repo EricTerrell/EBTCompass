@@ -219,7 +219,7 @@ public abstract class CompassActivity extends CustomActivity {
     }
 
     protected void stopUpdates() {
-        Log.i(StringLiterals.LOG_TAG, "stopUpdates");
+        Log.i(StringLiterals.LOG_TAG, "CompassActivity.stopUpdates");
 
         if (havePermissions()) {
             stopCompassService();

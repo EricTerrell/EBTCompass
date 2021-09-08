@@ -22,10 +22,13 @@ package com.ericbt.ebtcompass.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +39,7 @@ import com.ericbt.ebtcompass.Point;
 import com.ericbt.ebtcompass.Points;
 import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
+import com.ericbt.ebtcompass.utils.ColorUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -44,6 +48,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class MapsFragment extends Fragment {
     private String name;
@@ -69,15 +74,38 @@ public class MapsFragment extends Fragment {
             googleMap.getUiSettings().setMapToolbarEnabled(false);
             googleMap.getUiSettings().setZoomControlsEnabled(true);
 
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                googleMap.setMyLocationEnabled(true);
+            }
+
             final Point[] points = Points.getAll(getContext());
 
-            for (final Point point : points) {
-                final LatLng location = new LatLng(point.getLatitude(), point.getLongitude());
+            drawMarkers(points);
+            drawLines(points);
 
-                final boolean isPointToView = point.getName().equals(name);
+            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            final float zoom = preferences.getFloat(StringLiterals.PREFERENCE_ZOOM_LEVEL, -1.0f);
 
-                final float zIndex = isPointToView ? 10.0f : 1.0f;
+            if (zoom >= 0.0f) {
+                googleMap.moveCamera(CameraUpdateFactory.zoomTo(zoom));
+            }
 
+            if (latitude != 0.0d && longitude != 0.0d) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
+            }
+        }
+    };
+
+    private void drawMarkers(Point[] points) {
+        for (final Point point : points) {
+            final LatLng location = new LatLng(point.getLatitude(), point.getLongitude());
+
+            final boolean isPointToView = point.getName().equals(name);
+
+            final float zIndex = isPointToView ? 10.0f : 1.0f;
+
+            if (!point.isLineTo()) {
                 final MarkerOptions markerOptions = new MarkerOptions()
                         .position(location)
                         .title(point.getName())
@@ -90,17 +118,27 @@ public class MapsFragment extends Fragment {
                     marker.showInfoWindow();
                 }
             }
-
-            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            final float zoom = preferences.getFloat(StringLiterals.PREFERENCE_ZOOM_LEVEL, -1.0f);
-
-            if (zoom >= 0.0f) {
-                googleMap.moveCamera(CameraUpdateFactory.zoomTo(zoom));
-            }
-
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
         }
-    };
+    }
+
+    private void drawLines(Point[] points) {
+        for (final Point fromPoint : points) {
+            final Point toPoint = Points.get(points, fromPoint.getLineToName());
+
+            if (fromPoint.isLineTo() && toPoint != null) {
+                final LatLng fromLocation = new LatLng(fromPoint.getLatitude(), fromPoint.getLongitude());
+
+                final LatLng toLocation = new LatLng(toPoint.getLatitude(), toPoint.getLongitude());
+
+                final PolylineOptions polylineOptions = new PolylineOptions()
+                        .add(fromLocation, toLocation)
+                        .width(5)
+                        .color(ColorUtils.PointColorToLineColor(fromPoint.getColor()));
+
+                googleMap.addPolyline(polylineOptions);
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -121,8 +159,8 @@ public class MapsFragment extends Fragment {
             mapFragment.getMapAsync(callback);
         }
 
-        latitude = getActivity().getIntent().getDoubleExtra(StringLiterals.LATITUDE, 0.0f);
-        longitude = getActivity().getIntent().getDoubleExtra(StringLiterals.LONGITUDE, 0.0f);
+        latitude = getActivity().getIntent().getDoubleExtra(StringLiterals.LATITUDE, 0.0d);
+        longitude = getActivity().getIntent().getDoubleExtra(StringLiterals.LONGITUDE, 0.0d);
         name = getActivity().getIntent().getStringExtra(StringLiterals.NAME);
     }
 

@@ -38,7 +38,7 @@
                 <TextView
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:text="EBT Compass\n(C) Copyright 2021\nEric Bergman-Terrell"
+                    android:text="@string/about_copyright"
                     android:layout_weight="1"
                     android:layout_gravity="right"
                     android:id="@+id/app_name_etc"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:autoLink="email"
-                android:text="Feedback: EBTCompass@EricBT.com"
+                android:text="@string/about_feedback"
                 android:textColor="?android:attr/textColorPrimary"
                 >
             </TextView>
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:autoLink="web"
-                android:text="Lat/Long &lt;-&gt; UTM conversion code written by Sami Salkosuo"
+                android:text="@string/utm_code_credit"
                 android:textColor="?android:attr/textColorPrimary"
                 >
             </TextView>
@@ -79,7 +79,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Icons created by Bigmorr, the Consumer Financial Protection Bureau, and Andrew Onorat"
+                android:text="@string/icon_credits"
                 android:textColor="?android:attr/textColorPrimary"
                 >
             </TextView>
@@ -89,7 +89,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Read License Terms"
+            android:text="@string/about_read_license_terms"
             android:id="@+id/read_license_terms"
             android:layout_marginTop="50sp"
             />

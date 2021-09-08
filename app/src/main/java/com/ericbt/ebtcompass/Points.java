@@ -28,14 +28,25 @@ import androidx.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Points {
+    public static boolean exists(Point[] points, String name) {
+        final Point point = new Point(name);
+
+        return Arrays.asList(points).contains(point);
+    }
+
     public static boolean exists(Context context, String name) {
-        return Arrays.asList(Points.getAll(context)).contains(new Point(name));
+        return exists(getAll(context), name);
+    }
+
+    public static Point get(Point[] points, String name) {
+        final int index = Arrays.asList(points).indexOf(new Point(name));
+
+        return index >= 0 ? points[index] : null;
     }
 
     public static void upsert(Context context, Point point) {
@@ -79,20 +90,16 @@ public class Points {
         editor.putStringSet(StringLiterals.PREFERENCE_POINTS, points).apply();
     }
 
-    private static class PointComparitor implements Comparator<Point> {
-        @Override
-        public int compare(Point point1, Point point2) {
-            final int colorComparison = point1.getColor() - point2.getColor();
+    public static void deleteAll(Context context) {
+        final Set<String> points = new HashSet<>();
 
-            if (colorComparison != 0) {
-                return colorComparison;
-            }
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences.Editor editor = preferences.edit();
 
-            return point1.getName().toLowerCase().compareTo(point2.getName().toLowerCase());
-        }
+        editor.putStringSet(StringLiterals.PREFERENCE_POINTS, points).apply();
     }
 
-    public static Point[] getAll(Context context) {
+    public static Point[] getAll(Context context, String ignoreName) {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         final Set<String> points = preferences.getStringSet(StringLiterals.PREFERENCE_POINTS, new HashSet<>());
@@ -100,11 +107,23 @@ public class Points {
         final List<Point> result = new ArrayList<>();
 
         for (String pointString : points.toArray(new String[0])) {
-            result.add(Point.fromString(pointString));
+            final Point newPoint = Point.fromString(pointString);
+
+            if (!newPoint.getName().equals(ignoreName)) {
+                result.add(newPoint);
+            }
         }
 
         Collections.sort(result, new PointComparitor());
 
         return result.toArray(new Point[0]);
+    }
+
+    public static Point[] getAll(Context context) {
+        return getAll(context, null);
+    }
+
+    public static int getOrdinalPosition(Point[] allPoints, String name) {
+        return Arrays.asList(allPoints).indexOf(new Point(name));
     }
 }

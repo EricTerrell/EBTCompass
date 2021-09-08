@@ -4,6 +4,9 @@
     <string name="meters">meters</string>
     <string name="feet">feet</string>
 
+    <string name="select_existing_point_name">(Select)</string>
+    <string name="select_line_to_point_name">(None)</string>
+
     <string name="my_location">This is my location</string>
     <string name="share_via">Share via</string>
 
@@ -26,7 +29,7 @@
 
     <string name="view_on_map">View Points on Map</string>
 
-    <string name="point_exists_question">There already is a point named "%s". Overwrite?</string>
+    <string name="point_exists_question">There already is a point named \"%s\". Overwrite?</string>
 
     <string name="delete_point">Delete</string>
     <string name="delete_point_question">Delete point \"%s\""?</string>
@@ -729,5 +732,17 @@ Program, unless a warranty or assumption of liability accompanies a
 copy of the Program in return for a fee.
 \n\n
                      END OF TERMS AND CONDITIONS</string>
+    <string name="map">Map</string>
+    <string name="icon_credits">Icons created by Bigmorr, the Consumer Financial Protection Bureau, Fibonacci, and Andrew Onorat</string>
+    <string name="utm_code_credit"><![CDATA[Lat/Long <-> UTM conversion code written by Sami Salkosuo]]></string>
+    <string name="about_copyright">EBT Compass\n(C) Copyright 2021\nEric Bergman-Terrell</string>
+    <string name="about_feedback">Feedback: EBTCompass@EricBT.com</string>
+    <string name="about_read_license_terms">Read License Terms</string>
+    <string name="import_shared_points_title">Import Points</string>
+    <string name="points_menu_find_with_compass">Find with Compass</string>
+    <string name="points_menu_view_on_map">View on Map</string>
+    <string name="points_menu_update">Update</string>
+    <string name="points_menu_delete">Delete</string>
+    <string name="points_menu_delete_all">Delete All</string>
 
 </resources>

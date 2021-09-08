@@ -20,24 +20,30 @@
 
 package com.ericbt.ebtcompass;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+public class Colors {
+    public static List<Color> getColors() {
+        final Color[] colorArray = new Color[] {
+            Color.RED,
+            Color.ORANGE,
+            Color.YELLOW,
+            Color.GREEN,
+            Color.CYAN,
+            Color.AZURE,
+            Color.BLUE,
+            Color.VIOLET,
+            Color.MAGENTA,
+            Color.ROSE
+        };
 
-import static org.junit.Assert.*;
+        final List<Color> colorList = new ArrayList(Arrays.asList(colorArray));
 
-import com.ericbt.ebtcompass.utils.AngleUtils;
+        Collections.sort(colorList, new ColorComparitor());
 
-@RunWith(AndroidJUnit4.class)
-public class AngleTests {
-    @Test
-    public void toDMS() {
-        // 37°22'42.540
-        final double angle = 37.0d + 22.0d / Constants.MINUTES_PER_DEGREE + 42.540d / Constants.SECONDS_PER_DEGREE;
-
-        final String result = AngleUtils.toDMS(angle);
-
-        assertEquals("37°22'42.540\"", result);
+        return colorList;
     }
 }
