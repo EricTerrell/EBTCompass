@@ -12,6 +12,10 @@ import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class ImportPointsRunnable implements Runnable {
     private final static int NUMBER_OF_FIELDS_PER_VALID_LINE = 10;
 
@@ -32,9 +36,15 @@ public class ImportPointsRunnable implements Runnable {
         final ImportPointsResult importPointsResult = new ImportPointsResult();
 
         try {
-            final int importedPointCount = importPoints(text);
+            final long start = new Date().getTime();
 
-            importPointsResult.setImportedPointCount(importedPointCount);
+            final Point[] importedPoints = importPoints(text);
+
+            final long stop = new Date().getTime();
+
+            importPointsResult.setImportedPoints(importedPoints);
+
+            importPointsResult.setDuration(stop - start);
         } catch (Exception exception) {
             importPointsResult.setException(exception);
         }
@@ -45,8 +55,8 @@ public class ImportPointsRunnable implements Runnable {
         handler.sendMessage(message);
     }
 
-    private int importPoints(String text) {
-        int pointsImported = 0;
+    private Point[] importPoints(String text) {
+        final List<Point> importedPoints = new ArrayList<>();
 
         if (text != null) {
             Log.i(StringLiterals.LOG_TAG,
@@ -82,16 +92,18 @@ public class ImportPointsRunnable implements Runnable {
                     }
                 }
 
-                if (processLine(delimitedLine.toString())) {
-                    pointsImported++;
+                final Point importedPoint = processLine(delimitedLine.toString());
+
+                if (importedPoint != null) {
+                    importedPoints.add(importedPoint);
                 }
             }
         }
 
-        return pointsImported;
+        return importedPoints.toArray(new Point[0]);
     }
 
-    private boolean processLine(String line) {
+    private Point processLine(String line) {
         final String[] fields = line.split("\0");
 
         if (fields.length == NUMBER_OF_FIELDS_PER_VALID_LINE) {
@@ -137,12 +149,12 @@ public class ImportPointsRunnable implements Runnable {
                 final Point point = new Point(name, lineTo, latitude, longitude, altitude, color);
                 Points.upsert(context, point);
 
-                return true;
+                return point;
             } catch (Exception ex) {
                 Log.e(StringLiterals.LOG_TAG, "cannot process line", ex);
             }
         }
 
-        return false;
+        return null;
     }
 }

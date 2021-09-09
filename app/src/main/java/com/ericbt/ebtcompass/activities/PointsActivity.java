@@ -55,7 +55,7 @@ public class PointsActivity extends CustomActivity {
 
         pointArrayAdapter = new PointArrayAdapter(this, R.layout.point_list, R.id.point_text_view);
 
-        ListView pointsListView = findViewById(R.id.points_list_view);
+        final ListView pointsListView = findViewById(R.id.points_list_view);
         pointsListView.setAdapter(pointArrayAdapter);
 
         registerForContextMenu(pointsListView);

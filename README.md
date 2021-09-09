@@ -43,6 +43,12 @@ EBT Compass &#169; Copyright 2021, [`Eric Bergman-Terrell`](https://www.ericbt.c
 
 ![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/points.png "Points")
 
+![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/import-1.png "Importing Points: Step 1")
+
+![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/import-2.png "Importing Points: Step 2")
+
+![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/import-3.png "Importing Points: Step 3")
+
 ![`EBT Compass Screenshot`](https://www.ericbt.com/artwork/ebt_compass/map.png "Map")
 
 # Links

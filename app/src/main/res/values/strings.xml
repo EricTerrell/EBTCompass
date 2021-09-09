@@ -744,5 +744,6 @@ copy of the Program in return for a fee.
     <string name="points_menu_update">Update</string>
     <string name="points_menu_delete">Delete</string>
     <string name="points_menu_delete_all">Delete All</string>
+    <string name="press_off_conserve_battery">Press \"Off\" when not in use to conserve battery</string>
 
 </resources>

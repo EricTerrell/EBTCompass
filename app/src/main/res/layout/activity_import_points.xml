@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.ImportPointsActivity"
     android:orientation="vertical"
-    android:layout_margin="20sp"
     >
 
     <TextView
@@ -14,7 +13,16 @@
         android:layout_height="wrap_content"
         android:text="Importing points..."
         style="@style/BoldText"
+        android:layout_margin="10sp"
         >
     </TextView>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/points_list_view"
+        android:layout_margin="15sp"
+        >
+    </ListView>
 
 </LinearLayout>

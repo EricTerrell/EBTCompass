@@ -163,7 +163,7 @@ public abstract class BaseService extends Service {
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                     .setPriority(PRIORITY_LOW)
                     .setSmallIcon(R.mipmap.ic_launcher_notification)
-                    .setContentText("Press \"Off\" when not in use to conserve battery")
+                    .setContentText(getString(R.string.press_off_conserve_battery))
                     .setContentTitle(StringLiterals.APP_NAME)
                     .setContentIntent(pendingIntent)
                     .build();

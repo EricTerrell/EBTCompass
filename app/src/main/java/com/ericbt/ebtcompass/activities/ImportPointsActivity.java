@@ -26,9 +26,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ericbt.ebtcompass.Point;
 import com.ericbt.ebtcompass.R;
+import com.ericbt.ebtcompass.array_adapters.PointArrayAdapter;
 import com.ericbt.ebtcompass.import_points.ImportPointsResult;
 import com.ericbt.ebtcompass.import_points.ImportPointsRunnable;
 import com.ericbt.ebtcompass.StringLiterals;
@@ -42,7 +45,7 @@ public class ImportPointsActivity extends CustomActivity {
 
     private boolean enabled = true;
 
-    final ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,34 +63,63 @@ public class ImportPointsActivity extends CustomActivity {
             if ("text/plain".equals(type)) {
                 setEnabled(false);
 
-                final Handler handler = new Handler(Looper.getMainLooper()) {
-                    @Override
-                    public void handleMessage(Message inputMessage) {
-                        Log.i(StringLiterals.LOG_TAG, "handleMessage");
-
-                        final ImportPointsResult importPointsResult = (ImportPointsResult) inputMessage.obj;
-
-                        if (importPointsResult.getException() != null) {
-                            messageTV.setText(
-                                    String.format(LocaleUtils.getDefaultLocale(),
-                                            "Import failed: %s", importPointsResult.getException().getMessage())
-                            );
-                        } else {
-                            messageTV.setText(
-                                    String.format(LocaleUtils.getDefaultLocale(),
-                                            "Imported %d points",
-                                            importPointsResult.getImportedPointCount()));
-                        }
-
-                        setEnabled(true);
-                    }
-                };
-
-                final ImportPointsRunnable importPointsRunnable = new ImportPointsRunnable(this, intent.getStringExtra(Intent.EXTRA_TEXT), handler);
+                final ImportPointsRunnable importPointsRunnable =
+                        new ImportPointsRunnable(
+                                this,
+                                intent.getStringExtra(Intent.EXTRA_TEXT),
+                                createHandler());
 
                 executorService.execute(importPointsRunnable);
             }
         }
+    }
+
+    private Handler createHandler() {
+        final Handler handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message inputMessage) {
+                Log.i(StringLiterals.LOG_TAG, "handleMessage");
+
+                executorService.shutdown();
+
+                final ImportPointsResult importPointsResult = (ImportPointsResult) inputMessage.obj;
+
+                if (importPointsResult.getException() != null) {
+                    messageTV.setText(
+                            String.format(
+                                    LocaleUtils.getDefaultLocale(),
+                                    "Import failed: %s",
+                                    importPointsResult.getException().getMessage())
+                    );
+                } else {
+                    final float seconds = importPointsResult.getDuration() / 1000.0f;
+
+                    messageTV.setText(
+                            String.format(LocaleUtils.getDefaultLocale(),
+                                    "Imported %d points in %.2f s",
+                                    importPointsResult.getImportedPoints().length,
+                                    seconds));
+
+                    updateList(importPointsResult.getImportedPoints());
+                }
+
+                setEnabled(true);
+            }
+        };
+
+        return handler;
+    }
+
+    private void updateList(Point[] importedPoints) {
+        final PointArrayAdapter pointArrayAdapter =
+                new PointArrayAdapter(this, R.layout.point_list, R.id.point_text_view);
+
+        final ListView pointsListView = findViewById(R.id.points_list_view);
+        pointsListView.setAdapter(pointArrayAdapter);
+
+        pointArrayAdapter.addAll(importedPoints);
+
+        pointArrayAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -107,4 +139,3 @@ public class ImportPointsActivity extends CustomActivity {
         this.enabled = enabled;
     }
 }
-
