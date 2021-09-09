@@ -13,7 +13,7 @@ Key Features:
 * Share location
 * Save locations
 * Direct the user to previously-saved locations
-* Display points on a map
+* Display points and property boundaries on a map
 * Share saved locations with other apps (spreadsheets, etc)
 * Customize update frequency of magnetometer, gyroscope, and GPS updates
 * Display sensor accuracy (magnetometer & gyroscope)
