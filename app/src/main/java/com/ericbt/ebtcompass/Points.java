@@ -34,9 +34,7 @@ import java.util.Set;
 
 public class Points {
     public static boolean exists(Point[] points, String name) {
-        final Point point = new Point(name);
-
-        return Arrays.asList(points).contains(point);
+        return Arrays.asList(points).contains(new Point(name));
     }
 
     public static boolean exists(Context context, String name) {
@@ -55,7 +53,7 @@ public class Points {
         boolean updated = false;
 
         // update
-        for (Point currentPoint : getAll(context)) {
+        for (final Point currentPoint : getAll(context)) {
             if (!currentPoint.getName().equals(point.getName())) {
                 points.add(currentPoint.toString());
             } else {
@@ -69,7 +67,8 @@ public class Points {
             points.add(point.toString());
         }
 
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = preferences.edit();
 
         editor.putStringSet(StringLiterals.PREFERENCE_POINTS, points).apply();
@@ -78,13 +77,14 @@ public class Points {
     public static void delete(Context context, String name) {
         final Set<String> points = new HashSet<>();
 
-        for (Point currentPoint : getAll(context)) {
+        for (final Point currentPoint : getAll(context)) {
             if (!currentPoint.getName().equals(name)) {
                 points.add(currentPoint.toString());
             }
         }
 
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = preferences.edit();
 
         editor.putStringSet(StringLiterals.PREFERENCE_POINTS, points).apply();
@@ -93,20 +93,23 @@ public class Points {
     public static void deleteAll(Context context) {
         final Set<String> points = new HashSet<>();
 
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = preferences.edit();
 
         editor.putStringSet(StringLiterals.PREFERENCE_POINTS, points).apply();
     }
 
     public static Point[] getAll(Context context, String ignoreName) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
 
-        final Set<String> points = preferences.getStringSet(StringLiterals.PREFERENCE_POINTS, new HashSet<>());
+        final Set<String> points =
+                preferences.getStringSet(StringLiterals.PREFERENCE_POINTS, new HashSet<>());
 
         final List<Point> result = new ArrayList<>();
 
-        for (String pointString : points.toArray(new String[0])) {
+        for (final String pointString : points.toArray(new String[0])) {
             final Point newPoint = Point.fromString(pointString);
 
             if (!newPoint.getName().equals(ignoreName)) {
