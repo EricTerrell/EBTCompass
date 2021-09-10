@@ -13,6 +13,8 @@ android {
         versionName "1.37"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [mapsApiKey: "$System.env.MAPS_API_KEY"]
     }
 
     buildTypes {
