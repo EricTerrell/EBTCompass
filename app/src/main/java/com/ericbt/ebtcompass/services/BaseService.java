@@ -49,6 +49,7 @@ public abstract class BaseService extends Service {
     public static final int NOTIFICATION_ID = 1000;
 
     public static final String NOTIFICATION_CHANNEL_ID = "ebt_compass_channel_id";
+    
 
     public static final String NOTIFICATION_CHANNEL_NAME = "EBT Compass Notifications";
 
@@ -156,7 +157,7 @@ public abstract class BaseService extends Service {
 
             final Intent notificationIntent = new Intent(this, activityClass);
 
-            final PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, notificationIntent, 0);
+            final PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
             notification = new NotificationCompat
                     .Builder(this, NOTIFICATION_CHANNEL_ID)

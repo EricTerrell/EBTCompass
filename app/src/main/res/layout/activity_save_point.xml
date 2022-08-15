@@ -292,9 +292,7 @@
             <Spinner
                 android:id="@+id/color"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/color_entries"
-                android:entryValues="@array/color_values" >
+                android:layout_height="wrap_content">
             </Spinner>
 
         </LinearLayout>
