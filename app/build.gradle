@@ -3,14 +3,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "com.ericbt.ebtcompass"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 37
-        versionName "1.37"
+        targetSdkVersion 31
+        versionCode 42
+        versionName "1.42"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

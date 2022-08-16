@@ -1,6 +1,6 @@
 /*
   EBT Compass
-  (C) Copyright 2021, Eric Bergman-Terrell
+  (C) Copyright 2022, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
@@ -43,8 +43,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
@@ -57,8 +56,6 @@ import com.ericbt.ebtcompass.utils.MathUtils;
 import com.ericbt.ebtcompass.utils.SensorUtils;
 
 public abstract class CompassActivity extends CustomActivity {
-    private final static int REQUEST_PERMISSIONS_CODE = 1000;
-
     protected Float bearingToDestination;
 
     protected CompassService compassService;
@@ -83,6 +80,11 @@ public abstract class CompassActivity extends CustomActivity {
     protected BroadcastReceiver broadcastReceiver;
 
     private String accelerometerAccuracyText, magnetometerAccuracyText;
+
+    final protected String[] permissions = new String[] {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
 
     private void updateUI() {
         updateAccuracyLink();
@@ -120,53 +122,6 @@ public abstract class CompassActivity extends CustomActivity {
 
     protected abstract void updateUI(double latitude, double longitude, double bearing,
                                      double speed, Float goToHeading);
-
-    protected boolean havePermissions() {
-        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    protected void requestPermissions() {
-        Log.i(StringLiterals.LOG_TAG, "requestPermissions");
-
-        if (!havePermissions()) {
-            final String[] permissions = new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            };
-
-            ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == REQUEST_PERMISSIONS_CODE) {
-            // Checking whether user granted the permission or not.
-            if (grantResults.length == 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                displayPermissionsDeniedMessage();
-            } else {
-                startUpdates();
-            }
-        }
-    }
-
-    private void displayPermissionsDeniedMessage() {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle(getString(R.string.permissions));
-        alertDialogBuilder.setMessage(getString(R.string.permissions_not_granted));
-
-        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (dialog, which) -> {
-        });
-
-        final AlertDialog promptDialog = alertDialogBuilder.create();
-        promptDialog.setCancelable(false);
-        promptDialog.show();
-    }
 
     protected void startCompassService() {
         if (compassService == null) {
@@ -232,7 +187,7 @@ public abstract class CompassActivity extends CustomActivity {
     protected void startUpdates() {
         Log.i(StringLiterals.LOG_TAG, "startUpdates");
 
-        if (havePermissions()) {
+        if (haveAllPermissions()) {
             startCompassService();
             startGPSService();
         }
@@ -241,7 +196,7 @@ public abstract class CompassActivity extends CustomActivity {
     protected void stopUpdates() {
         Log.i(StringLiterals.LOG_TAG, "CompassActivity.stopUpdates");
 
-        if (havePermissions()) {
+        if (haveAllPermissions()) {
             stopCompassService();
             stopGPSService();
         }
@@ -363,7 +318,7 @@ public abstract class CompassActivity extends CustomActivity {
             clearQuantities();
         }
 
-        if (havePermissions()) {
+        if (haveAllPermissions()) {
             switch (key) {
                 case CompassService.SENSOR_UPDATE_FREQUENCY: {
                     if (compassService != null) {
@@ -504,5 +459,29 @@ public abstract class CompassActivity extends CustomActivity {
         }
 
         return correctedAzimuth;
+    }
+
+    protected boolean haveAllPermissions() {
+        for (final String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected boolean allPermissionsGranted(int[] grantResults) {
+        if (grantResults.length == 0) {
+            return false;
+        }
+
+        for (final int grantResult : grantResults) {
+            if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

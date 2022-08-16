@@ -1,6 +1,6 @@
 /*
   EBT Compass
-  (C) Copyright 2021, Eric Bergman-Terrell
+  (C) Copyright 2022, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
@@ -134,8 +134,6 @@ public class FindPointActivity extends CompassActivity {
 
         startTTS();
 
-        requestPermissions();
-
         startUpdates();
     }
 
@@ -161,7 +159,7 @@ public class FindPointActivity extends CompassActivity {
 
         super.startUpdates();
 
-        if (havePermissions()) {
+        if (haveAllPermissions()) {
             onOffButton.setText(StringLiterals.OFF);
         }
     }
@@ -174,7 +172,7 @@ public class FindPointActivity extends CompassActivity {
 
         super.stopUpdates();
 
-        if (havePermissions()) {
+        if (haveAllPermissions()) {
             onOffButton.setText(StringLiterals.ON);
         }
     }

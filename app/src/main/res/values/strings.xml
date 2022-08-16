@@ -47,11 +47,15 @@
 
     <string name="ok">OK</string>
 
+    <string name="battery">Battery</string>
+    <string name="stop_compass_to_conserve_battery">Stop compass to conserve battery</string>
+
     <string name="speak_left">left</string>
     <string name="speak_right">right</string>
 
     <string name="permissions">Permissions</string>
-    <string name="permissions_not_granted">Permissions were not granted.</string>
+    <string name="permissions_not_granted">Some permissions were not granted.\n\nEBT Compass will not function correctly until all permissions are granted.\n\nPermissions are necessary to sample location data.\n\nClick \"Request Permissions\" to grant permissions.</string>
+    <string name="game_over">EBT Compass will not function correctly without all permissions.</string>
 
     <string name="sensors_header">Sensors</string>
     <string name="sensor_update_frequency_title">Magnetometer &amp; Gyro Updates</string>
@@ -105,7 +109,7 @@
     <string name="arrival_notification_header">Arrival Notifications</string>
 
     <string name="license_terms">EBT Compass
-(C) Copyright 2021
+(C) Copyright 2022
 Eric Bergman-Terrell
 \n\n
 This program and its source code are licensed under the GNU General Public
@@ -735,7 +739,7 @@ copy of the Program in return for a fee.
     <string name="map">Map</string>
     <string name="icon_credits">Icons created by Bigmorr, the Consumer Financial Protection Bureau, Fibonacci, and Andrew Onorat</string>
     <string name="utm_code_credit"><![CDATA[Lat/Long <-> UTM conversion code written by Sami Salkosuo]]></string>
-    <string name="about_copyright">EBT Compass\n(C) Copyright 2021\nEric Bergman-Terrell</string>
+    <string name="about_copyright">EBT Compass\n(C) Copyright 2022\nEric Bergman-Terrell</string>
     <string name="about_feedback">Feedback: EBTCompass@EricBT.com</string>
     <string name="about_read_license_terms">Read License Terms</string>
     <string name="import_shared_points_title">Import Points</string>

@@ -1,6 +1,6 @@
 /*
   EBT Compass
-  (C) Copyright 2021, Eric Bergman-Terrell
+  (C) Copyright 2022, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
@@ -22,9 +22,12 @@ package com.ericbt.ebtcompass.activities;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -46,6 +49,8 @@ import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
 
 public class MainActivity extends CompassActivity {
+    private final static int REQUEST_PERMISSIONS_CODE = 1000;
+
     private Button onOffButton;
     private Button goLineButton;
     private Button savePointButton;
@@ -55,6 +60,10 @@ public class MainActivity extends CompassActivity {
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
 
     private ImageView compassRose;
+
+    private int numberOfRejections = 0;
+
+    private boolean userClickedOff = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +95,12 @@ public class MainActivity extends CompassActivity {
         onOffButton.setOnClickListener(view -> {
             if (onOffButton.getText().equals(StringLiterals.ON)) {
                 startUpdates();
+
+                userClickedOff = false;
             } else {
                 stopUpdates();
+
+                userClickedOff = true;
             }
         });
 
@@ -178,11 +191,7 @@ public class MainActivity extends CompassActivity {
             startActivity(new Intent(this, PointsActivity.class));
         });
 
-        requestPermissions();
-
         promptUserToAcceptLicenseTerms();
-
-        startUpdates();
     }
 
     @Override
@@ -198,15 +207,22 @@ public class MainActivity extends CompassActivity {
     protected void onResume() {
         super.onResume();
 
-        goLineButton.setEnabled(false);
-        savePointButton.setEnabled(false);
+        if (userClickedOff ||
+            preferences.getBoolean(StringLiterals.PREFERENCE_KEY_CONSERVE_BATTERY, false)) {
+            goLineButton.setEnabled(false);
+            savePointButton.setEnabled(false);
+        } else {
+            startUpdates();
+        }
     }
 
     private void promptUserToAcceptLicenseTerms() {
         final boolean userAcceptedTerms = preferences.getBoolean(StringLiterals.USER_ACCEPTED_TERMS, false);
 
         // Prompt user to accept license terms if they have not been previously accepted.
-        if (!userAcceptedTerms) {
+        if (userAcceptedTerms) {
+            requestPermissions();
+        } else {
             final ActivityResultLauncher<Intent> licenseTermsActivityResultLauncher =
                     registerForActivityResult(
                             new ActivityResultContracts.StartActivityForResult(),
@@ -222,6 +238,8 @@ public class MainActivity extends CompassActivity {
                                         System.exit(0);
                                     }
                                 }
+
+                                requestPermissions();
                             });
 
             final Intent licenseTermsIntent = new Intent(this, LicenseTermsActivity.class);
@@ -242,7 +260,7 @@ public class MainActivity extends CompassActivity {
 
         super.startUpdates();
 
-        if (havePermissions()) {
+        if (haveAllPermissions()) {
             onOffButton.setText(StringLiterals.OFF);
         }
     }
@@ -255,7 +273,7 @@ public class MainActivity extends CompassActivity {
 
         super.stopUpdates();
 
-        if (havePermissions()) {
+        if (haveAllPermissions()) {
             goLineButton.setEnabled(false);
             savePointButton.setEnabled(false);
             onOffButton.setText(StringLiterals.ON);
@@ -381,5 +399,75 @@ public class MainActivity extends CompassActivity {
                 textView.setText(StringLiterals.EMPTY_STRING);
             }
         }
+    }
+
+    private void requestPermissions() {
+        Log.i(StringLiterals.LOG_TAG, "MainActivity.requestPermissions");
+
+        if (!haveAllPermissions()) {
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS_CODE);
+        } else {
+            startUpdates();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        Log.i(StringLiterals.LOG_TAG, "MainActivity.onRequestPermissionsResult");
+
+        if (requestCode == REQUEST_PERMISSIONS_CODE) {
+            if (allPermissionsGranted(grantResults)) {
+                startUpdates();
+            } else {
+                numberOfRejections++;
+
+                Log.i(StringLiterals.LOG_TAG,
+                        String.format("numberOfRejections: %d", numberOfRejections));
+
+                // https://www.androidpolice.com/2020/02/19/android-11-will-block-apps-from-repeatedly-asking-for-permissions/
+                if (numberOfRejections < 2) {
+                    displayPermissionsDeniedMessage();
+                } else {
+                    displayGameOverMessage();
+                }
+            }
+        }
+    }
+
+    private void displayPermissionsDeniedMessage() {
+        Log.i(StringLiterals.LOG_TAG, "MainActivity.displayPermissionsDeniedMessage");
+
+        final android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(getString(R.string.permissions));
+        alertDialogBuilder.setMessage(getString(R.string.permissions_not_granted));
+
+        alertDialogBuilder.setPositiveButton(StringLiterals.REQUEST_PERMISSIONS, (dialog, which) -> {
+            requestPermissions();
+        });
+
+        alertDialogBuilder.setNegativeButton(StringLiterals.CANCEL, (dialog, which) -> {
+            finish();
+        });
+
+        final AlertDialog promptDialog = alertDialogBuilder.create();
+        promptDialog.setCancelable(false);
+        promptDialog.show();
+    }
+
+    private void displayGameOverMessage() {
+        final android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle(getString(R.string.permissions));
+        alertDialogBuilder.setMessage(getString(R.string.game_over));
+
+        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (dialog, which) -> {
+        });
+
+        final android.app.AlertDialog promptDialog = alertDialogBuilder.create();
+        promptDialog.setCancelable(false);
+        promptDialog.show();
     }
 }

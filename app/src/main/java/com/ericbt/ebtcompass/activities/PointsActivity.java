@@ -1,6 +1,6 @@
 /*
   EBT Compass
-  (C) Copyright 2021, Eric Bergman-Terrell
+  (C) Copyright 2022, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
@@ -40,6 +40,7 @@ import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.array_adapters.PointArrayAdapter;
 import com.ericbt.ebtcompass.utils.AngleUtils;
+import com.ericbt.ebtcompass.utils.GoogleMapsUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
 
@@ -170,6 +171,17 @@ public class PointsActivity extends CustomActivity {
                 result = true;
             }
             break;
+
+            case R.id.share: {
+                final Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.points));
+                sharingIntent.putExtra(Intent.EXTRA_TEXT,
+                        GoogleMapsUtils.getMapUri(point.getLatitude(), point.getLongitude()));
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_via)));
+            }
+            break;
         }
 
         return result;
@@ -272,7 +284,7 @@ public class PointsActivity extends CustomActivity {
         for (final Point point : Points.getAll(this)) {
             final String[] utmValues = AngleUtils.getUTMValues(point.getLatitude(), point.getLongitude());
 
-            final double altitude = (UnitUtils.userPrefersMetric(this) ? point.getAltitude() : UnitUtils.toFeet(point.getAltitude()));
+            final double altitude = userPrefersMetric ? point.getAltitude() : UnitUtils.toFeet(point.getAltitude());
 
             final String lineToName = point.getLineToName() != null ?
                     point.getLineToName() : StringLiterals.EMPTY_STRING;

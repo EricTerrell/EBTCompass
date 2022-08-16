@@ -1,6 +1,6 @@
 /*
   EBT Compass
-  (C) Copyright 2021, Eric Bergman-Terrell
+  (C) Copyright 2022, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
@@ -156,7 +156,8 @@ public abstract class BaseService extends Service {
 
             final Intent notificationIntent = new Intent(this, activityClass);
 
-            final PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, notificationIntent, 0);
+            final PendingIntent pendingIntent = PendingIntent.getActivity(this, 1,
+                    notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
             notification = new NotificationCompat
                     .Builder(this, NOTIFICATION_CHANNEL_ID)

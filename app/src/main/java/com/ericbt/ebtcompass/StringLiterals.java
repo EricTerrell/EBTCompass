@@ -1,6 +1,6 @@
 /*
   EBT Compass
-  (C) Copyright 2021, Eric Bergman-Terrell
+  (C) Copyright 2022, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
@@ -48,10 +48,12 @@ public class StringLiterals {
     public static final String ORIGINAL_NAME                  = "ORIGINAL_NAME";
     public static final String COLOR                          = "COLOR";
     public static final String LINE_TO_NAME                   = "LINE_TO_NAME";
+    public static final String REQUEST_PERMISSIONS            = "Request Permissions";
 
     // Preference keys
-    public static final String PREFERENCE_KEY_DISTANCE_UNITS = "distance_units";
-    public static final String PREFERENCE_KEY_ANGLE_UNITS    = "angle_units";
-    public static final String PREFERENCE_POINTS             = "points";
-    public static final String PREFERENCE_ZOOM_LEVEL         = "zoom_level";
+    public static final String PREFERENCE_KEY_DISTANCE_UNITS   = "distance_units";
+    public static final String PREFERENCE_KEY_ANGLE_UNITS      = "angle_units";
+    public static final String PREFERENCE_POINTS               = "points";
+    public static final String PREFERENCE_ZOOM_LEVEL           = "zoom_level";
+    public static final String PREFERENCE_KEY_CONSERVE_BATTERY = "conserve_battery";
 }

@@ -79,6 +79,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:autoLink="web"
+                android:text="Android 12+ Launch Bug fixed by: Álvaro Martínez Majado https://github.com/alvaromartinezmajado"
+                android:textColor="?android:attr/textColorPrimary" >
+            </TextView>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="@string/icon_credits"
                 android:textColor="?android:attr/textColorPrimary"
                 >

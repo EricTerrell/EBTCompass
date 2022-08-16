@@ -76,4 +76,12 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/battery">
+        <CheckBoxPreference
+            app:title="@string/stop_compass_to_conserve_battery"
+            app:key="conserve_battery"
+            app:defaultValue="false"
+            />
+    </PreferenceCategory>
+
 </PreferenceScreen>

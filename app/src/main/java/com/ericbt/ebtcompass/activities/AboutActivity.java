@@ -1,6 +1,6 @@
 /*
   EBT Compass
-  (C) Copyright 2021, Eric Bergman-Terrell
+  (C) Copyright 2022, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
@@ -44,7 +44,7 @@ public class AboutActivity extends CustomActivity {
 
         final TextView appNameEtc = findViewById(R.id.app_name_etc);
         appNameEtc.setText(String.format(LocaleUtils.getDefaultLocale(),
-                "%s v. %s\n(C) Copyright 2021\nEric Bergman-Terrell",
+                "%s v. %s\n(C) Copyright 2022\nEric Bergman-Terrell",
                 getString(R.string.app_name),
                 BuildConfig.VERSION_NAME));
 
