@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:autoLink="web"
-                android:text="@string/android_12_plus_launch_bug_credit"
+                android:text="@string/alvaro_credits"
                 android:textColor="?android:attr/textColorPrimary" >
             </TextView>
 
