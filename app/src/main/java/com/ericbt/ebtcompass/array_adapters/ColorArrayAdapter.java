@@ -61,7 +61,7 @@ public class ColorArrayAdapter extends ArrayAdapter<Color> {
         marker.setColorFilter(ColorConverter.hueToColor(color.getHue()));
 
         final TextView textView = convertView.findViewById(textViewResourceId);
-        textView.setText(color.getName());
+        textView.setText(color.getName(context));
 
         return convertView;
     }

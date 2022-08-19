@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Latitude:"
+                android:text="@string/latitude_label"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
                 />
@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°"
+                    android:text="@string/degree_symbol"
                     />
 
                 <EditText
@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="'"
+                    android:text="@string/minutes_symbol"
                     />
 
                 <EditText
@@ -71,7 +71,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="."
+                    android:id="@+id/decimal_point"
                     />
 
                 <EditText
@@ -84,7 +84,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="&quot;"
+                    android:text="@string/seconds_symbol"
                     />
 
                 <Spinner
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Longitude:"
+                android:text="@string/longitude_label"
                 style="@style/BoldText"
                 />
 
@@ -123,7 +123,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="°"
+                    android:text="@string/degree_symbol"
                     />
 
                 <EditText
@@ -136,7 +136,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="'"
+                    android:text="@string/minutes_symbol"
                     />
 
                 <EditText
@@ -149,7 +149,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="."
+                    android:id="@+id/decimal_point_2"
                     />
 
                 <EditText
@@ -162,7 +162,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="&quot;"
+                    android:text="@string/seconds_symbol"
                     />
 
                 <Spinner
@@ -216,7 +216,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Easting:"
+                android:text="@string/easting_label"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
                 />
@@ -231,7 +231,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Northing:"
+                android:text="@string/northing_label"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
                 />
@@ -261,7 +261,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancel"
+                android:text="@string/cancel_button_text"
                 android:layout_marginRight="10sp"
                 />
 
@@ -270,7 +270,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Go"
+                android:text="@string/go_button_text"
                 />
 
         </LinearLayout>

@@ -166,7 +166,7 @@ public class GPSService extends BaseService {
 
         Log.i(StringLiterals.LOG_TAG,
                 String.format(
-                        LocaleUtils.getDefaultLocale(),
+                        LocaleUtils.getLocale(),
                         "Notification Mechanism: %s",
                         notificationMechanism));
 
@@ -215,7 +215,7 @@ public class GPSService extends BaseService {
         textToSpeech = new TextToSpeech(getApplicationContext(), status -> {
             Log.i(StringLiterals.LOG_TAG,
                     String.format(
-                            LocaleUtils.getDefaultLocale(),
+                            LocaleUtils.getLocale(),
                             "tts onInit status: %d",
                             status));
 
@@ -263,7 +263,7 @@ public class GPSService extends BaseService {
         final String signalInterval = preferences.getString(NOTIFICATION_FREQUENCY, "12");
 
         final int result = (60 / Integer.parseInt(signalInterval)) * 1000;
-        Log.i(StringLiterals.LOG_TAG, String.format(LocaleUtils.getDefaultLocale(), "getSignalInterval interval: %d", result));
+        Log.i(StringLiterals.LOG_TAG, String.format(LocaleUtils.getLocale(), "getSignalInterval interval: %d", result));
 
         return result;
     }

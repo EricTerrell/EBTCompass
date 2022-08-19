@@ -111,7 +111,7 @@ public class BasePointActivity extends CustomActivity {
         final EditText easting = findViewById(R.id.easting);
         final EditText northing = findViewById(R.id.northing);
 
-        final String utmCoordinate = String.format(LocaleUtils.getDefaultLocale(),
+        final String utmCoordinate = String.format(LocaleUtils.getLocale(),
                 "%s %s %s %s",
                 longitudeZone.getSelectedItem(),
                 latitudeZone.getSelectedItem(),
@@ -141,16 +141,16 @@ public class BasePointActivity extends CustomActivity {
                 (int) (decimalDegrees * Constants.SECONDS_PER_DEGREE * 1000.0d);
 
         final EditText degreesEditText = findViewById(degreesId);
-        degreesEditText.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", degrees));
+        degreesEditText.setText(String.format(LocaleUtils.getLocale(), "%d", degrees));
 
         final EditText minutesEditText = findViewById(minutesId);
-        minutesEditText.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", minutes));
+        minutesEditText.setText(String.format(LocaleUtils.getLocale(), "%d", minutes));
 
         final EditText secondsEditText = findViewById(secondsId);
-        secondsEditText.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", seconds));
+        secondsEditText.setText(String.format(LocaleUtils.getLocale(), "%d", seconds));
 
         final EditText fractionalSecondsEditText = findViewById(fractionalSecondsId);
-        String fractionSecondsText = String.format(LocaleUtils.getDefaultLocale(), "%d", fractionalSeconds);
+        String fractionSecondsText = String.format(LocaleUtils.getLocale(), "%d", fractionalSeconds);
 
         while (fractionSecondsText.length() < 3) {
             fractionSecondsText = "0" + fractionSecondsText;

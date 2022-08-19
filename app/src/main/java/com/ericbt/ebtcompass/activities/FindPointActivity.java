@@ -103,7 +103,7 @@ public class FindPointActivity extends CompassActivity {
 
         Log.i(StringLiterals.LOG_TAG,
                 String.format(
-                        LocaleUtils.getDefaultLocale(),
+                        LocaleUtils.getLocale(),
                         "destinationLatitude: %f destinationLongitude: %f",
                         destinationLatitude,
                         destinationLongitude));
@@ -122,10 +122,10 @@ public class FindPointActivity extends CompassActivity {
         broadcastReceiver = createBroadcastReceiver();
 
         onOffButton = findViewById(R.id.on_off);
-        onOffButton.setText(StringLiterals.OFF);
+        onOffButton.setText(getString(R.string.off_button_text));
 
         onOffButton.setOnClickListener(view -> {
-            if (onOffButton.getText().equals(StringLiterals.ON)) {
+            if (onOffButton.getText().equals(getString(R.string.on_button_text))) {
                 startUpdates();
             } else {
                 stopUpdates();
@@ -160,7 +160,7 @@ public class FindPointActivity extends CompassActivity {
         super.startUpdates();
 
         if (haveAllPermissions()) {
-            onOffButton.setText(StringLiterals.OFF);
+            onOffButton.setText(getString(R.string.off_button_text));
         }
     }
 
@@ -173,7 +173,7 @@ public class FindPointActivity extends CompassActivity {
         super.stopUpdates();
 
         if (haveAllPermissions()) {
-            onOffButton.setText(StringLiterals.ON);
+            onOffButton.setText(getString(R.string.on_button_text));
         }
     }
 
@@ -184,9 +184,16 @@ public class FindPointActivity extends CompassActivity {
         final TextView compass = findViewById(R.id.compass);
 
         if (correctedAzimuth >= 0.0f) {
-            compass.setText(String.format(LocaleUtils.getDefaultLocale(), "Compass: %d° %s",
+            final String degreeSymbol = getString(R.string.degree_symbol);
+
+            final String compassText =
+                    String.format(LocaleUtils.getLocale(),
+                    getString(R.string.update_orientation_angles_format_string),
                     (int) correctedAzimuth,
-                    AngleUtils.formatBearing(correctedAzimuth)));
+                    degreeSymbol,
+                    AngleUtils.formatBearing(correctedAzimuth, this));
+
+            compass.setText(compassText);
         } else {
             compass.setText(StringLiterals.EMPTY_STRING);
         }
@@ -230,13 +237,15 @@ public class FindPointActivity extends CompassActivity {
         float distanceInMeters = currentLocation.distanceTo(destinationLocation);
 
         final String distanceText = getDistanceText(distanceInMeters);
+        final String degreeSymbol = getString(R.string.degree_symbol);
 
         final String routeText = String.format(
-                LocaleUtils.getDefaultLocale(),
-                "Go %s, %d° %s",
+                LocaleUtils.getLocale(),
+                getString(R.string.find_point_activity_go_instructions_format_string),
                 distanceText,
                 (int) bearingToDestination.floatValue(),
-                AngleUtils.formatBearing(bearingToDestination));
+                degreeSymbol,
+                AngleUtils.formatBearing(bearingToDestination, this));
 
         final TextView route = findViewById(R.id.route);
 
@@ -245,34 +254,34 @@ public class FindPointActivity extends CompassActivity {
         final TextView currentLocationTV = findViewById(R.id.current_location);
         final String currentLocationText =
                 String.format(
-                        LocaleUtils.getDefaultLocale(),
-                        "%s %s %s %s",
-                        AngleUtils.toDMS(Math.abs(latitude)),
-                        AngleUtils.latitudeDirection(latitude),
-                        AngleUtils.toDMS(Math.abs(longitude)),
-                        AngleUtils.longitudeDirection(longitude)
+                        LocaleUtils.getLocale(),
+                        getString(R.string.find_point_activity_current_location_format_string),
+                        AngleUtils.toDMS(Math.abs(latitude), this),
+                        AngleUtils.latitudeDirection(latitude, this),
+                        AngleUtils.toDMS(Math.abs(longitude), this),
+                        AngleUtils.longitudeDirection(longitude, this)
                 );
 
         currentLocationTV.setText(currentLocationText);
 
         final TextView currentLocationUTM = findViewById(R.id.current_location_utm);
-        currentLocationUTM.setText(AngleUtils.formatUTM(latitude, longitude));
+        currentLocationUTM.setText(AngleUtils.formatUTM(latitude, longitude, this));
 
         final TextView destinationTV = findViewById(R.id.destination);
         final String destinationText =
                 String.format(
-                        LocaleUtils.getDefaultLocale(),
-                        "%s %s %s %s",
-                        AngleUtils.toDMS(Math.abs(destinationLatitude)),
-                        AngleUtils.latitudeDirection(destinationLatitude),
-                        AngleUtils.toDMS(Math.abs(destinationLongitude)),
-                        AngleUtils.longitudeDirection(destinationLongitude)
+                        LocaleUtils.getLocale(),
+                        getString(R.string.find_point_activity_destination_text_format_string),
+                        AngleUtils.toDMS(Math.abs(destinationLatitude), this),
+                        AngleUtils.latitudeDirection(destinationLatitude, this),
+                        AngleUtils.toDMS(Math.abs(destinationLongitude), this),
+                        AngleUtils.longitudeDirection(destinationLongitude, this)
                 );
 
         destinationTV.setText(destinationText);
 
         final TextView destinationUTM = findViewById(R.id.destination_utm);
-        destinationUTM.setText(AngleUtils.formatUTM(destinationLatitude, destinationLongitude));
+        destinationUTM.setText(AngleUtils.formatUTM(destinationLatitude, destinationLongitude, this));
 
         if (!suppressArrivalMessage && distanceInMeters <= CLOSE_ENOUGH_IN_METERS) {
             arrived(getDistanceText(distanceInMeters));
@@ -287,10 +296,13 @@ public class FindPointActivity extends CompassActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(getText(R.string.you_have_arrived));
 
-        final String message = String.format(LocaleUtils.getDefaultLocale(), "You are within %s of your destination.", distance);
+        final String message = String.format(
+                LocaleUtils.getLocale(),
+                getString(R.string.you_are_within_x_of_your_destination_format_string),
+                distance);
 
         alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (arg0, arg1) -> {
+        alertDialogBuilder.setPositiveButton(getString(R.string.ok_button_text), (arg0, arg1) -> {
             // Go all the way back to the main activity.
             final Intent main = new Intent(this, MainActivity.class);
             main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -334,19 +346,21 @@ public class FindPointActivity extends CompassActivity {
 
         if (distance_units.equals(StringLiterals.METRIC)) {
             if (distanceInMeters < 1000.0f) {
-                distanceText = String.format(LocaleUtils.getDefaultLocale(), "%,d m",
+                distanceText = String.format(
+                        LocaleUtils.getLocale(),
+                        getString(R.string.find_point_activity_distance_meters_format_string),
                         (int) distanceInMeters);
             } else {
-                distanceText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f km",
+                distanceText = String.format(LocaleUtils.getLocale(), getString(R.string.find_point_activity_distance_kilometers_format_string),
                         (distanceInMeters / 1000.0f));
             }
         } else {
             final int feet = (int) UnitUtils.toFeet(distanceInMeters);
 
             if (feet < 1000) {
-                distanceText = String.format(LocaleUtils.getDefaultLocale(), "%,d ft", feet);
+                distanceText = String.format(LocaleUtils.getLocale(), getString(R.string.find_point_activity_distance_feet_format_string), feet);
             } else {
-                distanceText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f mi",
+                distanceText = String.format(LocaleUtils.getLocale(), getString(R.string.find_point_activity_distance_miles_format_string),
                         UnitUtils.toMiles(feet));
             }
         }
@@ -367,7 +381,7 @@ public class FindPointActivity extends CompassActivity {
         textToSpeech = new TextToSpeech(getApplicationContext(), status -> {
             Log.i(StringLiterals.LOG_TAG,
                     String.format(
-                            LocaleUtils.getDefaultLocale(),
+                            LocaleUtils.getLocale(),
                             "tts onInit status: %d",
                             status));
 

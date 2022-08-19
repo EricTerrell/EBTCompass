@@ -20,10 +20,12 @@
 
 package com.ericbt.ebtcompass.utils;
 
+import androidx.core.os.LocaleListCompat;
+
 import java.util.Locale;
 
 public class LocaleUtils {
-    public static Locale getDefaultLocale() {
-        return Locale.US;
+    public static Locale getLocale() {
+        return LocaleListCompat.getDefault().get(0);
     }
 }

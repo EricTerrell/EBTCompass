@@ -20,26 +20,28 @@
 
 package com.ericbt.ebtcompass;
 
+import android.content.Context;
+
 import java.util.Objects;
 
 public class Color {
-    public final static Color RED     = new Color("Red",       0);
-    public final static Color ORANGE  = new Color("Orange",   30);
-    public final static Color YELLOW  = new Color("Yellow",   60);
-    public final static Color GREEN   = new Color("Green",   120);
-    public final static Color CYAN    = new Color("Cyan",    180);
-    public final static Color AZURE   = new Color("Azure",   210);
-    public final static Color BLUE    = new Color("Blue",    240);
-    public final static Color VIOLET  = new Color("Violet",  270);
-    public final static Color MAGENTA = new Color("Magenta", 300);
-    public final static Color ROSE    = new Color("Rose",    330);
+    public final static Color RED     = new Color(R.string.color_red,       0);
+    public final static Color ORANGE  = new Color(R.string.color_orange,   30);
+    public final static Color YELLOW  = new Color(R.string.color_yellow,   60);
+    public final static Color GREEN   = new Color(R.string.color_green,   120);
+    public final static Color CYAN    = new Color(R.string.color_cyan,    180);
+    public final static Color AZURE   = new Color(R.string.color_azure,   210);
+    public final static Color BLUE    = new Color(R.string.color_blue,    240);
+    public final static Color VIOLET  = new Color(R.string.color_violet,  270);
+    public final static Color MAGENTA = new Color(R.string.color_magenta, 300);
+    public final static Color ROSE    = new Color(R.string.color_rose,    330);
 
-    private String name;
+    private int nameId;
 
     private final int hue;
 
-    public Color(String name, int hue) {
-        this.name = name;
+    public Color(int nameId, int hue) {
+        this.nameId = nameId;
         this.hue = hue;
     }
 
@@ -47,8 +49,8 @@ public class Color {
         this.hue = hue;
     }
 
-    public String getName() {
-        return name;
+    public String getName(Context context) {
+        return context.getString(nameId);
     }
 
     public int getHue() {

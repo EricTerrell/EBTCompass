@@ -20,6 +20,7 @@
 
 package com.ericbt.ebtcompass.ui;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -31,6 +32,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
+
+import com.ericbt.ebtcompass.R;
 
 public class CompassRose extends Drawable {
     private final float pitch, roll, azimuth;
@@ -45,9 +48,10 @@ public class CompassRose extends Drawable {
 
     private Float bearingToDestination = null;
 
-    private static final String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
+    private String[] directions;
 
-    public CompassRose(float pitch, float roll, float azimuth, Float bearingToDestination) {
+    public CompassRose(float pitch, float roll, float azimuth, Float bearingToDestination,
+                       Context context) {
         this.pitch = pitch;
         this.roll = roll;
         this.azimuth = azimuth;
@@ -56,6 +60,8 @@ public class CompassRose extends Drawable {
             this.bearingToDestination = bearingToDestination;
             destinationCircleDiameter = DESTINATION_CIRCLE_DIAMETER;
         }
+
+        directions = context.getResources().getStringArray(R.array.compass_rose_directions);
     }
 
     @Override

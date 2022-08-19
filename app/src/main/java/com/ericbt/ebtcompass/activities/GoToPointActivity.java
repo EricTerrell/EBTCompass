@@ -23,9 +23,11 @@ package com.ericbt.ebtcompass.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.R;
+import com.ericbt.ebtcompass.utils.I18NUtils;
 
 public class GoToPointActivity extends BasePointActivity {
     public GoToPointActivity() {
@@ -38,6 +40,9 @@ public class GoToPointActivity extends BasePointActivity {
 
         Button goButton = findViewById(R.id.go);
         actionButton = goButton;
+
+        ((TextView) findViewById(R.id.decimal_point)).setText(I18NUtils.getDecimalPoint());
+        ((TextView) findViewById(R.id.decimal_point_2)).setText(I18NUtils.getDecimalPoint());
 
         goButton.setOnClickListener(view -> {
             final Intent intent = new Intent(this, FindPointActivity.class);

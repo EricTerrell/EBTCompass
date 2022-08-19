@@ -40,7 +40,7 @@ public class Vibrator {
 
     public static void vibrateForTurn(Turn.Direction direction, Context context) {
         Log.i(StringLiterals.LOG_TAG,
-                String.format(LocaleUtils.getDefaultLocale(),
+                String.format(LocaleUtils.getLocale(),
                         "vibrateForTurn %s",
                         direction));
 

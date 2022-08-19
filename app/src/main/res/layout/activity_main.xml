@@ -106,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/BoldText"
-                        android:text=" ("
+                        android:text="@string/line_direction_begin"
                         android:id="@+id/line_heading_2"
                         android:visibility="gone"
                         />
@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         style="@style/BoldText"
                         android:textColor="@color/red"
-                        android:text="&#9679;"
+                        android:text="@string/towards_symbol"
                         android:id="@+id/line_heading_3"
                         android:visibility="gone"
                         />
@@ -125,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/BoldText"
-                        android:text=")"
+                        android:text="@string/line_direction_end"
                         android:id="@+id/line_heading_4"
                         android:visibility="gone"
                         />
@@ -154,7 +154,7 @@
             android:layout_height="35dp"
             android:src="@drawable/ic_trianglearrow_down"
             android:layout_gravity="center"
-            android:contentDescription="Compass" />
+            android:contentDescription="@string/compass_content_description" />
 
         <com.ericbt.ebtcompass.ui.SquareImageView
             android:id="@+id/compass_rose_custom"
@@ -174,7 +174,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="On"
+                android:text="@string/on_button_text"
                 android:layout_marginRight="10sp"
                 />
 
@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginRight="10sp"
-                android:text="To Point"
+                android:text="@string/to_point_button_text"
                 />
 
             <Button
@@ -193,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:enabled="false"
-                android:text="Line"
+                android:text="@string/line_button_text"
                 />
 
         </LinearLayout>
@@ -210,7 +210,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Save Point"
+                android:text="@string/save_point_button_text"
                 android:layout_marginRight="10sp"
                 android:enabled="false"
                 />
@@ -220,7 +220,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Points"
+                android:text="@string/points_button_text"
                 android:layout_marginRight="10sp"
                 />
 
@@ -229,7 +229,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/map"
+                android:text="@string/map_button_text"
                 android:enabled="true"
                 />
 

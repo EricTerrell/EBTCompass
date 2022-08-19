@@ -20,17 +20,12 @@
 
 package com.ericbt.ebtcompass.utils;
 
-public class GoogleMapsUtils {
-    public static String getMapUri(double latitude, double longitude) {
-        final int zoom = 13;
+import com.ericbt.ebtcompass.StringLiterals;
 
-        return String.format(
-                LocaleUtils.getLocale(),
-                "http://www.google.com/maps/place/%f,%f/@%f,%f,%dz",
-                latitude,
-                longitude,
-                latitude,
-                longitude,
-                zoom);
+import java.text.DecimalFormatSymbols;
+
+public class I18NUtils {
+    public static String getDecimalPoint() {
+        return StringLiterals.EMPTY_STRING + DecimalFormatSymbols.getInstance().getDecimalSeparator();
     }
 }

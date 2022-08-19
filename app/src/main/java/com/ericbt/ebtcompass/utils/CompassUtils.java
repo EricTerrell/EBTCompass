@@ -20,14 +20,19 @@
 
 package com.ericbt.ebtcompass.utils;
 
+import android.content.Context;
+
+import com.ericbt.ebtcompass.R;
+import com.ericbt.ebtcompass.StringLiterals;
+
 public class CompassUtils {
-    public static String getDeclinationDirection(double declination) {
-        String result = "";
+    public static String getDeclinationDirection(double declination, Context context) {
+        String result = StringLiterals.EMPTY_STRING;
 
         if (declination < 0.0d) {
-            result = "W";
+            result = context.getString(R.string.west_abbreviation);
         } else if (declination > 0.0d) {
-            result = "E";
+            result = context.getString(R.string.east_abbreviation);
         }
 
         return result;

@@ -30,7 +30,7 @@ public class Speaker {
     public static void speakForTurn(Turn.Direction direction, TextToSpeech textToSpeech, Context context) {
         Log.i(StringLiterals.LOG_TAG,
                 String.format(
-                        LocaleUtils.getDefaultLocale(),
+                        LocaleUtils.getLocale(),
                         "speakForTurn %s",
                         direction));
 

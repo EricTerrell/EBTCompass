@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="License Terms:"
+        android:text="@string/license_terms_label"
         />
     <ScrollView
         android:layout_width="fill_parent"
@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Your Decision:"
+        android:text="@string/your_decision_label"
         />
     <RadioGroup
         android:layout_width="fill_parent"
@@ -44,7 +44,7 @@
         >
         <RadioButton
             android:textColor="?android:attr/textColorPrimary"
-            android:text="I reject these terms"
+            android:text="@string/i_reject_these_terms"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -53,7 +53,7 @@
         </RadioButton>
         <RadioButton
             android:textColor="?android:attr/textColorPrimary"
-            android:text="I accept these terms"
+            android:text="@string/i_accept_these_terms"
             android:id="@+id/AcceptLicenseTerms"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         android:layout_width="40pt"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="OK"
+        android:text="@string/ok_button_text"
         android:id="@+id/OKButton"
         />
 </LinearLayout>

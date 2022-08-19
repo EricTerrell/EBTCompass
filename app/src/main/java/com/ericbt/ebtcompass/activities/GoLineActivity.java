@@ -39,6 +39,7 @@ import com.ericbt.ebtcompass.InputFilterMinMax;
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.services.GPSService;
 import com.ericbt.ebtcompass.utils.AngleUtils;
+import com.ericbt.ebtcompass.utils.I18NUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.R;
 
@@ -51,6 +52,8 @@ public class GoLineActivity extends CustomActivity {
         setContentView(R.layout.activity_go_line);
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        ((TextView) findViewById(R.id.decimal_point)).setText(I18NUtils.getDecimalPoint());
 
         final EditText headingDegrees = findViewById(R.id.heading_degrees);
         headingDegrees.setFilters(new InputFilter[] { new InputFilterMinMax("0", "359")});
@@ -92,10 +95,10 @@ public class GoLineActivity extends CustomActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i > 0) {
                     final float angle = 22.5f * (i - 1);
-                    headingDegrees.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", (int) angle));
+                    headingDegrees.setText(String.format(LocaleUtils.getLocale(), "%d", (int) angle));
 
                     final int fractionalDegrees = (int) ((angle - (int) angle) * 10.0f);
-                    headingFractionalDegrees.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", fractionalDegrees));
+                    headingFractionalDegrees.setText(String.format(LocaleUtils.getLocale(), "%d", fractionalDegrees));
                 }
             }
 
@@ -144,11 +147,11 @@ public class GoLineActivity extends CustomActivity {
         if (goToHeading >= 0.0f) {
             clearButton.setEnabled(true);
 
-            headingDegrees.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", (int) goToHeading));
+            headingDegrees.setText(String.format(LocaleUtils.getLocale(), "%d", (int) goToHeading));
 
             final int fractionalDegrees = Math.min(Math.round((goToHeading - (int) goToHeading) * 10.0f), 9);
 
-            headingFractionalDegrees.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", fractionalDegrees));
+            headingFractionalDegrees.setText(String.format(LocaleUtils.getLocale(), "%d", fractionalDegrees));
             headingSpinner.setSelection(0);
         }
 
@@ -164,7 +167,10 @@ public class GoLineActivity extends CustomActivity {
         if (headingDegrees.getText().toString().length() > 0) {
             final float degrees = Float.parseFloat(headingDegrees.getText().toString());
 
-            direction.setText(String.format("(%s)", AngleUtils.formatBearing(degrees)));
+            direction.setText(
+                    String.format(
+                            getString(R.string.go_line_activity_direction_text_format_string),
+                            AngleUtils.formatBearing(degrees, this)));
         } else {
             direction.setText(StringLiterals.EMPTY_STRING);
         }

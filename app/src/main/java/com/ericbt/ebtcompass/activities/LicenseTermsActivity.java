@@ -70,8 +70,8 @@ public class LicenseTermsActivity extends CustomActivity {
 
             if (!userAccepted) {
                 final AlertDialog.Builder userRejectedTermsDialogBuilder = new AlertDialog.Builder(LicenseTermsActivity.this);
-                userRejectedTermsDialogBuilder.setTitle(String.format("Rejected %s License Terms", getString(R.string.app_name)));
-                userRejectedTermsDialogBuilder.setMessage(String.format("You rejected the %s license terms. Please uninstall %s immediately.", getString(R.string.app_name), getString(R.string.app_name)));
+                userRejectedTermsDialogBuilder.setTitle(String.format(getString(R.string.rejected_license_terms_format_string), getString(R.string.app_name)));
+                userRejectedTermsDialogBuilder.setMessage(String.format(getString(R.string.rejected_license_terms_format_string_2), getString(R.string.app_name), getString(R.string.app_name)));
                 userRejectedTermsDialogBuilder.setPositiveButton(getText(R.string.ok), (dialog, which) -> {
                     alertDialog.dismiss();
 

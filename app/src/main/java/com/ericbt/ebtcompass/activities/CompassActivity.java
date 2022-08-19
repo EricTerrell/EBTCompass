@@ -102,9 +102,12 @@ public abstract class CompassActivity extends CustomActivity {
                         currentMagnetometerAccuracyText.equals(magnetometerAccuracyText)
                 )
            ) {
-            final String htmlString = String.format(LocaleUtils.getDefaultLocale(),
-                    "<a href='%s'>Accuracy: %s/%s</a>",
+            final String accuracyHeader = getString(R.string.accuracy_hyperlink_header);
+
+            final String htmlString = String.format(LocaleUtils.getLocale(),
+                    "<a href='%s'>%s%s/%s</a>",
                     getString(R.string.accuracy_url),
+                    accuracyHeader,
                     SensorUtils.getAccuracyText(accelerometerAccuracy),
                     SensorUtils.getAccuracyText(magnetometerAccuracy));
 
@@ -310,7 +313,7 @@ public abstract class CompassActivity extends CustomActivity {
     protected void onSharedPreferenceChanged(String key) {
         Log.i(StringLiterals.LOG_TAG,
                 String.format(
-                        LocaleUtils.getDefaultLocale(),
+                        LocaleUtils.getLocale(),
                         "onSharedPreferenceChanged: key: %s",
                         key));
 
@@ -452,7 +455,8 @@ public abstract class CompassActivity extends CustomActivity {
                             orientationAngles[1],
                             orientationAngles[2],
                             correctedAzimuth,
-                            bearingToDestination);
+                            bearingToDestination,
+                            this);
 
             compassRoseCustom.setRotation(-correctedAzimuth);
             compassRoseCustom.setImageDrawable(compassRoseDrawable);

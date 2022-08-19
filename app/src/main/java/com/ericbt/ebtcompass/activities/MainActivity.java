@@ -90,10 +90,10 @@ public class MainActivity extends CompassActivity {
         broadcastReceiver = createBroadcastReceiver();
 
         onOffButton = findViewById(R.id.on_off);
-        onOffButton.setText(StringLiterals.OFF);
+        onOffButton.setText(getString(R.string.off_button_text));
 
         onOffButton.setOnClickListener(view -> {
-            if (onOffButton.getText().equals(StringLiterals.ON)) {
+            if (onOffButton.getText().equals(getString(R.string.on_button_text))) {
                 startUpdates();
 
                 userClickedOff = false;
@@ -261,7 +261,7 @@ public class MainActivity extends CompassActivity {
         super.startUpdates();
 
         if (haveAllPermissions()) {
-            onOffButton.setText(StringLiterals.OFF);
+            onOffButton.setText(getString(R.string.off_button_text));
         }
     }
 
@@ -276,7 +276,7 @@ public class MainActivity extends CompassActivity {
         if (haveAllPermissions()) {
             goLineButton.setEnabled(false);
             savePointButton.setEnabled(false);
-            onOffButton.setText(StringLiterals.ON);
+            onOffButton.setText(getString(R.string.on_button_text));
         }
     }
 
@@ -287,9 +287,13 @@ public class MainActivity extends CompassActivity {
         final TextView heading = findViewById(R.id.heading);
 
         if (correctedAzimuth >= 0.0f) {
-            heading.setText(String.format(LocaleUtils.getDefaultLocale(), "Compass: %d° %s",
+            final String degreeSymbol = getString(R.string.degree_symbol);
+
+            heading.setText(String.format(LocaleUtils.getLocale(),
+                    getString(R.string.compass_degrees_and_heading_abbreviation),
                     (int) correctedAzimuth,
-                    AngleUtils.formatBearing(correctedAzimuth)));
+                    degreeSymbol,
+                    AngleUtils.formatBearing(correctedAzimuth, this)));
         } else {
             heading.setText(StringLiterals.EMPTY_STRING);
         }
@@ -301,24 +305,29 @@ public class MainActivity extends CompassActivity {
     protected void updateUI(double latitude, double longitude, double bearing,
                           double speed, Float goToHeading) {
         final TextView latitudeTV = findViewById(R.id.latitude);
-        latitudeTV.setText(String.format("%s %s",
-                AngleUtils.toDMS(Math.abs(latitude)),
-                AngleUtils.latitudeDirection(latitude)));
+
+        latitudeTV.setText(String.format(
+                getString(R.string.latitude_dms_direction_format_string),
+                AngleUtils.toDMS(Math.abs(latitude), this),
+                AngleUtils.latitudeDirection(latitude, this)));
 
         final TextView longitudeTV = findViewById(R.id.longitude);
-        longitudeTV.setText(String.format("%s %s",
-                AngleUtils.toDMS(Math.abs(longitude)),
-                AngleUtils.longitudeDirection(longitude)));
+        longitudeTV.setText(String.format(
+                getString(R.string.longitude_dms_direction_format_string),
+                AngleUtils.toDMS(Math.abs(longitude), this),
+                AngleUtils.longitudeDirection(longitude, this)));
 
         final boolean userPrefersMetric = UnitUtils.userPrefersMetric(this);
 
         String altitudeText;
 
         if (userPrefersMetric) {
-            altitudeText = String.format(LocaleUtils.getDefaultLocale(), "%,d m",
+            altitudeText = String.format(LocaleUtils.getLocale(),
+                    getString(R.string.altitude_format_string_meters),
                     (int) altitude);
         } else {
-            altitudeText = String.format(LocaleUtils.getDefaultLocale(), "%,d ft",
+            altitudeText = String.format(LocaleUtils.getLocale(),
+                    getString(R.string.altitude_format_string_feet),
                     (int) UnitUtils.toFeet(altitude));
         }
 
@@ -328,9 +337,15 @@ public class MainActivity extends CompassActivity {
         String speedText;
 
         if (userPrefersMetric) {
-            speedText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f km/h", UnitUtils.toKilometersPerHour(speed));
+            speedText = String.format(
+                    LocaleUtils.getLocale(),
+                    getString(R.string.speed_format_kilometers_per_hour),
+                    UnitUtils.toKilometersPerHour(speed));
         } else {
-            speedText = String.format(LocaleUtils.getDefaultLocale(), "%,.1f mi/h", UnitUtils.toMilesPerHour(speed));
+            speedText = String.format(
+                    LocaleUtils.getLocale(),
+                    getString(R.string.speed_format_miles_per_hour),
+                    UnitUtils.toMilesPerHour(speed));
         }
 
         final TextView speedTV = findViewById(R.id.speed);
@@ -345,15 +360,22 @@ public class MainActivity extends CompassActivity {
         final float declination = geomagneticField.getDeclination();
 
         final TextView declinationTV = findViewById(R.id.declination);
-        declinationTV.setText(String.format(LocaleUtils.getDefaultLocale(),
-                "Mag Decl: %.1f° %s",
+
+        final String degreeSymbol = getString(R.string.degree_symbol);
+
+        declinationTV.setText(String.format(
+                LocaleUtils.getLocale(),
+                getString(R.string.magnetic_declination_format_string),
                 declination,
-                CompassUtils.getDeclinationDirection(declination)));
+                degreeSymbol,
+                CompassUtils.getDeclinationDirection(declination, this)));
 
         final TextView gpsHeading = findViewById(R.id.gpsHeading);
-        gpsHeading.setText(String.format(LocaleUtils.getDefaultLocale(), "GPS: %d° (%s)",
+        gpsHeading.setText(String.format(LocaleUtils.getLocale(),
+                getString(R.string.gps_heading_format_string),
                 (int) bearing,
-                AngleUtils.formatBearing(bearing)));
+                degreeSymbol,
+                AngleUtils.formatBearing(bearing, this)));
 
         final TextView lineHeading = findViewById(R.id.line_heading);
 
@@ -361,9 +383,11 @@ public class MainActivity extends CompassActivity {
                 new int[] { R.id.line_heading_2, R.id.line_heading_3, R.id.line_heading_4 };
 
         if (goToHeading != null) {
-            lineHeading.setText(String.format(LocaleUtils.getDefaultLocale(), "Line: %.1f° (%s)",
+            lineHeading.setText(String.format(LocaleUtils.getLocale(),
+                    getString(R.string.line_heading_format_string),
                     goToHeading.floatValue(),
-                    AngleUtils.formatBearing(goToHeading.floatValue())));
+                    degreeSymbol,
+                    AngleUtils.formatBearing(goToHeading.floatValue(), this)));
 
             bearingToDestination = goToHeading.floatValue();
         } else {
@@ -382,7 +406,7 @@ public class MainActivity extends CompassActivity {
         }
 
         final TextView utm = findViewById(R.id.utm);
-        utm.setText(AngleUtils.formatUTM(latitude, longitude));
+        utm.setText(AngleUtils.formatUTM(latitude, longitude, this));
 
         goLineButton.setEnabled(true);
         savePointButton.setEnabled(true);
@@ -463,7 +487,7 @@ public class MainActivity extends CompassActivity {
         alertDialogBuilder.setTitle(getString(R.string.permissions));
         alertDialogBuilder.setMessage(getString(R.string.game_over));
 
-        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (dialog, which) -> {
+        alertDialogBuilder.setPositiveButton(getString(R.string.ok_button_text), (dialog, which) -> {
         });
 
         final android.app.AlertDialog promptDialog = alertDialogBuilder.create();

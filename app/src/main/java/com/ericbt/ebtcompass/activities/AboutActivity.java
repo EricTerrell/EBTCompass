@@ -43,14 +43,14 @@ public class AboutActivity extends CustomActivity {
         setContentView(R.layout.activity_about);
 
         final TextView appNameEtc = findViewById(R.id.app_name_etc);
-        appNameEtc.setText(String.format(LocaleUtils.getDefaultLocale(),
-                "%s v. %s\n(C) Copyright 2022\nEric Bergman-Terrell",
+        appNameEtc.setText(String.format(LocaleUtils.getLocale(),
+                getString(R.string.about_activity_copyright_notice),
                 getString(R.string.app_name),
                 BuildConfig.VERSION_NAME));
 
         final TextView webLink = findViewById(R.id.web_link);
 
-        final String link = String.format(LocaleUtils.getDefaultLocale(),
+        final String link = String.format(LocaleUtils.getLocale(),
                 "<a href='%s'>%s</a>",
                 getString(R.string.web_url),
                 getString(R.string.web_url_text));

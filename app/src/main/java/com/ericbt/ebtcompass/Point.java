@@ -82,7 +82,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return String.format(LocaleUtils.getDefaultLocale(),
+        return String.format(LocaleUtils.getLocale(),
                 "%s%s%.20f%s%.20f%s%d%s%.20f%s%s",
                 name, DELIMITER,
                 latitude, DELIMITER,

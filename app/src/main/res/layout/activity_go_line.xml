@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Heading:"
+                android:text="@string/heading_label"
                 style="@style/BoldText"
                 />
 
@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="." />
+                android:id="@+id/decimal_point" />
 
             <EditText
                 android:id="@+id/heading_fractional_degrees"
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10sp"
-                android:text="°"
+                android:text="@string/degree_symbol"
                 style="@style/BoldText"
                 />
 
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginRight="10sp"
-                android:text="Cancel"
+                android:text="@string/cancel_button_text"
                 />
 
             <Button
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10sp"
                 android:layout_weight="1"
-                android:text="Go"
+                android:text="@string/go_button_text"
                 />
 
             <Button
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:enabled="false"
-                android:text="Clear"
+                android:text="@string/clear_button_text"
                  />
 
         </LinearLayout>

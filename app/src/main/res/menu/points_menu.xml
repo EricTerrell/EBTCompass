@@ -38,7 +38,7 @@
     <group>
         <item
             android:id="@+id/share"
-            android:title="Share"
+            android:title="@string/share_menu_text"
             />
     </group>
 

@@ -37,6 +37,7 @@ import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.array_adapters.ColorArrayAdapter;
 import com.ericbt.ebtcompass.array_adapters.PointArrayAdapter;
+import com.ericbt.ebtcompass.utils.I18NUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
 
@@ -65,6 +66,9 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ((TextView) findViewById(R.id.decimal_point)).setText(I18NUtils.getDecimalPoint());
+        ((TextView) findViewById(R.id.decimal_point_2)).setText(I18NUtils.getDecimalPoint());
+
         allPoints = Points.getAll(this);
 
         name = findViewById(R.id.name);
@@ -87,7 +91,7 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
 
         int altitudeValue = userPrefersMetric ? (int) altitude : (int) UnitUtils.toFeet(altitude);
 
-        altitudeEditText.setText(String.format(LocaleUtils.getDefaultLocale(), "%d", altitudeValue));
+        altitudeEditText.setText(String.format(LocaleUtils.getLocale(), "%d", altitudeValue));
 
         colorSpinner = findViewById(R.id.color);
 
@@ -197,12 +201,12 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(getText(R.string.overwrite_point));
 
-        final String message = String.format(LocaleUtils.getDefaultLocale(),
+        final String message = String.format(LocaleUtils.getLocale(),
                 getString(R.string.point_exists_question), name);
 
         alertDialogBuilder.setMessage(message);
 
-        alertDialogBuilder.setPositiveButton(StringLiterals.OK, (arg0, arg1) -> {
+        alertDialogBuilder.setPositiveButton(getString(R.string.ok_button_text), (arg0, arg1) -> {
             savePoint(name, lineToName, color);
             finish();
         });

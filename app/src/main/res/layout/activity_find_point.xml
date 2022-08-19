@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current Location:"
+                android:text="@string/current_location_label"
                 style="@style/BoldText"
                 />
 
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Destination:"
+                android:text="@string/destination_label"
                 style="@style/BoldText"
                 />
 
@@ -76,7 +76,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Route:"
+                android:text="@string/route_label"
                 style="@style/BoldText"
                 />
 
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/BoldText"
-                    android:text=" (towards "
+                    android:text="@string/towards_delimiter_begin"
                     />
 
                 <TextView
@@ -106,14 +106,14 @@
                     android:layout_height="wrap_content"
                     style="@style/BoldText"
                     android:textColor="@color/red"
-                    android:text="&#9679;"
+                    android:text="@string/towards_symbol"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/BoldText"
-                    android:text=")"
+                    android:text="@string/towards_delimiter_end"
                     />
 
             </LinearLayout>
@@ -121,7 +121,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Compass:"
+                android:text="@string/compass_label"
                 style="@style/BoldText"
                 android:id="@+id/compass"
                 />
@@ -140,7 +140,7 @@
             android:layout_height="35dp"
             android:src="@drawable/ic_trianglearrow_down"
             android:layout_gravity="center"
-            android:contentDescription="Compass" />
+            android:contentDescription="@string/compass_content_description" />
 
         <com.ericbt.ebtcompass.ui.SquareImageView
             android:id="@+id/compass_rose_custom"
