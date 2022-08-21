@@ -57,10 +57,6 @@ public class Color {
         return hue;
     }
 
-    public int getAndroidColor() {
-        return ColorConverter.hueToColor(hue);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

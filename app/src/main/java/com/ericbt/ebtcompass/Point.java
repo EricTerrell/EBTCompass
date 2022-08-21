@@ -26,9 +26,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import java.util.Objects;
 
 public class Point {
-    private static final int NAME_INDEX         = 0;
-    private static final int LATITUDE_INDEX     = 1;
-    private static final int LONGITUDE_INDEX    = 2;
+    private static final int NAME_INDEX         = 0; // not used but included for reference
+    private static final int LATITUDE_INDEX     = 1; // not used but included for reference
+    private static final int LONGITUDE_INDEX    = 2; // not used but included for reference
     private static final int COLOR_INDEX        = 3;
     private static final int ALTITUDE_INDEX     = 4;
     private static final int LINE_TO_NAME_INDEX = 5;
@@ -62,8 +62,6 @@ public class Point {
 
     public String getName() { return name; }
 
-    public void setName(String name) { this.name = name; }
-
     public double getLatitude() { return latitude; }
 
     public double getLongitude() { return longitude; }
@@ -74,10 +72,6 @@ public class Point {
 
     public String getLineToName() {
         return lineToName;
-    }
-
-    public void setLineToName(String lineToName) {
-        this.lineToName = lineToName;
     }
 
     @Override

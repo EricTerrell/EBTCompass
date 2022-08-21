@@ -33,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/heading"
                     style="@style/BoldText"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
@@ -40,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/declination"
                     style="@style/BoldText"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
@@ -47,6 +49,7 @@
                     android:layout_height="wrap_content"
                     style="@style/BoldText"
                     android:id="@+id/speed"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
@@ -54,6 +57,7 @@
                     android:layout_height="wrap_content"
                     style="@style/BoldText"
                     android:id="@+id/gpsHeading"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
             </LinearLayout>
@@ -71,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/latitude"
                     style="@style/BoldText"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
@@ -78,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/longitude"
                     style="@style/BoldText"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
@@ -86,6 +92,7 @@
                     android:textAlignment="viewEnd"
                     style="@style/BoldText"
                     android:id="@+id/altitude"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <LinearLayout
@@ -100,6 +107,7 @@
                         android:textAlignment="viewEnd"
                         style="@style/BoldText"
                         android:id="@+id/line_heading"
+                        android:textColor="?android:attr/textColorPrimary"
                         />
 
                     <TextView
@@ -109,6 +117,7 @@
                         android:text="@string/line_direction_begin"
                         android:id="@+id/line_heading_2"
                         android:visibility="gone"
+                        android:textColor="?android:attr/textColorPrimary"
                         />
 
                     <TextView
@@ -125,6 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/BoldText"
+                        android:textColor="?android:attr/textColorPrimary"
                         android:text="@string/line_direction_end"
                         android:id="@+id/line_heading_4"
                         android:visibility="gone"
@@ -140,6 +150,7 @@
             android:layout_height="wrap_content"
             style="@style/BoldText"
             android:id="@+id/utm"
+            android:textColor="?android:attr/textColorPrimary"
             />
 
         <TextView
@@ -147,14 +158,18 @@
             android:layout_height="wrap_content"
             style="@style/BoldText"
             android:id="@+id/accuracy"
+            android:textColor="?android:attr/textColorPrimary"
             />
 
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/ic_trianglearrow_down"
+            android:id="@+id/triangle_down"
             android:layout_gravity="center"
-            android:contentDescription="@string/compass_content_description" />
+            style="@style/TriangleDown"
+            android:contentDescription="@string/compass_content_description"
+            />
 
         <com.ericbt.ebtcompass.ui.SquareImageView
             android:id="@+id/compass_rose_custom"

@@ -61,7 +61,7 @@ public class AngleUtils {
 
         return String.format(LocaleUtils.getLocale(),
                 toDMSFormatString,
-                sign == +1 ? positiveNumberSign : negativeNumberSign,
+                sign == 1 ? positiveNumberSign : negativeNumberSign,
                 degrees,
                 degreeSymbol,
                 minutes,

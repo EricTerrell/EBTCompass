@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/current_location_label"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <TextView
@@ -32,6 +33,7 @@
                 android:id="@+id/current_location"
                 style="@style/BoldText"
                 android:layout_marginLeft="15dp"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <TextView
@@ -40,6 +42,7 @@
                 android:id="@+id/current_location_utm"
                 style="@style/BoldText"
                 android:layout_marginLeft="15dp"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <TextView
@@ -47,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/destination_label"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <TextView
@@ -55,6 +59,7 @@
                 android:id="@+id/point_name"
                 style="@style/BoldText"
                 android:layout_marginLeft="15dp"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <TextView
@@ -63,6 +68,7 @@
                 android:id="@+id/destination"
                 style="@style/BoldText"
                 android:layout_marginLeft="15dp"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <TextView
@@ -71,6 +77,7 @@
                 android:id="@+id/destination_utm"
                 style="@style/BoldText"
                 android:layout_marginLeft="15dp"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <TextView
@@ -78,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/route_label"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <LinearLayout
@@ -92,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/route"
                     style="@style/BoldText"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
@@ -99,6 +108,7 @@
                     android:layout_height="wrap_content"
                     style="@style/BoldText"
                     android:text="@string/towards_delimiter_begin"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
@@ -114,6 +124,7 @@
                     android:layout_height="wrap_content"
                     style="@style/BoldText"
                     android:text="@string/towards_delimiter_end"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
             </LinearLayout>
@@ -124,6 +135,7 @@
                 android:text="@string/compass_label"
                 style="@style/BoldText"
                 android:id="@+id/compass"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
         </LinearLayout>
@@ -133,6 +145,7 @@
             android:layout_height="wrap_content"
             style="@style/BoldText"
             android:id="@+id/accuracy"
+            android:textColor="?android:attr/textColorPrimary"
             />
 
         <ImageView
@@ -140,6 +153,7 @@
             android:layout_height="35dp"
             android:src="@drawable/ic_trianglearrow_down"
             android:layout_gravity="center"
+            style="@style/TriangleDown"
             android:contentDescription="@string/compass_content_description" />
 
         <com.ericbt.ebtcompass.ui.SquareImageView

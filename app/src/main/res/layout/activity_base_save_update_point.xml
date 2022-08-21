@@ -29,6 +29,7 @@
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
                 android:layout_gravity="top"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <EditText
@@ -57,6 +58,7 @@
                 android:text="@string/existing_name_label"
                 style="@style/BoldText"
                 android:layout_gravity="center_vertical"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <Spinner
@@ -83,6 +85,7 @@
                 android:text="@string/latitude_label"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <LinearLayout
@@ -102,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/degree_symbol"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <EditText
@@ -109,12 +113,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/latitude_minutes"
                     android:inputType="number"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/minutes_symbol"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <EditText
@@ -122,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/latitude_seconds"
                     android:inputType="number"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <TextView
@@ -141,6 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/seconds_symbol"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <Spinner
@@ -158,6 +166,7 @@
                 android:text="@string/longitude_label"
                 style="@style/BoldText"
                 android:layout_marginTop="25sp"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <LinearLayout
@@ -177,6 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/degree_symbol"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <EditText
@@ -190,6 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/minutes_symbol"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <EditText
@@ -203,6 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/decimal_point_2"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <EditText
@@ -216,6 +228,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/seconds_symbol"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
                 <Spinner
@@ -242,6 +255,7 @@
                 android:text="@string/longitude_zone_heading"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <Spinner
@@ -257,6 +271,7 @@
                 android:text="@string/latitude_zone_heading"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <Spinner
@@ -272,6 +287,7 @@
                 android:text="@string/easting_label"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <EditText
@@ -287,6 +303,7 @@
                 android:text="@string/northing_label"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <EditText
@@ -311,6 +328,7 @@
                 android:text="@string/altitude_label"
                 android:layout_marginTop="20sp"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <LinearLayout
@@ -332,6 +350,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10sp"
                 android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             </LinearLayout>
@@ -352,6 +371,7 @@
                 android:text="@string/color_label"
                 style="@style/BoldText"
                 android:layout_gravity="center_vertical"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <Spinner
@@ -380,6 +400,7 @@
                 android:text="@string/draw_line_to_label"
                 style="@style/BoldText"
                 android:layout_gravity="center_vertical"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <Spinner

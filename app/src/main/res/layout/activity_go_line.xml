@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/heading_label"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <Spinner
@@ -55,7 +56,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/decimal_point" />
+                android:id="@+id/decimal_point"
+                android:textColor="?android:attr/textColorPrimary"
+                />
 
             <EditText
                 android:id="@+id/heading_fractional_degrees"
@@ -69,6 +72,7 @@
                 android:layout_marginRight="10sp"
                 android:text="@string/degree_symbol"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
             <TextView
@@ -76,6 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/BoldText"
+                android:textColor="?android:attr/textColorPrimary"
                 />
 
         </LinearLayout>

@@ -48,7 +48,7 @@ public class CompassRose extends Drawable {
 
     private Float bearingToDestination = null;
 
-    private String[] directions;
+    private final String[] directions;
 
     public CompassRose(float pitch, float roll, float azimuth, Float bearingToDestination,
                        Context context) {

@@ -170,7 +170,7 @@ public class MainActivity extends CompassActivity {
             startActivity(intent);
         });
 
-        Button mapButton = findViewById(R.id.map);
+        final Button mapButton = findViewById(R.id.map);
 
         mapButton.setOnClickListener(view -> {
             final Intent intent = new Intent(this, MapsActivity.class);
