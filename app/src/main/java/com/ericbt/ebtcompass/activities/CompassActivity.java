@@ -50,6 +50,7 @@ import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.services.CompassService;
 import com.ericbt.ebtcompass.services.GPSService;
 import com.ericbt.ebtcompass.ui.CompassRose;
+import com.ericbt.ebtcompass.utils.DataSmoother;
 import com.ericbt.ebtcompass.utils.GoogleMapsUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.MathUtils;
@@ -80,6 +81,20 @@ public abstract class CompassActivity extends CustomActivity {
     protected BroadcastReceiver broadcastReceiver;
 
     private String accelerometerAccuracyText, magnetometerAccuracyText;
+
+    private static int DATA_SMOOTHER_VALUES = 25;
+
+    private DataSmoother[] accelerometerReadingsDataSmoother = {
+            new DataSmoother(DATA_SMOOTHER_VALUES),
+            new DataSmoother(DATA_SMOOTHER_VALUES),
+            new DataSmoother(DATA_SMOOTHER_VALUES)
+    };
+
+    private DataSmoother[] magnetometerReadingsDataSmoother = {
+            new DataSmoother(DATA_SMOOTHER_VALUES),
+            new DataSmoother(DATA_SMOOTHER_VALUES),
+            new DataSmoother(DATA_SMOOTHER_VALUES)
+    };
 
     final protected String[] permissions = new String[] {
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -411,11 +426,19 @@ public abstract class CompassActivity extends CustomActivity {
         float correctedAzimuth = 0.0f;
 
         if (accelerometerReading != null) {
-            this.accelerometerReading = accelerometerReading;
+            this.accelerometerReading = new float[3];
+
+            for (int i = 0; i < this.accelerometerReading.length; i++) {
+                this.accelerometerReading[i] = accelerometerReadingsDataSmoother[i].add(accelerometerReading[i]);
+            }
         }
 
         if (magnetometerReading != null) {
-            this.magnetometerReading = magnetometerReading;
+            this.magnetometerReading = new float[3];
+
+            for (int i = 0; i < this.magnetometerReading.length; i++) {
+                this.magnetometerReading[i] = magnetometerReadingsDataSmoother[i].add(magnetometerReading[i]);
+            }
         }
 
         if (this.accelerometerReading != null && this.magnetometerReading != null) {

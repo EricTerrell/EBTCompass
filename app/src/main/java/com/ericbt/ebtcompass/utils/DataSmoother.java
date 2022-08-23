@@ -18,28 +18,41 @@
     along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.ericbt.ebtcompass;
+package com.ericbt.ebtcompass.utils;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+public class DataSmoother {
+    private Float[] data;
+    private int index = 0;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+    public DataSmoother(int maxValues) {
+        data = new Float[maxValues];
 
-import static org.junit.Assert.*;
-
-import com.ericbt.ebtcompass.utils.AngleUtils;
-
-@RunWith(AndroidJUnit4.class)
-public class AngleTests {
-/*
-    @Test
-    public void toDMS() {
-        // 37°22'42.540
-        final double angle = 37.0d + 22.0d / Constants.MINUTES_PER_DEGREE + 42.540d / Constants.SECONDS_PER_DEGREE;
-
-        final String result = AngleUtils.toDMS(angle);
-
-        assertEquals("37°22'42.540\"", result);
+        for (int i = 0; i < data.length; i++) {
+            data[i] = Float.NaN;
+        }
     }
-*/
+
+    public float add(float value) {
+        data[index] = value;
+
+        index = (index + 1) % data.length;
+
+        return average();
+    }
+
+    private float average() {
+        int n = 0;
+        float sum = 0.0f;
+
+        for (int i = 0; i < data.length; i++) {
+            if (!data[i].isNaN()) {
+                n++;
+                sum += data[i];
+            } else {
+                break;
+            }
+        }
+
+        return sum / (float) n;
+    }
 }
