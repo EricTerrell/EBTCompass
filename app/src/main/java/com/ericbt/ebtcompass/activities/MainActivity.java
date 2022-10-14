@@ -23,7 +23,6 @@ package com.ericbt.ebtcompass.activities;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 
 import android.app.Activity;
@@ -429,7 +428,7 @@ public class MainActivity extends CompassActivity {
         Log.i(StringLiterals.LOG_TAG, "MainActivity.requestPermissions");
 
         if (!haveAllPermissions()) {
-            ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS_CODE);
+            requestPermissions(getPermissions(), REQUEST_PERMISSIONS_CODE);
         } else {
             startUpdates();
         }

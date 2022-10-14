@@ -56,6 +56,9 @@ import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.MathUtils;
 import com.ericbt.ebtcompass.utils.SensorUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class CompassActivity extends CustomActivity {
     protected Float bearingToDestination;
 
@@ -96,10 +99,18 @@ public abstract class CompassActivity extends CustomActivity {
             new DataSmoother(DATA_SMOOTHER_VALUES)
     };
 
-    final protected String[] permissions = new String[] {
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-    };
+    protected String[] getPermissions() {
+        final List<String> permissions = new ArrayList<>();
+
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS);
+        }
+
+        return permissions.toArray(new String[0]);
+    }
 
     private void updateUI() {
         updateAccuracyLink();
@@ -489,7 +500,7 @@ public abstract class CompassActivity extends CustomActivity {
     }
 
     protected boolean haveAllPermissions() {
-        for (final String permission : permissions) {
+        for (final String permission : getPermissions()) {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }

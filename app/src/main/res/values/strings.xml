@@ -755,7 +755,7 @@ copy of the Program in return for a fee.
     <string name="points_menu_delete">Delete</string>
     <string name="points_menu_delete_all">Delete All</string>
     <string name="press_off_conserve_battery">Press \"Off\" when not in use to conserve battery</string>
-    <string name="alvaro_credits">Catalan and Spanish translations, plus bug fixes by Álvaro Martínez Majado https://github.com/alvaromartinezmajado</string>
+    <string name="alvaro_credits">Bug fixes by Álvaro Martínez Majado https://github.com/alvaromartinezmajado</string>
     <string name="name_label">Name:</string>
     <string name="name_of_point_required">Name of point - required</string>
     <string name="existing_name_label">Existing Name:</string>

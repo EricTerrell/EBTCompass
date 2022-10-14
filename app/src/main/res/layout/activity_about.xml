@@ -42,6 +42,7 @@
                     android:layout_weight="1"
                     android:layout_gravity="right"
                     android:id="@+id/app_name_etc"
+                    android:textColor="?android:attr/textColorPrimary"
                     />
 
             </LinearLayout>
