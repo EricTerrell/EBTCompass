@@ -745,7 +745,7 @@ copy of the Program in return for a fee.
     <string name="map_button_text">Map</string>
     <string name="icon_credits">Icons created by Bigmorr, the Consumer Financial Protection Bureau, Fibonacci, and Andrew Onorat</string>
     <string name="utm_code_credit"><![CDATA[Lat/Long <-> UTM conversion code written by Sami Salkosuo]]></string>
-    <string name="about_copyright">EBT Compass\n(C) Copyright 2022\nEric Bergman-Terrell</string>
+    <string name="about_copyright">EBT Compass\n© Copyright 2022\nEric Bergman-Terrell</string>
     <string name="about_feedback">Feedback: EBTCompass@EricBT.com</string>
     <string name="about_read_license_terms">Read License Terms</string>
     <string name="import_shared_points_title">Import Points</string>
@@ -782,7 +782,7 @@ copy of the Program in return for a fee.
     <string name="heading_label">Heading:</string>
     <string name="go_button_text">Go</string>
     <string name="clear_button_text">Clear</string>
-    <string name="importing_points">Importing points...</string>
+    <string name="importing_points">Importing points…</string>
     <string name="license_terms_label">License Terms:</string>
     <string name="your_decision_label">Your Decision:</string>
     <string name="i_reject_these_terms">I reject these terms</string>
@@ -825,7 +825,7 @@ copy of the Program in return for a fee.
     <string name="point_context_menu_format_string">Point \"%s\"</string>
     <string name="delete_all_alert_dialog_header">Delete All</string>
     <string name="delete_all_points_alert_dialog_message">Delete *all* points?</string>
-    <string name="about_activity_copyright_notice">%s v. %s\n(C) Copyright 2022\nEric Bergman-Terrell</string>
+    <string name="about_activity_copyright_notice">%s v. %s\n© Copyright 2022\nEric Bergman-Terrell</string>
     <string name="accuracy_hyperlink_header">Accuracy:&#160;</string>
     <string name="update_orientation_angles_format_string">Compass: %d%s %s</string>
     <string name="find_point_activity_go_instructions_format_string">Go %s, %d%s %s</string>
@@ -841,6 +841,8 @@ copy of the Program in return for a fee.
     <string name="import_successful_format_string">Imported %d points in %.2f s</string>
     <string name="rejected_license_terms_format_string">Rejected %s License Terms</string>
     <string name="rejected_license_terms_format_string_2">You rejected the %s license terms. Please uninstall %s immediately.</string>
+    <string name="maps_header">Map</string>
+    <string name="display_point_markers_on_lines">Display point markers on lines</string>
     <string name="color_red">Red</string>
     <string name="color_orange">Orange</string>
     <string name="color_yellow">Yellow</string>

@@ -52,4 +52,6 @@ public class StringLiterals {
     public static final String PREFERENCE_POINTS               = "points";
     public static final String PREFERENCE_ZOOM_LEVEL           = "zoom_level";
     public static final String PREFERENCE_KEY_CONSERVE_BATTERY = "conserve_battery";
+    public static final String PREFERENCE_DISPLAY_POINT_MARKERS_ON_LINES =
+            "display_point_markers_on_lines";
 }

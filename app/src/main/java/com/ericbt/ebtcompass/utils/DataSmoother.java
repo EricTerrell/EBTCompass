@@ -21,7 +21,7 @@
 package com.ericbt.ebtcompass.utils;
 
 public class DataSmoother {
-    private Float[] data;
+    private final Float[] data;
     private int index = 0;
 
     public DataSmoother(int maxValues) {
@@ -44,10 +44,10 @@ public class DataSmoother {
         int n = 0;
         float sum = 0.0f;
 
-        for (int i = 0; i < data.length; i++) {
-            if (!data[i].isNaN()) {
+        for (final Float datum : data) {
+            if (!datum.isNaN()) {
                 n++;
-                sum += data[i];
+                sum += datum;
             } else {
                 break;
             }

@@ -245,7 +245,7 @@ public class GPSService extends BaseService {
     private LocationRequest createLocationRequest() {
         final int updateInterval = getUpdateInterval();
 
-        LocationRequest locationRequest = LocationRequest.create();
+        final LocationRequest locationRequest = LocationRequest.create();
 
         locationRequest.setInterval(updateInterval);
         locationRequest.setFastestInterval(updateInterval / 2);

@@ -54,6 +54,8 @@ public class MapsFragment extends Fragment {
 
     private double latitude, longitude;
 
+    private SharedPreferences preferences;
+
     private GoogleMap googleMap;
 
     private final OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -68,6 +70,8 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
             MapsFragment.this.googleMap = googleMap;
 
             googleMap.getUiSettings().setMapToolbarEnabled(false);
@@ -83,7 +87,6 @@ public class MapsFragment extends Fragment {
             drawMarkers(points);
             drawLines(points);
 
-            final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             final float zoom = preferences.getFloat(StringLiterals.PREFERENCE_ZOOM_LEVEL, -1.0f);
 
             if (zoom >= 0.0f) {
@@ -104,7 +107,12 @@ public class MapsFragment extends Fragment {
 
             final float zIndex = isPointToView ? 10.0f : 1.0f;
 
-            if (!point.isLineTo()) {
+            final boolean displayPointMarkersOnLines =
+                    preferences.getBoolean(
+                            StringLiterals.PREFERENCE_DISPLAY_POINT_MARKERS_ON_LINES,
+                            false);
+
+            if (!point.isLineTo() || displayPointMarkersOnLines) {
                 final MarkerOptions markerOptions = new MarkerOptions()
                         .position(location)
                         .title(point.getName())

@@ -64,6 +64,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/maps_header">
+
+        <CheckBoxPreference
+            app:title="@string/display_point_markers_on_lines"
+            app:key="display_point_markers_on_lines"
+            app:defaultValue="false"
+            />
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/arrival_notification_header">
 
         <ListPreference

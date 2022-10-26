@@ -85,15 +85,15 @@ public abstract class CompassActivity extends CustomActivity {
 
     private String accelerometerAccuracyText, magnetometerAccuracyText;
 
-    private static int DATA_SMOOTHER_VALUES = 25;
+    private final static int DATA_SMOOTHER_VALUES = 25;
 
-    private DataSmoother[] accelerometerReadingsDataSmoother = {
+    private final DataSmoother[] accelerometerReadingsDataSmoother = {
             new DataSmoother(DATA_SMOOTHER_VALUES),
             new DataSmoother(DATA_SMOOTHER_VALUES),
             new DataSmoother(DATA_SMOOTHER_VALUES)
     };
 
-    private DataSmoother[] magnetometerReadingsDataSmoother = {
+    private final DataSmoother[] magnetometerReadingsDataSmoother = {
             new DataSmoother(DATA_SMOOTHER_VALUES),
             new DataSmoother(DATA_SMOOTHER_VALUES),
             new DataSmoother(DATA_SMOOTHER_VALUES)
