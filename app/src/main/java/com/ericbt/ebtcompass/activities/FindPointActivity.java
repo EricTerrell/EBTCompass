@@ -1,21 +1,21 @@
 /*
   EBT Compass
-  (C) Copyright 2022, Eric Bergman-Terrell
+  (C) Copyright 2023, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
-    EBT Compass is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  EBT Compass is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-    EBT Compass is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+  EBT Compass is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 package com.ericbt.ebtcompass.activities;
@@ -40,6 +40,7 @@ import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.Speaker;
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.Vibrator;
+import com.ericbt.ebtcompass.utils.AlertDialogUtils;
 import com.ericbt.ebtcompass.utils.AngleUtils;
 import com.ericbt.ebtcompass.utils.AnimationUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
@@ -81,8 +82,14 @@ public class FindPointActivity extends CompassActivity {
 
         compassRose = findViewById(R.id.compass_rose_custom);
 
+        if (getIntent().getExtras().containsKey(StringLiterals.FIND_POINT_ACTIVITY_TITLE_KEY)) {
+            setTitle(getIntent().getExtras().getString(
+                    StringLiterals.FIND_POINT_ACTIVITY_TITLE_KEY));
+        }
+
         if (savedInstanceState != null) {
-            suppressArrivalMessage = savedInstanceState.getBoolean(SUPPRESS_ARRIVAL_MESSAGE, false);
+            suppressArrivalMessage = savedInstanceState.getBoolean(SUPPRESS_ARRIVAL_MESSAGE,
+                    false);
         }
 
         destinationLatitude = getIntent().getDoubleExtra(StringLiterals.LATITUDE, 0.0f);
@@ -293,7 +300,7 @@ public class FindPointActivity extends CompassActivity {
 
         stopUpdates();
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialogBuilder = AlertDialogUtils.getBuilder(this);
         alertDialogBuilder.setTitle(getText(R.string.you_have_arrived));
 
         final String message = String.format(
@@ -315,7 +322,8 @@ public class FindPointActivity extends CompassActivity {
         });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+
+        AlertDialogUtils.show(this, alertDialog);
 
         notifyArrival();
     }

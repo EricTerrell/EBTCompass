@@ -1,21 +1,21 @@
 /*
   EBT Compass
-  (C) Copyright 2022, Eric Bergman-Terrell
+  (C) Copyright 2023, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
-    EBT Compass is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  EBT Compass is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-    EBT Compass is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+  EBT Compass is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 package com.ericbt.ebtcompass.activities;
@@ -37,6 +37,7 @@ import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.array_adapters.ColorArrayAdapter;
 import com.ericbt.ebtcompass.array_adapters.PointArrayAdapter;
+import com.ericbt.ebtcompass.utils.AlertDialogUtils;
 import com.ericbt.ebtcompass.utils.I18NUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
 import com.ericbt.ebtcompass.utils.UnitUtils;
@@ -198,7 +199,7 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
     }
 
     private void overWrite(String name, String lineToName, int color) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialogBuilder = AlertDialogUtils.getBuilder(this);
         alertDialogBuilder.setTitle(getText(R.string.overwrite_point));
 
         final String message = String.format(LocaleUtils.getLocale(),
@@ -214,7 +215,9 @@ public class BaseSaveUpdatePointActivity extends BasePointActivity {
         alertDialogBuilder.setNegativeButton(StringLiterals.CANCEL, (arg0, arg1) -> {
         });
 
-        alertDialogBuilder.create().show();
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+
+        AlertDialogUtils.show(this, alertDialog);
     }
 
     @Override

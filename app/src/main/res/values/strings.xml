@@ -14,7 +14,7 @@
     <string name="keep_going">Keep Going</string>
 
     <string name="title_activity_line">Go in a Line</string>
-    <string name="title_activity_point">Go to Point</string>
+    <string name="title_activity_point">Go to Lat/Long</string>
     <string name="title_activity_save_point">Save Point</string>
     <string name="title_activity_update_point">Update Point</string>
     <string name="title_activity_points">Points</string>
@@ -115,7 +115,7 @@
     <string name="arrival_notification_header">Arrival Notifications</string>
 
     <string name="license_terms">EBT Compass
-(C) Copyright 2022
+(C) Copyright 2023
 Eric Bergman-Terrell
 \n\n
 This program and its source code are licensed under the GNU General Public
@@ -745,7 +745,7 @@ copy of the Program in return for a fee.
     <string name="map_button_text">Map</string>
     <string name="icon_credits">Icons created by Bigmorr, the Consumer Financial Protection Bureau, Fibonacci, and Andrew Onorat</string>
     <string name="utm_code_credit"><![CDATA[Lat/Long <-> UTM conversion code written by Sami Salkosuo]]></string>
-    <string name="about_copyright">EBT Compass\n© Copyright 2022\nEric Bergman-Terrell</string>
+    <string name="about_copyright">EBT Compass\n© Copyright 2023\nEric Bergman-Terrell</string>
     <string name="about_feedback">Feedback: EBTCompass@EricBT.com</string>
     <string name="about_read_license_terms">Read License Terms</string>
     <string name="import_shared_points_title">Import Points</string>
@@ -755,7 +755,7 @@ copy of the Program in return for a fee.
     <string name="points_menu_delete">Delete</string>
     <string name="points_menu_delete_all">Delete All</string>
     <string name="press_off_conserve_battery">Press \"Off\" when not in use to conserve battery</string>
-    <string name="alvaro_credits">Bug fixes by Álvaro Martínez Majado https://github.com/alvaromartinezmajado</string>
+    <string name="alvaro_credits">Some bug fixes by Álvaro Martínez Majado https://github.com/alvaromartinezmajado</string>
     <string name="name_label">Name:</string>
     <string name="name_of_point_required">Name of point - required</string>
     <string name="existing_name_label">Existing Name:</string>
@@ -792,7 +792,7 @@ copy of the Program in return for a fee.
     <string name="line_direction_end">)</string>
     <string name="on_button_text">On</string>
     <string name="off_button_text">Off</string>
-    <string name="to_point_button_text">To Point</string>
+    <string name="to_point_button_text">Go to Lat/Long</string>
     <string name="line_button_text">Line</string>
     <string name="save_point_button_text">Save Point</string>
     <string name="points_button_text">Points</string>
@@ -825,7 +825,7 @@ copy of the Program in return for a fee.
     <string name="point_context_menu_format_string">Point \"%s\"</string>
     <string name="delete_all_alert_dialog_header">Delete All</string>
     <string name="delete_all_points_alert_dialog_message">Delete *all* points?</string>
-    <string name="about_activity_copyright_notice">%s v. %s\n© Copyright 2022\nEric Bergman-Terrell</string>
+    <string name="about_activity_copyright_notice">%s v. %s\n© Copyright 2023\nEric Bergman-Terrell</string>
     <string name="accuracy_hyperlink_header">Accuracy:&#160;</string>
     <string name="update_orientation_angles_format_string">Compass: %d%s %s</string>
     <string name="find_point_activity_go_instructions_format_string">Go %s, %d%s %s</string>
@@ -853,4 +853,6 @@ copy of the Program in return for a fee.
     <string name="color_violet">Violet</string>
     <string name="color_magenta">Magenta</string>
     <string name="color_rose">Rose</string>
+    <string name="go_to_point_title">Go to Lat/Long</string>
+    <string name="go_to_point_title_point">Go to Point</string>
 </resources>

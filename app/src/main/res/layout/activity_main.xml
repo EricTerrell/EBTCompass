@@ -187,7 +187,7 @@
             <Button
                 android:id="@+id/on_off"
                 android:layout_width="0px"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/on_button_text"
                 android:layout_marginRight="10sp"
@@ -196,7 +196,7 @@
             <Button
                 android:id="@+id/go_point"
                 android:layout_width="0px"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginRight="10sp"
                 android:text="@string/to_point_button_text"
@@ -205,7 +205,7 @@
             <Button
                 android:id="@+id/go_line"
                 android:layout_width="0px"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:enabled="false"
                 android:text="@string/line_button_text"
@@ -223,7 +223,7 @@
             <Button
                 android:id="@+id/save_point"
                 android:layout_width="0px"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/save_point_button_text"
                 android:layout_marginRight="10sp"
@@ -233,7 +233,7 @@
             <Button
                 android:id="@+id/points"
                 android:layout_width="0px"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/points_button_text"
                 android:layout_marginRight="10sp"
@@ -242,7 +242,7 @@
             <Button
                 android:id="@+id/map"
                 android:layout_width="0px"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/map_button_text"
                 android:enabled="true"

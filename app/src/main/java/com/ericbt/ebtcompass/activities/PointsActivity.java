@@ -1,21 +1,21 @@
 /*
   EBT Compass
-  (C) Copyright 2022, Eric Bergman-Terrell
+  (C) Copyright 2023, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
-    EBT Compass is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  EBT Compass is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-    EBT Compass is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+  EBT Compass is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 package com.ericbt.ebtcompass.activities;
@@ -39,6 +39,7 @@ import com.ericbt.ebtcompass.Point;
 import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
 import com.ericbt.ebtcompass.array_adapters.PointArrayAdapter;
+import com.ericbt.ebtcompass.utils.AlertDialogUtils;
 import com.ericbt.ebtcompass.utils.AngleUtils;
 import com.ericbt.ebtcompass.utils.GoogleMapsUtils;
 import com.ericbt.ebtcompass.utils.LocaleUtils;
@@ -131,6 +132,9 @@ public class PointsActivity extends CustomActivity {
                 bundle.putDouble(StringLiterals.LATITUDE, point.getLatitude());
                 bundle.putDouble(StringLiterals.LONGITUDE, point.getLongitude());
 
+                bundle.putString(StringLiterals.FIND_POINT_ACTIVITY_TITLE_KEY,
+                        getString(R.string.go_to_point_title_point));
+
                 intent.putExtras(bundle);
 
                 startActivity(intent);
@@ -191,7 +195,7 @@ public class PointsActivity extends CustomActivity {
     }
 
     private void delete(Point point) {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder alertDialogBuilder = AlertDialogUtils.getBuilder(this);
         alertDialogBuilder.setTitle(getText(R.string.delete_point));
 
         final String message = String.format(LocaleUtils.getLocale(),
@@ -209,11 +213,11 @@ public class PointsActivity extends CustomActivity {
 
         final AlertDialog alertDialog = alertDialogBuilder.create();
 
-        alertDialog.show();
+        AlertDialogUtils.show(this, alertDialog);
     }
 
     private void deleteAll() {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder alertDialogBuilder = AlertDialogUtils.getBuilder(this);
         alertDialogBuilder.setTitle(R.string.delete_all_alert_dialog_header);
 
         alertDialogBuilder.setMessage(R.string.delete_all_points_alert_dialog_message);
@@ -228,7 +232,7 @@ public class PointsActivity extends CustomActivity {
 
         final AlertDialog alertDialog = alertDialogBuilder.create();
 
-        alertDialog.show();
+        AlertDialogUtils.show(this, alertDialog);
     }
 
     private void update(Point point) {

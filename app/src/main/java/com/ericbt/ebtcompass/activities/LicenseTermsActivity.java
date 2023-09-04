@@ -1,21 +1,21 @@
 /*
   EBT Compass
-  (C) Copyright 2022, Eric Bergman-Terrell
+  (C) Copyright 2023, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 
-    EBT Compass is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  EBT Compass is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-    EBT Compass is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+  EBT Compass is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with EBT Compass.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 package com.ericbt.ebtcompass.activities;
@@ -31,6 +31,7 @@ import android.widget.RadioButton;
 
 import com.ericbt.ebtcompass.R;
 import com.ericbt.ebtcompass.StringLiterals;
+import com.ericbt.ebtcompass.utils.AlertDialogUtils;
 
 public class LicenseTermsActivity extends CustomActivity {
     private AlertDialog alertDialog;
@@ -69,7 +70,7 @@ public class LicenseTermsActivity extends CustomActivity {
             }
 
             if (!userAccepted) {
-                final AlertDialog.Builder userRejectedTermsDialogBuilder = new AlertDialog.Builder(LicenseTermsActivity.this);
+                final AlertDialog.Builder userRejectedTermsDialogBuilder = AlertDialogUtils.getBuilder(LicenseTermsActivity.this);
                 userRejectedTermsDialogBuilder.setTitle(String.format(getString(R.string.rejected_license_terms_format_string), getString(R.string.app_name)));
                 userRejectedTermsDialogBuilder.setMessage(String.format(getString(R.string.rejected_license_terms_format_string_2), getString(R.string.app_name), getString(R.string.app_name)));
                 userRejectedTermsDialogBuilder.setPositiveButton(getText(R.string.ok), (dialog, which) -> {
@@ -81,7 +82,8 @@ public class LicenseTermsActivity extends CustomActivity {
                 userRejectedTermsDialogBuilder.setCancelable(false);
 
                 alertDialog = userRejectedTermsDialogBuilder.create();
-                alertDialog.show();
+
+                AlertDialogUtils.show(LicenseTermsActivity.this, alertDialog);
             }
             else {
                 finish();
