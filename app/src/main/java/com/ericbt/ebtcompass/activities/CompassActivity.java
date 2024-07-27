@@ -31,7 +31,6 @@ import android.content.pm.PackageManager;
 import android.hardware.GeomagneticField;
 import android.hardware.SensorManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Html;
@@ -104,10 +103,7 @@ public abstract class CompassActivity extends CustomActivity {
 
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            permissions.add(Manifest.permission.POST_NOTIFICATIONS);
-        }
+        permissions.add(Manifest.permission.POST_NOTIFICATIONS);
 
         return permissions.toArray(new String[0]);
     }
@@ -164,11 +160,7 @@ public abstract class CompassActivity extends CustomActivity {
             // Create service if it's not already alive.
             bindService(intent, compassServiceConnection, Context.BIND_AUTO_CREATE);
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                startService(intent);
-            } else {
-                startForegroundService(intent);
-            }
+            startForegroundService(intent);
         }
     }
 
@@ -190,11 +182,7 @@ public abstract class CompassActivity extends CustomActivity {
             // Create service if it's not already alive.
             bindService(intent, gpsServiceConnection, Context.BIND_AUTO_CREATE);
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                startService(intent);
-            } else {
-                startForegroundService(intent);
-            }
+            startForegroundService(intent);
         }
     }
 
@@ -428,7 +416,7 @@ public abstract class CompassActivity extends CustomActivity {
         intentFilter.addAction(CompassService.MAGNETOMETER_MESSAGE);
         intentFilter.addAction(GPSService.MESSAGE);
 
-        registerReceiver(broadcastReceiver, intentFilter);
+        registerReceiver(broadcastReceiver, intentFilter, RECEIVER_EXPORTED);
 
         return broadcastReceiver;
     }

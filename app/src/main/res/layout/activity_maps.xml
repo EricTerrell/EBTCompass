@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.MapsActivity"
     android:orientation="vertical"
+    style="@style/Activity"
     >
 
     <androidx.fragment.app.FragmentContainerView

@@ -85,7 +85,7 @@ public abstract class BaseService extends Service {
 
         notification = null;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationChannel != null) {
+        if (notificationChannel != null) {
             final NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -176,7 +176,7 @@ public abstract class BaseService extends Service {
     }
 
     protected void createNotificationChannel(String channelDescription) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notificationChannel == null) {
+        if (notificationChannel == null) {
             final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
             notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);

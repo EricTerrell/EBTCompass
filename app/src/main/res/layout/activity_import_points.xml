@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.ImportPointsActivity"
     android:orientation="vertical"
+    style="@style/Activity"
     >
 
     <TextView
