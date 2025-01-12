@@ -115,7 +115,7 @@
     <string name="arrival_notification_header">Arrival Notifications</string>
 
     <string name="license_terms">EBT Compass
-(C) Copyright 2024
+(C) Copyright 2025
 Eric Bergman-Terrell
 \n\n
 This program and its source code are licensed under the GNU General Public
@@ -745,7 +745,7 @@ copy of the Program in return for a fee.
     <string name="map_button_text">Map</string>
     <string name="icon_credits">Icons created by Bigmorr, the Consumer Financial Protection Bureau, Fibonacci, and Andrew Onorat</string>
     <string name="utm_code_credit"><![CDATA[Lat/Long <-> UTM conversion code written by Sami Salkosuo]]></string>
-    <string name="about_copyright">EBT Compass\n© Copyright 2024\nEric Bergman-Terrell</string>
+    <string name="about_copyright">EBT Compass\n© Copyright 2025\nEric Bergman-Terrell</string>
     <string name="about_feedback">Feedback: EBTCompass@EricBT.com</string>
     <string name="about_read_license_terms">Read License Terms</string>
     <string name="import_shared_points_title">Import Points</string>
@@ -825,7 +825,7 @@ copy of the Program in return for a fee.
     <string name="point_context_menu_format_string">Point \"%s\"</string>
     <string name="delete_all_alert_dialog_header">Delete All</string>
     <string name="delete_all_points_alert_dialog_message">Delete *all* points?</string>
-    <string name="about_activity_copyright_notice">%s v. %s\n© Copyright 2024\nEric Bergman-Terrell</string>
+    <string name="about_activity_copyright_notice">%s v. %s\n© Copyright 2025\nEric Bergman-Terrell</string>
     <string name="accuracy_hyperlink_header">Accuracy:&#160;</string>
     <string name="update_orientation_angles_format_string">Compass: %d%s %s</string>
     <string name="find_point_activity_go_instructions_format_string">Go %s, %d%s %s</string>

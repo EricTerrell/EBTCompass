@@ -1,6 +1,6 @@
 /*
   EBT Compass
-  (C) Copyright 2023, Eric Bergman-Terrell
+  (C) Copyright 2025, Eric Bergman-Terrell
 
   This file is part of EBT Compass.
 

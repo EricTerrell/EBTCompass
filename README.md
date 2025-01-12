@@ -25,7 +25,7 @@ Key Features:
     
 # Copyright
 
-EBT Compass &#169; Copyright 2023, [`Eric Bergman-Terrell`](https://www.ericbt.com)
+EBT Compass &#169; Copyright 2025, [`Eric Bergman-Terrell`](https://www.ericbt.com)
 
 # Screenshots
 
